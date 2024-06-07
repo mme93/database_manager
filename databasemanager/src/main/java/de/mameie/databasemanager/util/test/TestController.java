@@ -1,6 +1,6 @@
 package de.mameie.databasemanager.util.test;
 
-import de.mameie.databasemanager.sql.builder.select.SqlSelect;
+import de.mameie.databasemanager.sql.table.builder.select.SqlSelectTable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,10 +11,10 @@ public class TestController {
 
     @GetMapping("/")
     public String getTest() {
-        return SqlSelect
+        return SqlSelectTable
                 .builder()
                 .from("CAR")
-                .select(SqlSelect.WILDCARD)
+                .select(SqlSelectTable.WILDCARD)
                 .build().toSql();
     }
 
