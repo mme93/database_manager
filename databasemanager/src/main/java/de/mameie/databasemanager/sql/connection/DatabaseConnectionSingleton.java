@@ -55,7 +55,7 @@ public class DatabaseConnectionSingleton {
         return instance;
     }
 
-    private Connection getConnection() {
+    public Connection getConnection() {
         return con;
     }
 
