@@ -1,6 +1,6 @@
 package de.mameie.databasemanager.util.test;
 
-import de.mameie.databasemanager.sql.select.SqlSelect;
+import de.mameie.databasemanager.sql.builder.select.SqlSelect;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

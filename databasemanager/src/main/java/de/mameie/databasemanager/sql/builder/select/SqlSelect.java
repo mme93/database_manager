@@ -1,6 +1,8 @@
-package de.mameie.databasemanager.sql.select;
+package de.mameie.databasemanager.sql.builder.select;
 
 import de.mameie.databasemanager.sql.ISqlQuery;
+import de.mameie.databasemanager.sql.condition.ISqlCondition;
+import de.mameie.databasemanager.sql.condition.SqlWhereCondition;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +12,7 @@ public class SqlSelect implements ISqlQuery {
     public static final String WILDCARD = "*";
     private String tableName;
     private List<String> columns = new ArrayList<>();
-    private String condition;
+    private ISqlCondition condition;
 
     private SqlSelect(){}
 
@@ -27,8 +29,8 @@ public class SqlSelect implements ISqlQuery {
         return this;
     }
 
-    public SqlSelect where(String condition) {
-        this.condition = condition;
+    public SqlSelect where(String name, String operator,String value) {
+        this.condition = SqlWhereCondition.set(name,operator,value);
         return this;
     }
 

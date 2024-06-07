@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.update;
+package de.mameie.databasemanager.sql.builder.update;
 
 import de.mameie.databasemanager.sql.ISqlQuery;
 

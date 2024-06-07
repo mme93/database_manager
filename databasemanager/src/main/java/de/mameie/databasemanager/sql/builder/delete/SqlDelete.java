@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.delete;
+package de.mameie.databasemanager.sql.builder.delete;
 
 import de.mameie.databasemanager.sql.ISqlQuery;
 

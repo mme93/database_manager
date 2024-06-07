@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.insert;
+package de.mameie.databasemanager.sql.builder.insert;
 
 import de.mameie.databasemanager.sql.ISqlQuery;
 
