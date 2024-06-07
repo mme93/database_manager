@@ -1,6 +1,5 @@
-package de.mameie.databasemanager.util.connection;
+package de.mameie.databasemanager.sql.connection;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.mameie.databasemanager.util.helper.StaticPropertyHolder;
 
 import java.sql.Connection;
