@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.connection;
+package de.mameie.databasemanager.sql.server.connection;
 
 import de.mameie.databasemanager.util.helper.StaticPropertyHolder;
 

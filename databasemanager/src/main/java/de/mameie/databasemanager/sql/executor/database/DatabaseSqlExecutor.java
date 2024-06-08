@@ -1,6 +1,6 @@
 package de.mameie.databasemanager.sql.executor.database;
 
-import de.mameie.databasemanager.sql.connection.ConnectionFactory;
+import de.mameie.databasemanager.sql.server.connection.ConnectionFactory;
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 import de.mameie.databasemanager.sql.query.SqlClause;

@@ -1,7 +1,7 @@
 package de.mameie.databasemanager.sql.executor;
 
-import de.mameie.databasemanager.sql.connection.ConnectionFactory;
-import de.mameie.databasemanager.sql.connection.DatabaseServerSettings;
+import de.mameie.databasemanager.sql.server.connection.ConnectionFactory;
+import de.mameie.databasemanager.sql.server.connection.DatabaseServerSettings;
 import de.mameie.databasemanager.sql.exception.SqlMethodNotImplementedException;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 

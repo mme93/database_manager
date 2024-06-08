@@ -1,6 +1,6 @@
 package de.mameie.databasemanager.sql.query.table.builder.select.model;
 
-import de.mameie.databasemanager.sql.connection.DatabaseServerSettings;
+import de.mameie.databasemanager.sql.server.connection.DatabaseServerSettings;
 import de.mameie.databasemanager.sql.executor.database.DatabaseSqlExecutor;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
