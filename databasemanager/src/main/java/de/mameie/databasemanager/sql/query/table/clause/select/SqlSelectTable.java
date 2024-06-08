@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.query.table.builder.select;
+package de.mameie.databasemanager.sql.query.table.clause.select;
 
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 import de.mameie.databasemanager.sql.query.table.condition.ISqlCondition;

@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/database/{serverName}")
-public class DatabaseController {
+public class SqlDatabaseController {
 
     private final DatabaseService databaseService;
 
     @Autowired
-    public DatabaseController(DatabaseService databaseService) {
+    public SqlDatabaseController(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }
 

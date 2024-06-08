@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.query.table.builder.delete;
+package de.mameie.databasemanager.sql.query.table.clause.delete;
 
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 

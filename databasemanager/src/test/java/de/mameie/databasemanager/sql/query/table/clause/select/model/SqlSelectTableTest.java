@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.query.table.builder.select.model;
+package de.mameie.databasemanager.sql.query.table.clause.select.model;
 
 import de.mameie.databasemanager.sql.server.connection.DatabaseServerSettings;
 import de.mameie.databasemanager.sql.executor.database.DatabaseSqlExecutor;

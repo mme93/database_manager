@@ -3,7 +3,7 @@ package de.mameie.databasemanager.sql.executor.database;
 import de.mameie.databasemanager.sql.server.connection.ConnectionFactory;
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
-import de.mameie.databasemanager.sql.query.SqlClause;
+import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +30,7 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
     @Override
     public boolean drop(String databaseName) {
         return super.execute(
-                SqlClause
+                SqlDatabaseClause
                         .drop()
                         .database()
                         .name(databaseName)
@@ -41,7 +41,7 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
     @Override
     public boolean create(String databaseName) {
         return super.execute(
-                SqlClause
+                SqlDatabaseClause
                         .create()
                         .database()
                         .name(databaseName)
