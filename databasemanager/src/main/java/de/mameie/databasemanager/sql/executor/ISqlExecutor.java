@@ -1,11 +1,18 @@
 package de.mameie.databasemanager.sql.executor;
 
-import de.mameie.databasemanager.sql.querry.ISqlQuery;
+import de.mameie.databasemanager.sql.query.ISqlQuery;
 
 import java.sql.ResultSet;
 import java.util.List;
 
 public interface ISqlExecutor {
+
+    boolean drop(String name);
+
+    boolean create(String name);
+
+    List<String> show();
+
     ResultSet executeQuery(ISqlQuery query);
 
     boolean execute(ISqlQuery query);
@@ -16,25 +23,25 @@ public interface ISqlExecutor {
 
     int[] executeBatch(List<ISqlQuery> query);
 
-    ResultSet executeQuery(ISqlQuery query, SqlPrepareStatementWithIndex prepareStatementWithIndex);
+    ResultSet executeQuery(ISqlQuery query, SqlPrepStmtIndex index);
 
-    boolean execute(ISqlQuery query, SqlPrepareStatementWithIndex prepareStatementWithIndex);
+    boolean execute(ISqlQuery query, SqlPrepStmtIndex index);
 
-    boolean hasResult(ISqlQuery query, SqlPrepareStatementWithIndex prepareStatementWithIndex);
+    boolean hasResult(ISqlQuery query, SqlPrepStmtIndex index);
 
-    int executeUpdate(ISqlQuery query, SqlPrepareStatementWithIndex prepareStatementWithIndex);
+    int executeUpdate(ISqlQuery query, SqlPrepStmtIndex index);
 
-    int[] executeBatch(List<ISqlQuery> query, SqlPrepareStatementWithIndex prepareStatementWithIndex);
+    int[] executeBatch(List<ISqlQuery> query, SqlPrepStmtIndex index);
 
-    ResultSet executeQuery(ISqlQuery query, SqlPrepareStatementWithParameterName prepareStatementWithParameterName);
+    ResultSet executeQuery(ISqlQuery query, SqlPrepStmtParamName paramName);
 
-    boolean execute(ISqlQuery query, SqlPrepareStatementWithParameterName prepareStatementWithParameterName);
+    boolean execute(ISqlQuery query, SqlPrepStmtParamName paramName);
 
-    boolean hasResult(ISqlQuery query, SqlPrepareStatementWithParameterName prepareStatementWithParameterName);
+    boolean hasResult(ISqlQuery query, SqlPrepStmtParamName paramName);
 
-    int executeUpdate(ISqlQuery query, SqlPrepareStatementWithParameterName prepareStatementWithParameterName);
+    int executeUpdate(ISqlQuery query, SqlPrepStmtParamName paramName);
 
-    int[] executeBatch(List<ISqlQuery> query, SqlPrepareStatementWithParameterName prepareStatementWithParameterName);
+    int[] executeBatch(List<ISqlQuery> query, SqlPrepStmtParamName paramName);
 
 
 }
