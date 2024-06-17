@@ -9,24 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ConnectionFactory {
+public class DBServerConnectionFactory {
 
-    private static List<ConnectionFactory> instances = new ArrayList<>();
+    private static List<DBServerConnectionFactory> instances = new ArrayList<>();
 
     private String serverName;
 
     private Connection con;
 
-    private ConnectionFactory(String serverName, Connection con) {
+    private DBServerConnectionFactory(String serverName, Connection con) {
         this.con = con;
         this.serverName = serverName;
     }
 
 
-    public static synchronized ConnectionFactory getInstance(String serverName) throws SQLException {
-        ConnectionFactory instance;
+    public static synchronized DBServerConnectionFactory getInstance(String serverName) throws SQLException {
+        DBServerConnectionFactory instance;
 
-        Optional<ConnectionFactory> opt = instances.
+        Optional<DBServerConnectionFactory> opt = instances.
                 stream().
                 filter(databaseConnection -> databaseConnection.serverName.equals(serverName)).findAny();
 
@@ -45,9 +45,9 @@ public class ConnectionFactory {
         return instance;
     }
 
-    private static ConnectionFactory createNewDatabaseConnectionSingleton(String serverName) throws SQLException {
-        ConnectionFactory instance;
-        instance = new ConnectionFactory(serverName, createConnection(serverName));
+    private static DBServerConnectionFactory createNewDatabaseConnectionSingleton(String serverName) throws SQLException {
+        DBServerConnectionFactory instance;
+        instance = new DBServerConnectionFactory(serverName, createConnection(serverName));
         instances.add(instance);
         return instance;
     }
@@ -57,13 +57,13 @@ public class ConnectionFactory {
     }
 
     private static Connection createConnection(String serverName) throws SQLException {
-        if (serverName.equals(DatabaseServerSettings.CLOUD_SERVER)) {
+        if (serverName.equals(DBServerSettings.CLOUD_SERVER)) {
             return DriverManager.getConnection(
                     StaticPropertyHolder.getStaticNameForCloudServerIp(),
                     StaticPropertyHolder.getStaticNameForCloudServerUserName(),
                     StaticPropertyHolder.getStaticNameForCloudServerPassword()
             );
-        } else if (serverName.equals(DatabaseServerSettings.CLOUD_XXL)) {
+        } else if (serverName.equals(DBServerSettings.CLOUD_XXL)) {
             return DriverManager.getConnection(
                     StaticPropertyHolder.getStaticNameForCloudXxlIp(),
                     StaticPropertyHolder.getStaticNameForCloudXxlUserName(),
@@ -71,6 +71,11 @@ public class ConnectionFactory {
             );
         }
         throw new RuntimeException(String.format("Can`t find server name: %s.", serverName));
+    }
+    public void closeConnection() throws SQLException {
+        if(!this.con.isClosed()){
+            this.con.close();
+        }
     }
 
     public String getServerName() {

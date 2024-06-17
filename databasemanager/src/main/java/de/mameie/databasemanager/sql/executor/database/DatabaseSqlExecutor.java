@@ -1,6 +1,6 @@
 package de.mameie.databasemanager.sql.executor.database;
 
-import de.mameie.databasemanager.sql.server.connection.ConnectionFactory;
+import de.mameie.databasemanager.sql.server.connection.DBServerConnectionFactory;
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
@@ -53,7 +53,7 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
     public List<String> show() {
         List<String>databaseNames= new ArrayList<>();
         try {
-            DatabaseMetaData metaData = ConnectionFactory.getInstance(serverName).getConnection().getMetaData();
+            DatabaseMetaData metaData = DBServerConnectionFactory.getInstance(serverName).getConnection().getMetaData();
             ResultSet resultSet = metaData.getCatalogs();
 
             while (resultSet.next()) {

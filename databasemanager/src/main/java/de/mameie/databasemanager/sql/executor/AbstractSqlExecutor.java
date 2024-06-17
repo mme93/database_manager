@@ -1,7 +1,7 @@
 package de.mameie.databasemanager.sql.executor;
 
-import de.mameie.databasemanager.sql.server.connection.ConnectionFactory;
-import de.mameie.databasemanager.sql.server.connection.DatabaseServerSettings;
+import de.mameie.databasemanager.sql.server.connection.DBServerConnectionFactory;
+import de.mameie.databasemanager.sql.server.connection.DBServerSettings;
 import de.mameie.databasemanager.sql.exception.SqlMethodNotImplementedException;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 
@@ -39,7 +39,7 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     public final ResultSet executeQuery(ISqlQuery query) {
         ResultSet resultSet = null;
         try {
-            Connection con = ConnectionFactory.getInstance(serverName).getConnection();
+            Connection con = DBServerConnectionFactory.getInstance(serverName).getConnection();
             PreparedStatement statement = con.prepareStatement(query.toSql());
             resultSet = statement.executeQuery();
         } catch (SQLException e) {
@@ -52,7 +52,7 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     public final boolean execute(ISqlQuery query) {
         Boolean result = false;
         try {
-            Connection con = ConnectionFactory.getInstance(DatabaseServerSettings.CLOUD_XXL).getConnection();
+            Connection con = DBServerConnectionFactory.getInstance(DBServerSettings.CLOUD_XXL).getConnection();
             PreparedStatement statement = con.prepareStatement(query.toSql());
             result = statement.execute();
         } catch (SQLException e) {

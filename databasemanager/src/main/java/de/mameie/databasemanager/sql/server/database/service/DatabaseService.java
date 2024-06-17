@@ -1,6 +1,5 @@
 package de.mameie.databasemanager.sql.server.database.service;
 
-import de.mameie.databasemanager.sql.server.connection.DatabaseServerSettings;
 import de.mameie.databasemanager.sql.executor.database.DatabaseSqlExecutor;
 import org.springframework.stereotype.Service;
 
