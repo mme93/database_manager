@@ -4,10 +4,7 @@ import de.mameie.databasemanager.sql.server.database.table.service.SqlTableServi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +31,12 @@ public class SqlTableController {
     @GetMapping("/{tableName}")
     public void getTableByName(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName) {
         sqlTableService.getTableByName(serverName, database, tableName);
+    }
+
+    @PostMapping("/{tableName}")
+    public ResponseEntity createTable(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName){
+        sqlTableService.createTable(serverName, database, tableName);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

@@ -1,9 +1,9 @@
 package de.mameie.databasemanager.sql.executor;
 
 import de.mameie.databasemanager.sql.server.connection.DBServerConnectionFactory;
-import de.mameie.databasemanager.sql.server.connection.DBServerSettings;
 import de.mameie.databasemanager.sql.exception.SqlMethodNotImplementedException;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
+import de.mameie.databasemanager.sql.server.database.connection.DBConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,32 +15,56 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
 
     private String serverName;
 
+    private String databaseName;
+
+    private String tableName;
+
+    private String STATUS;
+
+    private final String SERVER = "SERVER";
+
+    private final String TABLE = "TABLE";
+
+    private final String DATABASE = "DATABASE";
+
     public AbstractSqlExecutor(String serverName) {
+        STATUS = SERVER;
         this.serverName = serverName;
     }
 
+    public AbstractSqlExecutor(String serverName, String databaseName) {
+        STATUS = DATABASE;
+        this.serverName = serverName;
+        this.databaseName = databaseName;
+    }
+
+    public AbstractSqlExecutor(String serverName, String databaseName, String tableName) {
+        STATUS = TABLE;
+        this.serverName = serverName;
+        this.databaseName = databaseName;
+        this.tableName = tableName;
+    }
 
     @Override
     public boolean drop(String name) {
-        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.","DROP"));
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "DROP"));
     }
 
     @Override
     public boolean create(String name) {
-        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.","CREATE"));
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "CREATE"));
     }
 
     @Override
     public List<String> show() {
-        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.","FIND"));
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "FIND"));
     }
 
     @Override
     public final ResultSet executeQuery(ISqlQuery query) {
         ResultSet resultSet = null;
         try {
-            Connection con = DBServerConnectionFactory.getInstance(serverName).getConnection();
-            PreparedStatement statement = con.prepareStatement(query.toSql());
+            PreparedStatement statement = createConnection(query);
             resultSet = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,8 +76,7 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     public final boolean execute(ISqlQuery query) {
         Boolean result = false;
         try {
-            Connection con = DBServerConnectionFactory.getInstance(serverName).getConnection();
-            PreparedStatement statement = con.prepareStatement(query.toSql());
+            PreparedStatement statement = createConnection(query);
             result = statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -124,5 +147,15 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     @Override
     public int[] executeBatch(List<ISqlQuery> query, SqlPrepStmtParamName paramName) {
         return new int[0];
+    }
+
+    private PreparedStatement createConnection(ISqlQuery query) throws SQLException {
+        Connection con = switch (STATUS) {
+            case SERVER -> DBServerConnectionFactory.getInstance(serverName).getConnection();
+            case TABLE -> DBConnectionFactory.getInstance(serverName, databaseName, serverName).getConnection();
+            case DATABASE -> DBConnectionFactory.getInstance(serverName, databaseName, null).getConnection();
+            default -> throw new RuntimeException(String.format("Status with input %s was not found."));
+        };
+        return con.prepareStatement(query.toSql());
     }
 }

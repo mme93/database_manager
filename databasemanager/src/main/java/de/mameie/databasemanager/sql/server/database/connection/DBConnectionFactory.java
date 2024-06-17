@@ -28,8 +28,13 @@ public class DBConnectionFactory {
 
     public static synchronized DBConnectionFactory getInstance(String serverName, String databaseName, String tableName) throws SQLException {
         DBConnectionFactory instance;
+        String tableUrl;
+        if(tableName == null){
+            tableUrl=databaseName;
+        }else{
+            tableUrl = String.format("%s/%s", databaseName, tableName);
+        }
 
-        String tableUrl = String.format("%s/%s", databaseName, tableName);
 
         Optional<DBConnectionFactory> opt = instances.
                 stream().

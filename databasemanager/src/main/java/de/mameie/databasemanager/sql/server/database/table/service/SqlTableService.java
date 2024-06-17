@@ -1,5 +1,6 @@
 package de.mameie.databasemanager.sql.server.database.table.service;
 
+import de.mameie.databasemanager.sql.executor.table.TableSqlExecutor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +16,11 @@ public class SqlTableService {
     }
 
     public void getTableByName(String serverName, String database, String tableName) {
+        TableSqlExecutor executor = new TableSqlExecutor(serverName,database,tableName);
+    }
 
+    public void createTable(String serverName, String database, String tableName) {
+        TableSqlExecutor executor = new TableSqlExecutor(serverName,database);
+        executor.create(tableName);
     }
 }

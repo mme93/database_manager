@@ -12,7 +12,7 @@ public class SqlCreateTable implements ISqlQuery {
 
     private SqlCreateTable() {}
 
-    public static SqlCreateTableBuilder builder() {
+    public static SqlCreateTableBuilder create() {
         return new SqlCreateTableBuilder();
     }
 
