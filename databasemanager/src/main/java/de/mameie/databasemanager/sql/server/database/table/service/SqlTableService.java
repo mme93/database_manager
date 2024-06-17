@@ -13,4 +13,8 @@ public class SqlTableService {
 
         return tableNames;
     }
+
+    public void getTableByName(String serverName, String database, String tableName) {
+
+    }
 }

@@ -52,7 +52,7 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     public final boolean execute(ISqlQuery query) {
         Boolean result = false;
         try {
-            Connection con = DBServerConnectionFactory.getInstance(DBServerSettings.CLOUD_XXL).getConnection();
+            Connection con = DBServerConnectionFactory.getInstance(serverName).getConnection();
             PreparedStatement statement = con.prepareStatement(query.toSql());
             result = statement.execute();
         } catch (SQLException e) {

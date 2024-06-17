@@ -32,8 +32,8 @@ public class SqlTableController {
     }
 
     @GetMapping("/{tableName}")
-    public void getTableByName(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName){
-
+    public void getTableByName(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName) {
+        sqlTableService.getTableByName(serverName, database, tableName);
     }
 
 }
