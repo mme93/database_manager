@@ -37,8 +37,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
         );
     }
 
-    @Override
-    public boolean create(String tableName) {
+    public boolean createTable(String tableName,String x) {
         //SqlCreateTable.create().tableName(tableName).
         return true;
     }

@@ -51,7 +51,7 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     }
 
     @Override
-    public boolean create(String name) {
+    public final boolean create(String name) {
         throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "CREATE"));
     }
 

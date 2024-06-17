@@ -15,7 +15,7 @@ public class DatabaseService {
 
     public boolean createDatabase(String databaseName,String serverName) {
         DatabaseSqlExecutor executor = new DatabaseSqlExecutor(serverName);
-        return executor.create(databaseName);
+        return executor.createDatabase(databaseName);
     }
 
     public List<String> getDatabaseNames(String serverName) {

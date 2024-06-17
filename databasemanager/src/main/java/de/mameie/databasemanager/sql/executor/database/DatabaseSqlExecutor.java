@@ -38,16 +38,15 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
         );
     }
 
-    @Override
-    public boolean create(String databaseName) {
-        return super.execute(
-                SqlDatabaseClause
-                        .create()
-                        .database()
-                        .name(databaseName)
-                        .build()
-        );
-    }
+   public boolean createDatabase(String databaseName){
+       return super.execute(
+               SqlDatabaseClause
+                       .create()
+                       .database()
+                       .name(databaseName)
+                       .build()
+       );
+   }
 
     @Override
     public List<String> show() {
