@@ -11,7 +11,7 @@ public interface ISqlExecutor {
 
     boolean create(String name);
 
-    List<String> show();
+    Object show();
 
     ResultSet executeQuery(ISqlQuery query);
 

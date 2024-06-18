@@ -4,6 +4,7 @@ import de.mameie.databasemanager.sql.server.connection.DBServerConnectionFactory
 import de.mameie.databasemanager.sql.exception.SqlMethodNotImplementedException;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 import de.mameie.databasemanager.sql.server.database.connection.DBConnectionFactory;
+import de.mameie.databasemanager.sql.server.database.table.connection.DBTableConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -56,8 +57,8 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     }
 
     @Override
-    public List<String> show() {
-        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "FIND"));
+    public Object show() {
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "SHOW"));
     }
 
     @Override
@@ -152,8 +153,8 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     private PreparedStatement createConnection(ISqlQuery query) throws SQLException {
         Connection con = switch (STATUS) {
             case SERVER -> DBServerConnectionFactory.getInstance(serverName).getConnection();
-            case TABLE -> DBConnectionFactory.getInstance(serverName, databaseName, serverName).getConnection();
-            case DATABASE -> DBConnectionFactory.getInstance(serverName, databaseName, null).getConnection();
+            case TABLE -> DBTableConnectionFactory.getInstance(serverName, databaseName, serverName).getConnection();
+            case DATABASE -> DBTableConnectionFactory.getInstance(serverName, databaseName, null).getConnection();
             default -> throw new RuntimeException(String.format("Status with input %s was not found."));
         };
         return con.prepareStatement(query.toSql());

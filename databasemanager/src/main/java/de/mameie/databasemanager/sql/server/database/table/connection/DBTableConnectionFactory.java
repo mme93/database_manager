@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.server.database.connection;
+package de.mameie.databasemanager.sql.server.database.table.connection;
 
 import de.mameie.databasemanager.sql.server.connection.DBServerSettings;
 import de.mameie.databasemanager.util.helper.StaticPropertyHolder;
@@ -10,52 +10,51 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class DBConnectionFactory {
+public class DBTableConnectionFactory {
 
-    private static List<DBConnectionFactory> instances = new ArrayList<>();
+    private static List<DBTableConnectionFactory> instances = new ArrayList<>();
 
-    private String databaseName;
+    private String tableUrl;
 
     private String serverName;
 
     private Connection con;
 
-    public DBConnectionFactory(String serverName, String databaseName, Connection con) {
-        this.databaseName = databaseName;
+    public DBTableConnectionFactory(String serverName, String tableUrl, Connection con) {
+        this.tableUrl = tableUrl;
         this.serverName = serverName;
         this.con = con;
     }
 
-    public static synchronized DBConnectionFactory getInstance(String serverName, String databaseName) throws SQLException {
-        DBConnectionFactory instance;
+    public static synchronized DBTableConnectionFactory getInstance(String serverName, String databaseName, String tableName) throws SQLException {
+        DBTableConnectionFactory instance;
+        String tableUrl= String.format("%s/%s", databaseName, tableName);
 
-
-
-        Optional<DBConnectionFactory> opt = instances.
+        Optional<DBTableConnectionFactory> opt = instances.
                 stream().
                 filter(databaseConnection ->
                         databaseConnection.serverName.equals(serverName) &&
-                                databaseConnection.databaseName.equals(databaseName)
+                                databaseConnection.tableUrl.equals(tableUrl)
                 ).findAny();
 
         if (!opt.isPresent()) {
             System.out.println("No connection found, create new connection.");
-            return createNewDatabaseConnectionSingleton(serverName, databaseName);
+            return createNewDatabaseConnectionSingleton(serverName, tableUrl);
         }
         instance = opt.get();
 
         if (instance.getConnection().isClosed()) {
             System.out.println("Connection found, but was closed, create new connection.");
             instances.remove(instance);
-            return createNewDatabaseConnectionSingleton(serverName, databaseName);
+            return createNewDatabaseConnectionSingleton(serverName, tableUrl);
         }
         System.out.println("Found existing connection.");
         return instance;
     }
 
-    private static DBConnectionFactory createNewDatabaseConnectionSingleton(String serverName, String tableUrl) throws SQLException {
-        DBConnectionFactory instance;
-        instance = new DBConnectionFactory(serverName, tableUrl, createConnection(serverName, tableUrl));
+    private static DBTableConnectionFactory createNewDatabaseConnectionSingleton(String serverName, String tableUrl) throws SQLException {
+        DBTableConnectionFactory instance;
+        instance = new DBTableConnectionFactory(serverName, tableUrl, createConnection(serverName, tableUrl));
         instances.add(instance);
         return instance;
     }
@@ -64,16 +63,16 @@ public class DBConnectionFactory {
         return con;
     }
 
-    private static Connection createConnection(String serverName, String databaseName) throws SQLException {
+    private static Connection createConnection(String serverName, String tableUrl) throws SQLException {
         if (serverName.equals(DBServerSettings.CLOUD_SERVER)) {
             return DriverManager.getConnection(
-                    StaticPropertyHolder.getStaticNameForCloudServerIp() + databaseName,
+                    StaticPropertyHolder.getStaticNameForCloudServerIp() + tableUrl,
                     StaticPropertyHolder.getStaticNameForCloudServerUserName(),
                     StaticPropertyHolder.getStaticNameForCloudServerPassword()
             );
         } else if (serverName.equals(DBServerSettings.CLOUD_XXL)) {
             return DriverManager.getConnection(
-                    StaticPropertyHolder.getStaticNameForCloudXxlIp() + databaseName,
+                    StaticPropertyHolder.getStaticNameForCloudXxlIp() + tableUrl,
                     StaticPropertyHolder.getStaticNameForCloudXxlUserName(),
                     StaticPropertyHolder.getStaticNameForCloudServerPassword()
             );

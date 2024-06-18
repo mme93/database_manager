@@ -21,6 +21,7 @@ public class SqlTableService {
 
     public void createTable(String serverName, String database, String tableName) {
         TableSqlExecutor executor = new TableSqlExecutor(serverName,database);
-        executor.create(tableName);
+
+        executor.createTable(tableName,tableName);
     }
 }

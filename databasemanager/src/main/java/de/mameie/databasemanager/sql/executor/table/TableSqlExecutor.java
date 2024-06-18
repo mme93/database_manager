@@ -3,7 +3,9 @@ package de.mameie.databasemanager.sql.executor.table;
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
 import de.mameie.databasemanager.sql.query.table.clause.create.SqlCreateTable;
+import de.mameie.databasemanager.sql.query.table.clause.select.SqlSelectTable;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public class TableSqlExecutor extends AbstractSqlExecutor {
@@ -37,14 +39,26 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
         );
     }
 
-    public boolean createTable(String tableName,String x) {
-        //SqlCreateTable.create().tableName(tableName).
-        return true;
+    public boolean createTable(String tableName, String x) {
+        return super.execute(
+                SqlCreateTable
+                        .create()
+                        .tableName(tableName)
+                        .addColumn(x)
+                        .build()
+        );
+
     }
 
     @Override
-    public List<String> show() {
-
-        return super.show();
+    public Object show() {
+        ResultSet resultSet = super.executeQuery(
+                SqlSelectTable
+                        .builder()
+                        .select(SqlSelectTable.WILDCARD)
+                        .from(tableName)
+                        .build()
+        );
+        return resultSet;
     }
 }
