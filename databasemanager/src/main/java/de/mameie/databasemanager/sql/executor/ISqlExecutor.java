@@ -1,5 +1,7 @@
 package de.mameie.databasemanager.sql.executor;
 
+import de.mameie.databasemanager.sql.executor.model.SqlPrepStmtIndex;
+import de.mameie.databasemanager.sql.executor.model.SqlPrepStmtParamName;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 
 import java.sql.ResultSet;

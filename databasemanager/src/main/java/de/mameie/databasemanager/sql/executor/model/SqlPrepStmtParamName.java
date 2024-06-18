@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.executor;
+package de.mameie.databasemanager.sql.executor.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
