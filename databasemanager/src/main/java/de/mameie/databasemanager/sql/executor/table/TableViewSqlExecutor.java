@@ -7,6 +7,7 @@ import de.mameie.databasemanager.sql.server.database.table.model.DatabaseColumnM
 import de.mameie.databasemanager.sql.server.database.table.model.DatabaseTableCell;
 import de.mameie.databasemanager.sql.server.database.table.model.DatabaseTableRow;
 import de.mameie.databasemanager.sql.server.database.table.model.DatabaseTableView;
+import de.mameie.databasemanager.util.check.CheckParam;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +22,10 @@ public class TableViewSqlExecutor extends AbstractSqlExecutor {
 
     private TableViewSqlExecutor(TableViewSqlExecutorBuilder builder) {
         super(builder.serverName, builder.databaseName, builder.tableName);
+        CheckParam.isNotNull(builder,"builder");
+        CheckParam.isNotNull(builder.serverName,"serverName");
+        CheckParam.isNotNull(builder.databaseName,"databaseName");
+        CheckParam.isNotNull(builder.tableName,"tableName");
         this.serverName = builder.serverName;
         this.databaseName = builder.databaseName;
         this.tableName = builder.tableName;
