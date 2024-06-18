@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.exception;
+package de.mameie.databasemanager.util.check.exception;
 
 public class SqlMethodNotImplementedException extends RuntimeException{
 
