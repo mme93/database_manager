@@ -23,8 +23,8 @@ public class SqlTableController {
 
     @GetMapping("/name/all")
     public ResponseEntity<List<String>> getAllTableNames(@PathVariable String serverName, @PathVariable String database) {
-        CheckParam.isNull(serverName, "serverName");
-        CheckParam.isNull(database, "database");
+        CheckParam.isNotNull(serverName, "serverName");
+        CheckParam.isNotNull(database, "database");
         List<String> tableNames = sqlTableService.getAllTableNames(serverName, database);
         if (tableNames.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -34,17 +34,17 @@ public class SqlTableController {
 
     @GetMapping("/{tableName}")
     public ResponseEntity<DatabaseTableView> getTableByName(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName) {
-        CheckParam.isNull(serverName, "serverName");
-        CheckParam.isNull(database, "database");
-        CheckParam.isNull(tableName, "tableName");
+        CheckParam.isNotNull(serverName, "serverName");
+        CheckParam.isNotNull(database, "database");
+        CheckParam.isNotNull(tableName, "tableName");
         return new ResponseEntity<>(sqlTableService.getTableByName(serverName, database, tableName), HttpStatus.OK);
     }
 
     @PostMapping("/{tableName}")
     public ResponseEntity createTable(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName) {
-        CheckParam.isNull(serverName, "serverName");
-        CheckParam.isNull(database, "database");
-        CheckParam.isNull(tableName, "tableName");
+        CheckParam.isNotNull(serverName, "serverName");
+        CheckParam.isNotNull(database, "database");
+        CheckParam.isNotNull(tableName, "tableName");
         sqlTableService.createTable(serverName, database, tableName);
         return new ResponseEntity(HttpStatus.OK);
     }

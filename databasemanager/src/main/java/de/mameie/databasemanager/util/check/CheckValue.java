@@ -1,16 +1,28 @@
 package de.mameie.databasemanager.util.check;
 
-import de.mameie.databasemanager.util.check.exception.ParamException;
+
+import de.mameie.databasemanager.util.check.exception.ValueException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class for checking values.
+ */
 @Service
 public class CheckValue {
 
-    public Object checkValue(Object object, String valueName) {
-        if (object != null) {
-            return object;
+    /**
+     * Checks if the specified object is not null.
+     *
+     * @param obj       the object to check
+     * @param valueName the name of the value, used in the exception message if the object is null
+     * @return the original object if it is not null
+     * @throws ValueException if the object is null
+     */
+    public Object isNotNull(Object obj, String valueName) {
+        if (obj == null) {
+            throw new ValueException(String.format("No value set (null) with name %s.", valueName));
         }
-        throw new ParamException(String.format("No value set (null) with name %s.", valueName));
+        return obj;
     }
 
 }
