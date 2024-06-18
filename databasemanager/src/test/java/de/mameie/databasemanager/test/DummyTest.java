@@ -18,7 +18,12 @@ public class DummyTest {
 
     @Test
     void test() throws SQLException {
-        TableViewSqlExecutor tableViewSqlExecutor = new TableViewSqlExecutor(DBServerSettings.CLOUD_XXL, "ms_learning", "account");
+        TableViewSqlExecutor tableViewSqlExecutor = TableViewSqlExecutor
+                .builder()
+                .withServerName(DBServerSettings.CLOUD_XXL)
+                .withDatabaseName("ms_learning")
+                .withTableName("account").build();
+
         Connection con = DBConnectionFactory.getInstance(DBServerSettings.CLOUD_XXL, "ms_learning").getConnection();
         PreparedStatement statement = con.prepareStatement(SqlDescribeTable.builder().describe("account").build().toSql());
         ResultSet set = statement.executeQuery();

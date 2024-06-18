@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ColumnInformationHeader {
+public class DatabaseColumnMetadata {
 
     private String field;
     private String type;

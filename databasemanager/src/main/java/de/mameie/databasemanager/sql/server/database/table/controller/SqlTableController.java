@@ -1,5 +1,6 @@
 package de.mameie.databasemanager.sql.server.database.table.controller;
 
+import de.mameie.databasemanager.sql.server.database.table.model.DatabaseTableView;
 import de.mameie.databasemanager.sql.server.database.table.service.SqlTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,12 +30,12 @@ public class SqlTableController {
     }
 
     @GetMapping("/{tableName}")
-    public void getTableByName(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName) {
-        sqlTableService.getTableByName(serverName, database, tableName);
+    public ResponseEntity<DatabaseTableView> getTableByName(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName) {
+        return new ResponseEntity<>(sqlTableService.getTableByName(serverName, database, tableName), HttpStatus.OK);
     }
 
     @PostMapping("/{tableName}")
-    public ResponseEntity createTable(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName){
+    public ResponseEntity createTable(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName) {
         sqlTableService.createTable(serverName, database, tableName);
         return new ResponseEntity(HttpStatus.OK);
     }

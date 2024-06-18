@@ -4,7 +4,6 @@ import de.mameie.databasemanager.sql.server.connection.DBServerConnectionFactory
 import de.mameie.databasemanager.sql.exception.SqlMethodNotImplementedException;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 import de.mameie.databasemanager.sql.server.database.connection.DBConnectionFactory;
-import de.mameie.databasemanager.sql.server.database.table.connection.DBTableConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -92,69 +91,67 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
 
     @Override
     public final int executeUpdate(ISqlQuery query) {
-        return 0;
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "executeUpdate"));
     }
 
     @Override
     public final int[] executeBatch(List<ISqlQuery> query) {
-        return new int[0];
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "executeBatch"));
     }
 
     @Override
     public ResultSet executeQuery(ISqlQuery query, SqlPrepStmtIndex index) {
-        return null;
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "executeQuery"));
     }
 
     @Override
     public boolean execute(ISqlQuery query, SqlPrepStmtIndex index) {
-        return false;
+            throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "execute"));
     }
 
     @Override
     public boolean hasResult(ISqlQuery query, SqlPrepStmtIndex index) {
-        return false;
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "hasResult"));
     }
 
     @Override
     public int executeUpdate(ISqlQuery query, SqlPrepStmtIndex index) {
-        return 0;
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "executeUpdate"));
     }
 
     @Override
     public int[] executeBatch(List<ISqlQuery> query, SqlPrepStmtIndex index) {
-        return new int[0];
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "executeBatch"));
     }
 
     @Override
     public ResultSet executeQuery(ISqlQuery query, SqlPrepStmtParamName paramName) {
-        return null;
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "executeQuery"));
     }
-
     @Override
     public boolean execute(ISqlQuery query, SqlPrepStmtParamName paramName) {
-        return false;
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "execute"));
     }
 
     @Override
     public boolean hasResult(ISqlQuery query, SqlPrepStmtParamName paramName) {
-        return false;
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "hasResult"));
     }
 
     @Override
     public int executeUpdate(ISqlQuery query, SqlPrepStmtParamName paramName) {
-        return 0;
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "executeUpdate"));
     }
 
     @Override
     public int[] executeBatch(List<ISqlQuery> query, SqlPrepStmtParamName paramName) {
-        return new int[0];
+        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "executeBatch"));
     }
 
     private PreparedStatement createConnection(ISqlQuery query) throws SQLException {
         Connection con = switch (STATUS) {
             case SERVER -> DBServerConnectionFactory.getInstance(serverName).getConnection();
-            case TABLE -> DBTableConnectionFactory.getInstance(serverName, databaseName, serverName).getConnection();
-            case DATABASE -> DBTableConnectionFactory.getInstance(serverName, databaseName, null).getConnection();
+            case TABLE, DATABASE -> DBConnectionFactory.getInstance(serverName, databaseName).getConnection();
             default -> throw new RuntimeException(String.format("Status with input %s was not found."));
         };
         return con.prepareStatement(query.toSql());
