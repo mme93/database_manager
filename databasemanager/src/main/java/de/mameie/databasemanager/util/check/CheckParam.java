@@ -17,7 +17,7 @@ public class CheckParam {
      */
     public static Object isNotNull(Object obj, String objName) {
         if (obj == null) {
-            throw new ParamException(String.format("Value with the name %s is null.", objName));
+            throw new ParamException(String.format("Param with the name %s is null.", objName));
         }
         return obj;
     }

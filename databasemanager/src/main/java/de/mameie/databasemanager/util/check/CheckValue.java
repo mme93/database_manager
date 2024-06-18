@@ -18,7 +18,7 @@ public class CheckValue {
      * @return the original object if it is not null
      * @throws ValueException if the object is null
      */
-    public Object isNotNull(Object obj, String valueName) {
+    public static Object isNotNull(Object obj, String valueName) {
         if (obj == null) {
             throw new ValueException(String.format("No value set (null) with name %s.", valueName));
         }
