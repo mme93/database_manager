@@ -15,6 +15,10 @@ import java.sql.*;
 
 import static java.util.Arrays.asList;
 
+/**
+ * Test class for {@link TableViewSqlExecutor}.
+ * It contains tests for verifying the behavior of the {@link TableViewSqlExecutor} class.
+ */
 @SpringBootTest
 public class TableViewSqlExecutorTest {
 
@@ -22,6 +26,11 @@ public class TableViewSqlExecutorTest {
     private final String DATABASE_NAME = "DATABASE_NAME";
     private final String TABLE_NAME = "users_table";
 
+    /**
+     * Sets up the test environment by creating a test table and inserting test data into it.
+     *
+     * @throws SQLException if a database access error occurs
+     */
     @BeforeAll
     static void setUp() throws SQLException {
         System.out.println("Setup!");
@@ -41,6 +50,11 @@ public class TableViewSqlExecutorTest {
         connection.close();
     }
 
+    /**
+     * Cleans up the test environment by dropping the test table.
+     *
+     * @throws SQLException if a database access error occurs
+     */
     @AfterAll
     static void clear() throws SQLException {
         System.out.println("Clear!");
@@ -51,6 +65,9 @@ public class TableViewSqlExecutorTest {
         connection.close();
     }
 
+    /**
+     * Tests that a {@link ParamException} is thrown when the server name is null in the constructor.
+     */
     @Test
     void testIfExceptionThrowByNullServerNameInConstructor() {
         Assertions.assertThrows(
@@ -65,6 +82,9 @@ public class TableViewSqlExecutorTest {
         );
     }
 
+    /**
+     * Tests that a {@link ParamException} is thrown when the database name is null in the constructor.
+     */
     @Test
     void testIfExceptionThrowByNullDatabaseNameInConstructor() {
         Assertions.assertThrows(
@@ -79,6 +99,9 @@ public class TableViewSqlExecutorTest {
         );
     }
 
+    /**
+     * Tests that a {@link ParamException} is thrown when the table name is null in the constructor.
+     */
     @Test
     void testIfExceptionThrowByNullTableNameInConstructor() {
         Assertions.assertThrows(
@@ -93,6 +116,11 @@ public class TableViewSqlExecutorTest {
         );
     }
 
+    /**
+     * Tests that the {@link TableViewSqlExecutor} correctly fills the {@link DatabaseTableView} with data from the table.
+     *
+     * @throws SQLException if a database access error occurs
+     */
     @Test
     void testTableViewIsFill() throws SQLException {
 
