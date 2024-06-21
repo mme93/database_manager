@@ -3,7 +3,7 @@ package de.mameie.databasemanager.sql.executor;
 import de.mameie.databasemanager.sql.executor.model.SqlPrepStmtIndex;
 import de.mameie.databasemanager.sql.executor.model.SqlPrepStmtParamName;
 import de.mameie.databasemanager.sql.server.connection.DBServerConnectionFactory;
-import de.mameie.databasemanager.sql.server.connection.H2ConnectionFactor;
+import de.mameie.databasemanager.sql.server.connection.H2ConnectionFactory;
 import de.mameie.databasemanager.util.check.CheckParam;
 import de.mameie.databasemanager.util.check.exception.SqlMethodNotImplementedException;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
@@ -326,7 +326,7 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
         Connection con = switch (STATUS) {
             case SERVER -> DBServerConnectionFactory.getInstance(serverName).getConnection();
             case TABLE, DATABASE -> DBConnectionFactory.getInstance(serverName, databaseName).getConnection();
-            case TEST -> H2ConnectionFactor.getInstance().getConnection();
+            case TEST -> H2ConnectionFactory.getInstance().getConnection();
             default -> throw new RuntimeException(String.format("Status with input %s was not found."));
         };
         return con.prepareStatement(query.toSql());
