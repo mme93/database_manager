@@ -16,6 +16,5 @@ public class DatabaseColumnMetadata {
     private String nullable;
     private String key;
     private String defaultValue;
-    private String extra;
 
 }

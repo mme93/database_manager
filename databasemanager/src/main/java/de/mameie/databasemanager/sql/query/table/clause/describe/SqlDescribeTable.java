@@ -24,7 +24,7 @@ public class SqlDescribeTable implements ISqlQuery {
 
     @Override
     public String toSql() {
-        return String.format("DESCRIBE %s",tableName);
+        return String.format("SHOW COLUMNS FROM %s",tableName);
     }
 
     @Override

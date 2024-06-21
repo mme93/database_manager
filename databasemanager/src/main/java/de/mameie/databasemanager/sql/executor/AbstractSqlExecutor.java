@@ -3,6 +3,7 @@ package de.mameie.databasemanager.sql.executor;
 import de.mameie.databasemanager.sql.executor.model.SqlPrepStmtIndex;
 import de.mameie.databasemanager.sql.executor.model.SqlPrepStmtParamName;
 import de.mameie.databasemanager.sql.server.connection.DBServerConnectionFactory;
+import de.mameie.databasemanager.sql.server.connection.H2ConnectionFactor;
 import de.mameie.databasemanager.util.check.CheckParam;
 import de.mameie.databasemanager.util.check.exception.SqlMethodNotImplementedException;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
@@ -28,6 +29,8 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     private String STATUS;
 
     private final String SERVER = "SERVER";
+
+    private final String TEST = "TEST";
 
     private final String TABLE = "TABLE";
 
@@ -323,8 +326,19 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
         Connection con = switch (STATUS) {
             case SERVER -> DBServerConnectionFactory.getInstance(serverName).getConnection();
             case TABLE, DATABASE -> DBConnectionFactory.getInstance(serverName, databaseName).getConnection();
+            case TEST -> H2ConnectionFactor.getInstance().getConnection();
             default -> throw new RuntimeException(String.format("Status with input %s was not found."));
         };
         return con.prepareStatement(query.toSql());
     }
+
+    /**
+     * Change the current status (need for test with H2-DB).
+     *
+     * @param STATUS the status from the needed connection.
+     */
+    public void changeStatus(String STATUS){
+        this.STATUS=STATUS;
+    }
+
 }

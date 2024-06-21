@@ -22,10 +22,10 @@ public class TableViewSqlExecutor extends AbstractSqlExecutor {
 
     private TableViewSqlExecutor(TableViewSqlExecutorBuilder builder) {
         super(builder.serverName, builder.databaseName, builder.tableName);
-        CheckParam.isNotNull(builder,"builder");
-        CheckParam.isNotNull(builder.serverName,"serverName");
-        CheckParam.isNotNull(builder.databaseName,"databaseName");
-        CheckParam.isNotNull(builder.tableName,"tableName");
+        CheckParam.isNotNull(builder, "builder");
+        CheckParam.isNotNull(builder.serverName, "serverName");
+        CheckParam.isNotNull(builder.databaseName, "databaseName");
+        CheckParam.isNotNull(builder.tableName, "tableName");
         this.serverName = builder.serverName;
         this.databaseName = builder.databaseName;
         this.tableName = builder.tableName;
@@ -71,13 +71,12 @@ public class TableViewSqlExecutor extends AbstractSqlExecutor {
                         resultSet.getString("Type"),
                         resultSet.getString("Null"),
                         resultSet.getString("Key"),
-                        resultSet.getString("Default"),
-                        resultSet.getString("Extra")
+                        resultSet.getString("Default")
                 ));
             }
             return databaseColumnMetadata;
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("Can´t read the column information header form table: %s."), e);
+            throw new RuntimeException(String.format("Can´t read the column information header form table: %s.", tableName), e);
         }
 
     }
