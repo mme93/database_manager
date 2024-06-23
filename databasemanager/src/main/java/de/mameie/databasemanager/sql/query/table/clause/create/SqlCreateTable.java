@@ -1,6 +1,7 @@
 package de.mameie.databasemanager.sql.query.table.clause.create;
 
 import de.mameie.databasemanager.sql.query.ISqlQuery;
+import de.mameie.databasemanager.sql.query.table.field.ISqlFieldDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +9,10 @@ import java.util.List;
 public class SqlCreateTable implements ISqlQuery {
 
     private String tableName;
-    private List<String> columns = new ArrayList<>();
+    private List<String> iSqlFieldDefinitions = new ArrayList<>();
 
-    private SqlCreateTable() {}
+    private SqlCreateTable() {
+    }
 
     public static SqlCreateTableBuilder create() {
         return new SqlCreateTableBuilder();
@@ -21,12 +23,12 @@ public class SqlCreateTable implements ISqlQuery {
     }
 
     public List<String> getColumns() {
-        return columns;
+        return iSqlFieldDefinitions;
     }
 
     @Override
     public String toSql() {
-        return String.format("CREATE TABLE %s (%s);", tableName, String.join(", ", columns));
+        return String.format("CREATE TABLE %s (%s);", tableName, String.join(", ", iSqlFieldDefinitions));
     }
 
     @Override
@@ -36,7 +38,7 @@ public class SqlCreateTable implements ISqlQuery {
 
     @Override
     public String toString() {
-        return String.format("CREATE TABLE %s (%s);", tableName, String.join(", ", columns));
+        return String.format("CREATE TABLE %s (%s);", tableName, String.join(", ", iSqlFieldDefinitions));
     }
 
     public static class SqlCreateTableBuilder {
@@ -47,8 +49,15 @@ public class SqlCreateTable implements ISqlQuery {
             return this;
         }
 
-        public SqlCreateTableBuilder addColumn(String columnDefinition) {
-            sqlCreateTable.columns.add(columnDefinition);
+        public SqlCreateTableBuilder addColumn(ISqlFieldDefinition iSqlFieldDefinition) {
+            sqlCreateTable.iSqlFieldDefinitions.add(iSqlFieldDefinition.getFieldDefinition());
+            return this;
+        }
+
+        public SqlCreateTableBuilder addColumns(List<ISqlFieldDefinition> iSqlFieldDefinitions) {
+            iSqlFieldDefinitions.stream().forEach(iSqlFieldDefinition ->
+                    sqlCreateTable.iSqlFieldDefinitions.add(iSqlFieldDefinition.getFieldDefinition())
+                    );
             return this;
         }
 

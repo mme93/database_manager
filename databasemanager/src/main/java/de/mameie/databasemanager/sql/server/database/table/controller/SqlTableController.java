@@ -41,12 +41,11 @@ public class SqlTableController {
     }
 
     @PostMapping("/{tableName}")
-    public ResponseEntity createTable(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName) {
+    public ResponseEntity<Boolean> createTable(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName) {
         CheckParam.isNotNull(serverName, "serverName");
         CheckParam.isNotNull(database, "database");
         CheckParam.isNotNull(tableName, "tableName");
-        sqlTableService.createTable(serverName, database, tableName);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(sqlTableService.createTable(serverName, database, tableName,null),HttpStatus.OK);
     }
 
 }

@@ -4,11 +4,15 @@ import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
 import de.mameie.databasemanager.sql.query.table.clause.create.SqlCreateTable;
 import de.mameie.databasemanager.sql.query.table.clause.select.SqlSelectTable;
+import de.mameie.databasemanager.sql.query.table.field.ISqlFieldDefinition;
+import de.mameie.databasemanager.sql.query.table.field.SqlFieldDefinition;
+import de.mameie.databasemanager.sql.query.table.field.SqlFieldDefinitionWithConstrains;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class TableSqlExecutor extends AbstractSqlExecutor {
 
@@ -51,12 +55,12 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
         }
     }
 
-    public boolean createTable(String tableName, String x) {
+    public boolean createTable(String tableName, List<ISqlFieldDefinition> fieldDefinitionList) {
         return super.execute(
                 SqlCreateTable
                         .create()
                         .tableName(tableName)
-                        .addColumn(x)
+                        .addColumns(fieldDefinitionList)
                         .build()
         );
 
