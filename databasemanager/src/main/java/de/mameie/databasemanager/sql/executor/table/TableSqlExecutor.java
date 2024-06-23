@@ -5,21 +5,26 @@ import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
 import de.mameie.databasemanager.sql.query.table.clause.create.SqlCreateTable;
 import de.mameie.databasemanager.sql.query.table.clause.select.SqlSelectTable;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.util.List;
+import java.sql.SQLException;
 
 public class TableSqlExecutor extends AbstractSqlExecutor {
 
     private String databaseName;
     private String tableName;
+    private String serverName;
 
     public TableSqlExecutor(String serverName, String databaseName) {
         super(serverName, databaseName);
+        this.serverName = serverName;
         this.databaseName = databaseName;
     }
 
     public TableSqlExecutor(String serverName, String databaseName, String tableName) {
         super(serverName, databaseName, tableName);
+        this.serverName = serverName;
         this.databaseName = databaseName;
         this.tableName = tableName;
     }
@@ -33,10 +38,18 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
         return super.execute(
                 SqlDatabaseClause
                         .drop()
-                        .database()
-                        .name(databaseName)
+                        .table()
+                        .name(tableName)
                         .build()
         );
+    }
+
+    public boolean checkTableExists(String tableName) throws SQLException {
+        Connection con = super.createConnection();
+        DatabaseMetaData metaData = con.getMetaData();
+        try (ResultSet resultSet = metaData.getTables(null, null, tableName.toUpperCase(), new String[]{"TABLE"})) {
+            return resultSet.next();
+        }
     }
 
     public boolean createTable(String tableName, String x) {
@@ -60,5 +73,38 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
                         .build()
         );
         return resultSet;
+    }
+
+    public static TableSqlExecutorBuilder builder() {
+        return new TableSqlExecutorBuilder();
+    }
+
+    public static class TableSqlExecutorBuilder {
+
+        private String serverName;
+        private String databaseName;
+        private String tableName;
+
+        public TableSqlExecutorBuilder withServerName(String serverName) {
+            this.serverName = serverName;
+            return this;
+        }
+
+        public TableSqlExecutorBuilder withDatabaseName(String databaseName) {
+            this.databaseName = databaseName;
+            return this;
+        }
+
+        public TableSqlExecutorBuilder withTableName(String tableName) {
+            this.tableName = tableName;
+            return this;
+        }
+
+        public TableSqlExecutor build() {
+            if (tableName != null) {
+                return new TableSqlExecutor(serverName, databaseName, tableName);
+            }
+            return new TableSqlExecutor(serverName, databaseName);
+        }
     }
 }

@@ -139,4 +139,6 @@ public class TableViewSqlExecutorTest {
         Assertions.assertEquals(view.getDatabaseTableRows().get(0).getDatabaseTableCells().size(),7);
     }
 
+
+
 }

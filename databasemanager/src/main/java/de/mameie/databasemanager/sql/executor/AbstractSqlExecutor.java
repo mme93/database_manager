@@ -124,7 +124,7 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     public final ResultSet executeQuery(ISqlQuery query) {
         ResultSet resultSet = null;
         try {
-            PreparedStatement statement = createConnection(query);
+            PreparedStatement statement = createPreparedStatementFromConnection(query);
             resultSet = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -142,7 +142,7 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     public final boolean execute(ISqlQuery query) {
         Boolean result = false;
         try {
-            PreparedStatement statement = createConnection(query);
+            PreparedStatement statement = createPreparedStatementFromConnection(query);
             result = statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -322,23 +322,28 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
      * @return the prepared statement
      * @throws SQLException if a database access error occurs
      */
-    private PreparedStatement createConnection(ISqlQuery query) throws SQLException {
+    private PreparedStatement createPreparedStatementFromConnection(ISqlQuery query) throws SQLException {
+        return createConnection().prepareStatement(query.toSql());
+    }
+
+    public Connection createConnection() throws SQLException {
         Connection con = switch (STATUS) {
             case SERVER -> DBServerConnectionFactory.getInstance(serverName).getConnection();
             case TABLE, DATABASE -> DBConnectionFactory.getInstance(serverName, databaseName).getConnection();
             case TEST -> H2ConnectionFactory.getInstance().getConnection();
             default -> throw new RuntimeException(String.format("Status with input %s was not found."));
         };
-        return con.prepareStatement(query.toSql());
+        return con;
     }
+
 
     /**
      * Change the current status (need for test with H2-DB).
      *
      * @param STATUS the status from the needed connection.
      */
-    public void changeStatus(String STATUS){
-        this.STATUS=STATUS;
+    public void changeStatus(String STATUS) {
+        this.STATUS = STATUS;
     }
 
 }
