@@ -27,7 +27,6 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
         this.serverName = serverName;
     }
 
-    @Override
     public boolean drop(String databaseName) {
         return super.execute(
                 SqlDatabaseClause
@@ -38,19 +37,18 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
         );
     }
 
-   public boolean createDatabase(String databaseName){
-       return super.execute(
-               SqlDatabaseClause
-                       .create()
-                       .database()
-                       .name(databaseName)
-                       .build()
-       );
-   }
+    public boolean createDatabase(String databaseName) {
+        return super.execute(
+                SqlDatabaseClause
+                        .create()
+                        .database()
+                        .name(databaseName)
+                        .build()
+        );
+    }
 
-    @Override
     public List<String> show() {
-        List<String>databaseNames= new ArrayList<>();
+        List<String> databaseNames = new ArrayList<>();
         try {
             DatabaseMetaData metaData = DBServerConnectionFactory.getInstance(serverName).getConnection().getMetaData();
             ResultSet resultSet = metaData.getCatalogs();

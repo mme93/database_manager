@@ -33,7 +33,6 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
 
     }
 
-    @Override
     public boolean drop(String tableName) {
         return super.execute(
                 SqlDatabaseClause
@@ -62,8 +61,6 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
         );
 
     }
-
-    @Override
     public Object show() {
         ResultSet resultSet = super.executeQuery(
                 SqlSelectTable

@@ -43,15 +43,14 @@ public class TableSqlExecutorTest {
     }
 
     @Test
-    void testThatTableIsDrop() throws SQLException {
+    void testThatTableExistAndThenDrop() throws SQLException {
         Assertions.assertFalse(executor.checkTableExists(tableName));
-        PreparedStatement statement = con.prepareStatement(String.format("CREATE TABLE %s", tableName));
-        statement.execute();
-        statement.close();
+        createDummyTable();
         Assertions.assertTrue(executor.checkTableExists(tableName));
         executor.drop(tableName);
         Assertions.assertFalse(executor.checkTableExists(tableName));
     }
+
 
     @Test
     void testThatTableIsCreated() throws SQLException {
@@ -62,4 +61,9 @@ public class TableSqlExecutorTest {
         //executor.createTable();
     }
 
+    private void createDummyTable() throws SQLException {
+        PreparedStatement statement = con.prepareStatement(String.format("CREATE TABLE %s", tableName));
+        statement.execute();
+        statement.close();
+    }
 }

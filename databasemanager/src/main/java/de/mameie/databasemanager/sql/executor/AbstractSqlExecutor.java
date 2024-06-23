@@ -79,42 +79,6 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     }
 
     /**
-     * Drops the specified object. Not implemented in the abstract class.
-     *
-     * @param name the name of the object to drop
-     * @return false
-     * @throws SqlMethodNotImplementedException always thrown
-     */
-    @Override
-    public boolean drop(String name) {
-        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "DROP"));
-    }
-
-    /**
-     * Creates the specified object. Not implemented in the abstract class.
-     *
-     * @param name the name of the object to create
-     * @return false
-     * @throws SqlMethodNotImplementedException always thrown
-     */
-    @Override
-    public final boolean create(String name) {
-        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "CREATE"));
-    }
-
-
-    /**
-     * Shows information about the object. Not implemented in the abstract class.
-     *
-     * @return null
-     * @throws SqlMethodNotImplementedException always thrown
-     */
-    @Override
-    public Object show() {
-        throw new SqlMethodNotImplementedException(String.format("Method %s is not implemented.", "SHOW"));
-    }
-
-    /**
      * Executes a query and returns the result set.
      *
      * @param query the query to execute

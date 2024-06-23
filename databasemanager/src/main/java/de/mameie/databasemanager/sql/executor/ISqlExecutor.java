@@ -9,12 +9,6 @@ import java.util.List;
 
 public interface ISqlExecutor {
 
-    boolean drop(String name);
-
-    boolean create(String name);
-
-    Object show();
-
     ResultSet executeQuery(ISqlQuery query);
 
     boolean execute(ISqlQuery query);
