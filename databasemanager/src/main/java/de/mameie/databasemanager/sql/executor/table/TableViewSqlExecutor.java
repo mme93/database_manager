@@ -3,10 +3,10 @@ package de.mameie.databasemanager.sql.executor.table;
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.table.clause.describe.SqlDescribeTable;
 import de.mameie.databasemanager.sql.query.table.clause.select.SqlSelectTable;
-import de.mameie.databasemanager.sql.server.database.table.model.DatabaseColumnMetadata;
-import de.mameie.databasemanager.sql.server.database.table.model.DatabaseTableCell;
-import de.mameie.databasemanager.sql.server.database.table.model.DatabaseTableRow;
-import de.mameie.databasemanager.sql.server.database.table.model.DatabaseTableView;
+import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseColumnMetadata;
+import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableCell;
+import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableRow;
+import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableView;
 import de.mameie.databasemanager.util.check.CheckParam;
 
 import java.sql.ResultSet;

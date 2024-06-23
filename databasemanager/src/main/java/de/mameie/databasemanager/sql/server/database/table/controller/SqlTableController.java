@@ -1,13 +1,17 @@
 package de.mameie.databasemanager.sql.server.database.table.controller;
 
-import de.mameie.databasemanager.sql.server.database.table.model.DatabaseTableView;
+import de.mameie.databasemanager.sql.server.database.model.SqlLoginDatabase;
+import de.mameie.databasemanager.sql.server.database.table.model.create.TableCreate;
+import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableView;
 import de.mameie.databasemanager.sql.server.database.table.service.SqlTableService;
+import de.mameie.databasemanager.sql.server.database.table.util.FieldDefinitionConverter;
 import de.mameie.databasemanager.util.check.CheckParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -22,10 +26,10 @@ public class SqlTableController {
     }
 
     @GetMapping("/name/all")
-    public ResponseEntity<List<String>> getAllTableNames(@PathVariable String serverName, @PathVariable String database) {
+    public ResponseEntity<List<String>> getAllTableNames(@PathVariable String serverName, @PathVariable String database, @RequestBody SqlLoginDatabase sqlLoginDatabase) throws SQLException {
         CheckParam.isNotNull(serverName, "serverName");
         CheckParam.isNotNull(database, "database");
-        List<String> tableNames = sqlTableService.getAllTableNames(serverName, database);
+        List<String> tableNames = sqlTableService.getAllTableNames(sqlLoginDatabase);
         if (tableNames.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -41,11 +45,15 @@ public class SqlTableController {
     }
 
     @PostMapping("/{tableName}")
-    public ResponseEntity<Boolean> createTable(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName) {
+    public ResponseEntity<Boolean> createTable(@PathVariable String serverName, @PathVariable String database, @PathVariable String tableName, @RequestBody TableCreate tableCreate) {
         CheckParam.isNotNull(serverName, "serverName");
         CheckParam.isNotNull(database, "database");
         CheckParam.isNotNull(tableName, "tableName");
-        return new ResponseEntity(sqlTableService.createTable(serverName, database, tableName,null),HttpStatus.OK);
+        return new ResponseEntity(
+                sqlTableService.createTable(
+                        tableCreate.getSqlLoginTable(),
+                        FieldDefinitionConverter.convertToISqlFieldDefinition(tableCreate.getFieldDefinitionList())),
+                HttpStatus.OK);
     }
 
 }

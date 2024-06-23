@@ -4,6 +4,7 @@ import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
 import de.mameie.databasemanager.sql.query.table.clause.create.SqlCreateTable;
 import de.mameie.databasemanager.sql.query.table.clause.select.SqlSelectTable;
+import de.mameie.databasemanager.sql.query.table.clause.show.SqlShowTable;
 import de.mameie.databasemanager.sql.query.table.field.ISqlFieldDefinition;
 import de.mameie.databasemanager.sql.query.table.field.SqlFieldDefinition;
 import de.mameie.databasemanager.sql.query.table.field.SqlFieldDefinitionWithConstrains;
@@ -12,6 +13,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TableSqlExecutor extends AbstractSqlExecutor {
@@ -55,7 +57,16 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
         }
     }
 
-    public boolean createTable(String tableName, List<ISqlFieldDefinition> fieldDefinitionList) {
+    public List<String> getAllTableNames() throws SQLException {
+        List<String> tableNames = new ArrayList<>();
+        ResultSet resultSet = super.executeQuery(SqlShowTable.show());
+        while (resultSet.next()) {
+            tableNames.add(resultSet.getString(1));
+        }
+        return tableNames;
+    }
+
+    public boolean createTable(List<ISqlFieldDefinition> fieldDefinitionList) {
         return super.execute(
                 SqlCreateTable
                         .create()
@@ -65,6 +76,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
         );
 
     }
+
     public Object show() {
         ResultSet resultSet = super.executeQuery(
                 SqlSelectTable

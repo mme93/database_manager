@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.server.database.table.model;
+package de.mameie.databasemanager.sql.server.database.table.model.view;
 
 import lombok.Getter;
 

@@ -14,10 +14,16 @@ public class SqlDatatype implements ISqlDatatype {
     private static final String ENUM = "ENUM";
     private static final String SET = "SET";
 
+
+
     private String dataType;
 
     private SqlDatatype(String dataType) {
         this.dataType = dataType;
+    }
+
+    public static ISqlDatatype setDatatype(String datatype) {
+        return new SqlDatatype(datatype);
     }
 
     public static ISqlDatatype INT() {

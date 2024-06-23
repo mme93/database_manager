@@ -2,7 +2,7 @@ package de.mameie.databasemanager.sql.executor.table;
 
 import de.mameie.databasemanager.sql.server.connection.DBServerSettings;
 import de.mameie.databasemanager.sql.server.connection.H2ConnectionFactory;
-import de.mameie.databasemanager.sql.server.database.table.model.DatabaseTableView;
+import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableView;
 import de.mameie.databasemanager.util.check.exception.ParamException;
 
 import org.junit.jupiter.api.AfterAll;

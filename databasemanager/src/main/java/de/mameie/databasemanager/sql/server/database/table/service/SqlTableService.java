@@ -3,19 +3,24 @@ package de.mameie.databasemanager.sql.server.database.table.service;
 import de.mameie.databasemanager.sql.executor.table.TableSqlExecutor;
 import de.mameie.databasemanager.sql.executor.table.TableViewSqlExecutor;
 import de.mameie.databasemanager.sql.query.table.field.ISqlFieldDefinition;
-import de.mameie.databasemanager.sql.server.database.table.model.DatabaseTableView;
+import de.mameie.databasemanager.sql.server.database.model.SqlLoginDatabase;
+import de.mameie.databasemanager.sql.server.database.model.SqlLoginTable;
+import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableView;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
 public class SqlTableService {
 
-    public List<String> getAllTableNames(String serverName, String database) {
-        List<String> tableNames = new ArrayList<>();
-
-        return tableNames;
+    public List<String> getAllTableNames(SqlLoginDatabase sqlLoginDatabase) throws SQLException {
+        return TableSqlExecutor
+                .builder()
+                .withServerName(sqlLoginDatabase.getServerName())
+                .withDatabaseName(sqlLoginDatabase.getDatabaseName())
+                .build()
+                .getAllTableNames();
     }
 
     public DatabaseTableView getTableByName(String serverName, String database, String tableName) {
@@ -28,13 +33,13 @@ public class SqlTableService {
                 .generateTableView();
     }
 
-    public boolean createTable(String serverName, String database, String tableName, List<ISqlFieldDefinition> fieldDefinitionList) {
-        TableSqlExecutor executor = TableSqlExecutor
+    public boolean createTable(SqlLoginTable loginTable, List<ISqlFieldDefinition> fieldDefinitionList) {
+        return TableSqlExecutor
                 .builder()
-                .withServerName(serverName)
-                .withDatabaseName(database)
-                .withTableName(tableName)
-                .build();
-        return executor.createTable(tableName, fieldDefinitionList);
+                .withServerName(loginTable.getServerName())
+                .withDatabaseName(loginTable.getDatabaseName())
+                .withTableName(loginTable.getTableName())
+                .build()
+                .createTable(fieldDefinitionList);
     }
 }
