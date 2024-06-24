@@ -1,4 +1,4 @@
-package de.mameie.databasemanager.sql.executor.table;
+package de.mameie.databasemanager.sql.executor.table.view;
 
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.table.clause.describe.SqlDescribeTable;

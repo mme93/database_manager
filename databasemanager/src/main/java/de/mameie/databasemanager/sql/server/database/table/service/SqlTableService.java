@@ -1,7 +1,7 @@
 package de.mameie.databasemanager.sql.server.database.table.service;
 
 import de.mameie.databasemanager.sql.executor.table.TableSqlExecutor;
-import de.mameie.databasemanager.sql.executor.table.TableViewSqlExecutor;
+import de.mameie.databasemanager.sql.executor.table.view.TableViewSqlExecutor;
 import de.mameie.databasemanager.sql.query.table.field.ISqlFieldDefinition;
 import de.mameie.databasemanager.sql.server.database.model.SqlLoginDatabase;
 import de.mameie.databasemanager.sql.server.database.model.SqlLoginTable;
