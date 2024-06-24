@@ -40,6 +40,9 @@ public class TableSqlExecutorTest {
         executorWithTableName.changeStatus(TEST);
         executor.changeStatus(TEST);
         con = H2ConnectionFactory.getInstance().getConnection();
+        if(executor.checkTableExists(tableName)){
+            executor.drop(tableName);
+        }
     }
 
     @Test
