@@ -3,11 +3,8 @@ package de.mameie.databasemanager.sql.executor.table;
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
 import de.mameie.databasemanager.sql.query.table.clause.create.SqlCreateTable;
-import de.mameie.databasemanager.sql.query.table.clause.select.SqlSelectTable;
 import de.mameie.databasemanager.sql.query.table.clause.show.SqlShowTable;
 import de.mameie.databasemanager.sql.query.table.field.ISqlFieldDefinition;
-import de.mameie.databasemanager.sql.query.table.field.SqlFieldDefinition;
-import de.mameie.databasemanager.sql.query.table.field.SqlFieldDefinitionWithConstrains;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -22,13 +19,13 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
     private String tableName;
     private String serverName;
 
-    public TableSqlExecutor(String serverName, String databaseName) {
+    private TableSqlExecutor(String serverName, String databaseName) {
         super(serverName, databaseName);
         this.serverName = serverName;
         this.databaseName = databaseName;
     }
 
-    public TableSqlExecutor(String serverName, String databaseName, String tableName) {
+    private TableSqlExecutor(String serverName, String databaseName, String tableName) {
         super(serverName, databaseName, tableName);
         this.serverName = serverName;
         this.databaseName = databaseName;
@@ -75,17 +72,6 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
                         .build()
         );
 
-    }
-
-    public Object show() {
-        ResultSet resultSet = super.executeQuery(
-                SqlSelectTable
-                        .builder()
-                        .select(SqlSelectTable.WILDCARD)
-                        .from(tableName)
-                        .build()
-        );
-        return resultSet;
     }
 
     public static TableSqlExecutorBuilder builder() {

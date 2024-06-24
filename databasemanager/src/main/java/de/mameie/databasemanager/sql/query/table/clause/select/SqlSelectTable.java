@@ -14,11 +14,13 @@ public class SqlSelectTable implements ISqlQuery {
     private List<String> columns = new ArrayList<>();
     private ISqlCondition condition;
 
-    private SqlSelectTable(){}
+    private SqlSelectTable() {
+    }
 
-    public static SqlSelectTable builder(){
+    public static SqlSelectTable builder() {
         return new SqlSelectTable();
     }
+
     public SqlSelectTable from(String tableName) {
         this.tableName = tableName;
         return this;
@@ -29,8 +31,13 @@ public class SqlSelectTable implements ISqlQuery {
         return this;
     }
 
+    public SqlSelectTable select(List<String> columns) {
+        this.columns.addAll(columns);
+        return this;
+    }
+
     public SqlSelectTable where(String name, String operator, String value) {
-        this.condition = SqlWhereCondition.set(name,operator,value);
+        this.condition = SqlWhereCondition.set(name, operator, value);
         return this;
     }
 

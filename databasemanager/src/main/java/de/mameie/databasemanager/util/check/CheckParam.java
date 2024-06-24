@@ -2,6 +2,8 @@ package de.mameie.databasemanager.util.check;
 
 import de.mameie.databasemanager.util.check.exception.ParamException;
 
+import java.util.List;
+
 /**
  * Utility class for parameter validation.
  */
@@ -21,5 +23,15 @@ public class CheckParam {
         }
         return obj;
     }
+
+
+    public static List<?> isNotEmpty(List<?> list, String objName) {
+        if (list.isEmpty()) {
+            throw new ParamException(String.format("Param list with the name %s is null.", objName));
+        }
+        return list;
+    }
+
+
 
 }
