@@ -1,5 +1,8 @@
 package de.mameie.databasemanager.sql.query;
 
+/**
+ * Enumeration of SQL operators used in SQL queries.
+ */
 public enum SqlOperator {
 
     EQUALS("="),
@@ -19,10 +22,20 @@ public enum SqlOperator {
 
     private final String operator;
 
+    /**
+     * Constructor for SqlOperator enum.
+     *
+     * @param operator the SQL operator as a string
+     */
     SqlOperator(String operator) {
         this.operator = operator;
     }
 
+    /**
+     * Gets the SQL operator as a string.
+     *
+     * @return the SQL operator
+     */
     public String getOperator() {
         return operator;
     }

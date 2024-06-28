@@ -13,7 +13,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The {@code DatabaseSqlExecutor} class provides SQL execution functionalities specific to database operations.
+ * It extends the {@code AbstractSqlExecutor} to leverage its execution capabilities.
+ * This class allows creating, dropping, and listing databases.
+ */
 @Getter
 @Setter
 public class DatabaseSqlExecutor extends AbstractSqlExecutor {
@@ -21,12 +25,22 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
     private String serverName;
     private ISqlQuery query;
 
-
+    /**
+     * Constructs a {@code DatabaseSqlExecutor} with the specified server name.
+     *
+     * @param serverName the name of the server
+     */
     public DatabaseSqlExecutor(String serverName) {
         super(serverName);
         this.serverName = serverName;
     }
 
+    /**
+     * Drops the specified database.
+     *
+     * @param databaseName the name of the database to be dropped
+     * @return {@code true} if the operation was successful, {@code false} otherwise
+     */
     public boolean drop(String databaseName) {
         return super.execute(
                 SqlDatabaseClause
@@ -37,6 +51,12 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
         );
     }
 
+    /**
+     * Creates a new database with the specified name.
+     *
+     * @param databaseName the name of the database to be created
+     * @return {@code true} if the operation was successful, {@code false} otherwise
+     */
     public boolean createDatabase(String databaseName) {
         return super.execute(
                 SqlDatabaseClause
@@ -47,6 +67,11 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
         );
     }
 
+    /**
+     * Retrieves a list of all database names available on the server.
+     *
+     * @return a list of database names
+     */
     public List<String> show() {
         List<String> databaseNames = new ArrayList<>();
         try {
