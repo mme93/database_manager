@@ -2,10 +2,10 @@ package de.mameie.databasemanager.sql.executor.table;
 
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
-import de.mameie.databasemanager.sql.query.table.clause.create.SqlCreateTable;
-import de.mameie.databasemanager.sql.query.table.clause.describe.SqlDescribeTable;
-import de.mameie.databasemanager.sql.query.table.clause.show.SqlShowTable;
-import de.mameie.databasemanager.sql.query.table.field.ISqlFieldDefinition;
+import de.mameie.databasemanager.sql.query.database.table.clause.create.SqlCreateTable;
+import de.mameie.databasemanager.sql.query.database.table.clause.describe.SqlDescribeTable;
+import de.mameie.databasemanager.sql.query.database.table.clause.show.SqlShowTable;
+import de.mameie.databasemanager.sql.query.database.table.field.ISqlFieldDefinition;
 import de.mameie.databasemanager.sql.server.database.table.model.view.TableMetadata;
 
 import java.sql.*;

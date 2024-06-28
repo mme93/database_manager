@@ -1,7 +1,7 @@
 package de.mameie.databasemanager.sql.executor.table.view;
 
 import de.mameie.databasemanager.sql.executor.table.TableSqlExecutor;
-import de.mameie.databasemanager.sql.query.table.clause.select.SqlSelectTable;
+import de.mameie.databasemanager.sql.query.database.table.clause.select.SqlSelectTable;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableCell;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableRow;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableView;

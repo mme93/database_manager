@@ -1,6 +1,6 @@
 package de.mameie.databasemanager.sql.executor.table;
 
-import de.mameie.databasemanager.sql.query.table.field.ISqlFieldDefinition;
+import de.mameie.databasemanager.sql.query.database.table.field.ISqlFieldDefinition;
 import de.mameie.databasemanager.sql.server.database.table.model.view.TableMetadata;
 
 import java.sql.SQLException;
