@@ -24,34 +24,26 @@ public class TableSqlExecutorTest {
 
     @BeforeAll
     static void setUp() throws SQLException {
-        executorWithTableName = TableSqlExecutor
-                .builder()
-                .withServerName(serverName)
-                .withDatabaseName(databaseName)
-                .withTableName(tableName)
-                .build();
+        executorWithTableName = new TableSqlExecutor(serverName,databaseName,tableName);
 
-        executor = TableSqlExecutor
-                .builder()
-                .withServerName(serverName)
-                .withDatabaseName(databaseName)
-                .build();
+
+        executor = new TableSqlExecutor(serverName,databaseName);
 
         executorWithTableName.changeStatus(TEST);
         executor.changeStatus(TEST);
         con = H2ConnectionFactory.getInstance().getConnection();
-        if(executor.checkTableExists(tableName)){
+        if(executor.exist(tableName)){
             executor.drop(tableName);
         }
     }
 
     @Test
     void testThatTableExistAndThenDrop() throws SQLException {
-        Assertions.assertFalse(executor.checkTableExists(tableName));
+        Assertions.assertFalse(executor.exist(tableName));
         createDummyTable();
-        Assertions.assertTrue(executor.checkTableExists(tableName));
+        Assertions.assertTrue(executor.exist(tableName));
         executor.drop(tableName);
-        Assertions.assertFalse(executor.checkTableExists(tableName));
+        Assertions.assertFalse(executor.exist(tableName));
     }
 
 

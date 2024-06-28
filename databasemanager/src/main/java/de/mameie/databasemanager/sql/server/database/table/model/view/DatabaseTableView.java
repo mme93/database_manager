@@ -10,7 +10,7 @@ public class DatabaseTableView {
     private String tableName;
     private int rowSize;
     private int colSize;
-    private List<DatabaseColumnMetadata> metaData;
+    private List<TableMetadata> metaData;
     private List<DatabaseTableRow> databaseTableRows;
 
 
@@ -30,7 +30,7 @@ public class DatabaseTableView {
         this.colSize = colSize;
     }
 
-    private void setHeaders(List<DatabaseColumnMetadata> metaData) {
+    private void setHeaders(List<TableMetadata> metaData) {
         this.metaData = metaData;
     }
 
@@ -51,7 +51,7 @@ public class DatabaseTableView {
             return this;
         }
 
-        public TableViewBuilder withMetaData(List<DatabaseColumnMetadata> metaData) {
+        public TableViewBuilder withMetaData(List<TableMetadata> metaData) {
             databaseTableView.setHeaders(metaData);
             databaseTableView.setColSize(metaData.size());
             return this;

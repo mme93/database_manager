@@ -1,41 +1,50 @@
 package de.mameie.databasemanager.sql.executor.table;
 
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
+import de.mameie.databasemanager.sql.query.ISqlQuery;
 import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
 import de.mameie.databasemanager.sql.query.table.clause.create.SqlCreateTable;
+import de.mameie.databasemanager.sql.query.table.clause.describe.SqlDescribeTable;
 import de.mameie.databasemanager.sql.query.table.clause.show.SqlShowTable;
 import de.mameie.databasemanager.sql.query.table.field.ISqlFieldDefinition;
+import de.mameie.databasemanager.sql.server.database.table.model.view.TableMetadata;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableSqlExecutor extends AbstractSqlExecutor {
+public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlExecutor {
 
     private String databaseName;
     private String tableName;
     private String serverName;
 
-    private TableSqlExecutor(String serverName, String databaseName) {
+    public TableSqlExecutor(String serverName, String databaseName) {
         super(serverName, databaseName);
         this.serverName = serverName;
         this.databaseName = databaseName;
     }
 
-    private TableSqlExecutor(String serverName, String databaseName, String tableName) {
+    public TableSqlExecutor(String serverName, String databaseName, String tableName) {
         super(serverName, databaseName, tableName);
         this.serverName = serverName;
         this.databaseName = databaseName;
         this.tableName = tableName;
     }
 
-    public void alter() {
 
+    @Override
+    public boolean drop() {
+        return super.execute(
+                SqlDatabaseClause
+                        .drop()
+                        .table()
+                        .name(tableName)
+                        .build()
+        );
     }
 
+    @Override
     public boolean drop(String tableName) {
         return super.execute(
                 SqlDatabaseClause
@@ -46,7 +55,8 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
         );
     }
 
-    public boolean checkTableExists(String tableName) throws SQLException {
+    @Override
+    public boolean exist() throws SQLException {
         Connection con = super.createConnection();
         DatabaseMetaData metaData = con.getMetaData();
         try (ResultSet resultSet = metaData.getTables(null, null, tableName.toUpperCase(), new String[]{"TABLE"})) {
@@ -54,15 +64,16 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
         }
     }
 
-    public List<String> getAllTableNames() throws SQLException {
-        List<String> tableNames = new ArrayList<>();
-        ResultSet resultSet = super.executeQuery(SqlShowTable.show());
-        while (resultSet.next()) {
-            tableNames.add(resultSet.getString(1));
+    @Override
+    public boolean exist(String tableName) throws SQLException {
+        Connection con = super.createConnection();
+        DatabaseMetaData metaData = con.getMetaData();
+        try (ResultSet resultSet = metaData.getTables(null, null, tableName.toUpperCase(), new String[]{"TABLE"})) {
+            return resultSet.next();
         }
-        return tableNames;
     }
 
+    @Override
     public boolean createTable(List<ISqlFieldDefinition> fieldDefinitionList) {
         return super.execute(
                 SqlCreateTable
@@ -71,39 +82,35 @@ public class TableSqlExecutor extends AbstractSqlExecutor {
                         .addColumns(fieldDefinitionList)
                         .build()
         );
-
     }
 
-    public static TableSqlExecutorBuilder builder() {
-        return new TableSqlExecutorBuilder();
-    }
-
-    public static class TableSqlExecutorBuilder {
-
-        private String serverName;
-        private String databaseName;
-        private String tableName;
-
-        public TableSqlExecutorBuilder withServerName(String serverName) {
-            this.serverName = serverName;
-            return this;
-        }
-
-        public TableSqlExecutorBuilder withDatabaseName(String databaseName) {
-            this.databaseName = databaseName;
-            return this;
-        }
-
-        public TableSqlExecutorBuilder withTableName(String tableName) {
-            this.tableName = tableName;
-            return this;
-        }
-
-        public TableSqlExecutor build() {
-            if (tableName != null) {
-                return new TableSqlExecutor(serverName, databaseName, tableName);
+    @Override
+    public List<TableMetadata> getMetaData() {
+        List<TableMetadata> tableMetadata = new ArrayList<>();
+        ResultSet resultSet = this.executeQuery(SqlDescribeTable.builder().describe(tableName).build());
+        try {
+            while (resultSet.next()) {
+                tableMetadata.add(new TableMetadata(
+                        resultSet.getString("Field"),
+                        resultSet.getString("Type"),
+                        resultSet.getString("Null"),
+                        resultSet.getString("Key"),
+                        resultSet.getString("Default")
+                ));
             }
-            return new TableSqlExecutor(serverName, databaseName);
+            return tableMetadata;
+        } catch (SQLException e) {
+            throw new RuntimeException(String.format("Can´t read the column information header form table: %s.", tableName), e);
         }
+    }
+
+    @Override
+    public List<String> getTableNames() throws SQLException {
+        List<String> tableNames = new ArrayList<>();
+        ResultSet resultSet = super.executeQuery(SqlShowTable.show());
+        while (resultSet.next()) {
+            tableNames.add(resultSet.getString(1));
+        }
+        return tableNames;
     }
 }

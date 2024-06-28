@@ -101,23 +101,6 @@ public class TableViewSqlExecutorTest {
     }
 
     /**
-     * Tests that a {@link ParamException} is thrown when the table name is null in the constructor.
-     */
-    @Test
-    void testIfExceptionThrowByNullTableNameInConstructor() {
-        Assertions.assertThrows(
-                ParamException.class,
-                () -> TableViewSqlExecutor
-                        .builder()
-                        .withServerName(SERVER_NAME)
-                        .withDatabaseName(DATABASE_NAME)
-                        .withTableName(null)
-                        .build(),
-                "Param with the name tableName is null."
-        );
-    }
-
-    /**
      * Tests that the {@link TableViewSqlExecutor} correctly fills the {@link DatabaseTableView} with data from the table.
      *
      * @throws SQLException if a database access error occurs

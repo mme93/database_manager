@@ -15,12 +15,10 @@ import java.util.List;
 public class SqlTableService {
 
     public List<String> getAllTableNames(SqlLoginDatabase sqlLoginDatabase) throws SQLException {
-        return TableSqlExecutor
-                .builder()
-                .withServerName(sqlLoginDatabase.getServerName())
-                .withDatabaseName(sqlLoginDatabase.getDatabaseName())
-                .build()
-                .getAllTableNames();
+        return new TableSqlExecutor(
+                sqlLoginDatabase.getServerName(),
+                sqlLoginDatabase.getDatabaseName())
+                .getTableNames();
     }
 
     public DatabaseTableView getTableByName(String serverName, String database, String tableName) {
@@ -34,12 +32,6 @@ public class SqlTableService {
     }
 
     public boolean createTable(SqlLoginTable loginTable, List<ISqlFieldDefinition> fieldDefinitionList) {
-        return TableSqlExecutor
-                .builder()
-                .withServerName(loginTable.getServerName())
-                .withDatabaseName(loginTable.getDatabaseName())
-                .withTableName(loginTable.getTableName())
-                .build()
-                .createTable(fieldDefinitionList);
+        throw new RuntimeException("Not implemented Method!");
     }
 }

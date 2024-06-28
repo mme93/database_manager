@@ -4,7 +4,7 @@ import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.table.clause.describe.SqlDescribeTable;
 import de.mameie.databasemanager.sql.query.table.clause.select.SqlSelectTable;
 import de.mameie.databasemanager.sql.query.table.condition.ISqlCondition;
-import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseColumnMetadata;
+import de.mameie.databasemanager.sql.server.database.table.model.view.TableMetadata;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableCell;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableRow;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableView;
@@ -38,7 +38,7 @@ public class TableFilteredViewSqlExecutor extends AbstractSqlExecutor {
     }
 
     public DatabaseTableView generateTableView() {
-        List<DatabaseColumnMetadata> metadata = getColMetaData();
+        List<TableMetadata> metadata = getColMetaData();
         List<DatabaseTableRow> rows = getRow(metadata);
         return DatabaseTableView
                 .builder()
@@ -48,7 +48,7 @@ public class TableFilteredViewSqlExecutor extends AbstractSqlExecutor {
                 .build();
     }
 
-    private List<DatabaseTableRow> getRow(List<DatabaseColumnMetadata> headers) {
+    private List<DatabaseTableRow> getRow(List<TableMetadata> headers) {
         List<DatabaseTableRow> databaseTableRows = new ArrayList<>();
         List<String> selectedColumns = new ArrayList<>();
         headers.stream().forEach(header -> selectedColumns.add(header.getField()));
@@ -58,7 +58,7 @@ public class TableFilteredViewSqlExecutor extends AbstractSqlExecutor {
             int index = 1;
             while (resultSet.next()) {
                 List<DatabaseTableCell> databaseTableCells = new ArrayList<>();
-                for (DatabaseColumnMetadata header : headers) {
+                for (TableMetadata header : headers) {
                     databaseTableCells.add(new DatabaseTableCell(resultSet.getString(header.getField())));
                 }
                 databaseTableRows.add(new DatabaseTableRow(index, databaseTableCells));
@@ -70,14 +70,14 @@ public class TableFilteredViewSqlExecutor extends AbstractSqlExecutor {
         }
     }
 
-    private List<DatabaseColumnMetadata> getColMetaData() {
-        List<DatabaseColumnMetadata> databaseColumnMetadata = new ArrayList<>();
+    private List<TableMetadata> getColMetaData() {
+        List<TableMetadata> tableMetadata = new ArrayList<>();
         ResultSet resultSet = this.executeQuery(SqlDescribeTable.builder().describe(tableName).build());
         try {
             while (resultSet.next()) {
                 String columnField = resultSet.getString("Field");
                 if (columns.stream().filter(column -> column.equals(columnField)).findAny().isPresent()) {
-                    databaseColumnMetadata.add(new DatabaseColumnMetadata(
+                    tableMetadata.add(new TableMetadata(
                             columnField,
                             resultSet.getString("Type"),
                             resultSet.getString("Null"),
@@ -86,7 +86,7 @@ public class TableFilteredViewSqlExecutor extends AbstractSqlExecutor {
                     ));
                 }
             }
-            return databaseColumnMetadata;
+            return tableMetadata;
         } catch (SQLException e) {
             throw new RuntimeException(String.format("Can´t read the column information header form table: %s.", tableName), e);
         }
