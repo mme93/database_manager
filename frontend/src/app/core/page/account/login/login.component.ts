@@ -5,11 +5,9 @@ import {InputTextModule} from "primeng/inputtext";
 import {SelectButtonChangeEvent, SelectButtonModule} from "primeng/selectbutton";
 import {DropdownModule} from "primeng/dropdown";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {Server} from "../../../../shared/model/LoginInformation";
+import {LoginService} from "../../../../shared/http/login/login.service";
 
-interface Server {
-  name: string,
-  code: string
-}
 
 @Component({
   selector: 'app-login',
@@ -28,9 +26,14 @@ export class LoginComponent {
 
   selectedServer: Server={name: 'Cloud XXL', code: 'CX'};
 
+  constructor(private loginService:LoginService) {
+  }
+
   login() {
-  console.log(this.username)
-  console.log(this.password)
-  console.log(this.selectedServer)
+    this.loginService.login({
+      username: this.username,
+      password: this.password,
+      servername: this.selectedServer.name,
+    })
   }
 }
