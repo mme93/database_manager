@@ -1,0 +1,6 @@
+:host ::ng-deep .p-toolbar{
+  position: sticky;
+  position: -webkit-sticky;
+  z-index: 10000;
+  top:0;
+}

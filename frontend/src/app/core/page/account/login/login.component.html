@@ -6,15 +6,14 @@
 
     <div class="card-content">
       <p>Username</p>
-      <input type="text" pInputText class="p-inputtext-lg" placeholder="Username">
+      <input type="text" pInputText class="p-inputtext-lg" placeholder="Username" [(ngModel)]="username">
       <p>Password</p>
-      <input type="password" pInputText class="p-inputtext-lg" placeholder="****">
+      <input type="password" pInputText class="p-inputtext-lg" placeholder="****" [(ngModel)]="password">
+      <p-selectButton class="server-option-selectButton" [options]="servers" [(ngModel)]="selectedServer" optionLabel="name"/>
     </div>
 
     <ng-template pTemplate="footer">
-      <p-button>
-        Login
-      </p-button>
+      <p-button label="Login" icon="pi pi-search" [disabled]="true" [loading]="false" class="p-button-lg" [style]="{'width': '100%'}" (onClick)="login()"></p-button>
     </ng-template>
   </p-card>
 </article>
