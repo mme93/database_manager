@@ -5,15 +5,22 @@
     </ng-template>
 
     <div class="card-content">
-      <p>Username</p>
-      <input type="text" pInputText class="p-inputtext-lg" placeholder="Username" [(ngModel)]="username">
-      <p>Password</p>
-      <input type="password" pInputText class="p-inputtext-lg" placeholder="****" [(ngModel)]="password">
-      <p-selectButton class="server-option-selectButton" [options]="servers" [(ngModel)]="selectedServer" optionLabel="name"/>
+      <form [formGroup]="loginForm" class="card-content">
+        <p>Username</p>
+        <input type="text" pInputText placeholder="Username" formControlName="userName"/>
+        <small class="p-error block" *ngIf="loginForm.get('userName')?.invalid && loginForm.get('userName')?.dirty">
+          User name is required</small>
+        <p>Password</p>
+        <input type="password" pInputText placeholder="********" formControlName="passWord"/>
+        <small class="p-error block" *ngIf="loginForm.get('passWord')?.invalid && loginForm.get('passWord')?.dirty">
+          Password is required</small>
+      </form>
+      <p-selectButton class="server-option-selectButton" [options]="servers" [(ngModel)]="selectedServer"
+                      optionLabel="name"/>
     </div>
-
     <ng-template pTemplate="footer">
-      <p-button label="Login" icon="pi pi-search" [disabled]="true" [loading]="false" class="p-button-lg" [style]="{'width': '100%'}" (onClick)="login()"></p-button>
+      <p-button label="Login" icon="pi pi-search" [disabled]="loginForm.invalid" [loading]="false" class="p-button-lg"
+                [style]="{'width': '100%'}" (onClick)="login()"></p-button>
     </ng-template>
   </p-card>
 </article>

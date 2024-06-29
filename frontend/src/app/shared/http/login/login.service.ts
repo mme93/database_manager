@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Login} from "../../model/LoginInformation";
-import {delay} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor() { }
+  constructor() {
+  }
 
-  async  login(login: Login):Promise<boolean> {
-    await delay(2000);
+  login(login: Login): boolean {
     console.log(login)
     return true;
   }

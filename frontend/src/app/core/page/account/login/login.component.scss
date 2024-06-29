@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full viewport height to center vertically */
   padding: 0 20px; /* Add some padding to the sides */
   box-sizing: border-box; /* Ensure padding is included in total width */
 }
@@ -11,6 +10,7 @@
   width: 100%;
   max-width: 600px; /* Set a max-width for the card */
   margin: 0 auto; /* Center horizontally */
+  padding-top: 5%;
   h1{
     text-align: center;
   }
