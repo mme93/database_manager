@@ -3,11 +3,18 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend": {
+    "dbmanager_fronted": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
         }
       },
       "root": "",
@@ -17,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/frontend",
+            "outputPath": "dist/dbmanager_fronted",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -37,12 +44,7 @@
               "src/styles.scss",
               "node_modules/primeicons/primeicons.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -72,10 +74,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "frontend:build:production"
+              "buildTarget": "dbmanager_fronted:build:production"
             },
             "development": {
-              "buildTarget": "frontend:build:development"
+              "buildTarget": "dbmanager_fronted:build:development"
             }
           },
           "defaultConfiguration": "development"

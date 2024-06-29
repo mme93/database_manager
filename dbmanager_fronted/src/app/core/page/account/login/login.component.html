@@ -16,7 +16,7 @@
           Password is required</small>
       </form>
       <p-selectButton class="server-option-selectButton" [options]="servers" [(ngModel)]="selectedServer"
-                      optionLabel="name"/>
+                      optionLabel="name"></p-selectButton>
     </div>
     <ng-template pTemplate="footer">
       <p-button label="Login" icon="pi pi-search" [disabled]="loginForm.invalid" [loading]="isLogin" class="p-button-lg"

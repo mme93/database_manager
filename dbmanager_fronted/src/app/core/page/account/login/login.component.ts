@@ -1,19 +1,10 @@
-import {Component} from '@angular/core';
-import {CardModule} from "primeng/card";
-import {ButtonModule} from "primeng/button";
-import {InputTextModule} from "primeng/inputtext";
-import {SelectButtonModule} from "primeng/selectbutton";
-import {DropdownModule} from "primeng/dropdown";
-import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Server} from "../../../../shared/model/LoginInformation";
+import { Component } from '@angular/core';
+import {FormBuilder, Validators} from "@angular/forms";
 import {LoginService} from "../../../../shared/http/login/login.service";
-import {CommonModule} from "@angular/common";
-
+import {Server} from "../../../../shared/model/LoginInformation";
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule, InputTextModule, SelectButtonModule, DropdownModule, FormsModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
