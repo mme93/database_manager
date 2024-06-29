@@ -1,1 +1,30 @@
-<router-outlet />
+<p-toolbar>
+  <p-button (click)="gfg = true"
+            label="Click Here!">
+  </p-button>
+</p-toolbar>
+
+
+
+<p-sidebar [(visible)]="gfg"
+           [baseZIndex]="10000" position="right">
+  <h1 style="font-weight: normal">GeeksforGeeks</h1>
+
+  <p>Angular PrimeNG Sidebar Component</p>
+
+  <p-button
+    type="button"
+    (click)="gfg = false"
+    label="OK"
+    styleClass="p-button-info">
+  </p-button>
+  <p-button
+    type="button"
+    (click)="gfg = false"
+    label="Cancel"
+    styleClass="p-button-danger">
+  </p-button>
+</p-sidebar>
+
+<router-outlet>
+</router-outlet>
