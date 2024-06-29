@@ -19,7 +19,7 @@
                       optionLabel="name"/>
     </div>
     <ng-template pTemplate="footer">
-      <p-button label="Login" icon="pi pi-search" [disabled]="loginForm.invalid" [loading]="false" class="p-button-lg"
+      <p-button label="Login" icon="pi pi-search" [disabled]="loginForm.invalid" [loading]="isLogin" class="p-button-lg"
                 [style]="{'width': '100%'}" (onClick)="login()"></p-button>
     </ng-template>
   </p-card>

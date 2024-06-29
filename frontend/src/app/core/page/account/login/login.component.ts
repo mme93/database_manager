@@ -13,12 +13,12 @@ import {CommonModule} from "@angular/common";
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule,CardModule, ButtonModule, InputTextModule, SelectButtonModule, DropdownModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, CardModule, ButtonModule, InputTextModule, SelectButtonModule, DropdownModule, FormsModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-
+  isLogin = false;
   loginForm = this.fb.group({
     userName: ["", Validators.compose([Validators.required, Validators.minLength(2)])],
     passWord: ['', Validators.required],
@@ -36,13 +36,11 @@ export class LoginComponent {
   }
 
   login() {
-    /*
+    this.isLogin = true;
     this.loginService.login({
       username: this.username,
       password: this.password,
       servername: this.selectedServer.name,
     })
-
-     */
   }
 }
