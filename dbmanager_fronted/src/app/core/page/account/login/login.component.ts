@@ -25,6 +25,7 @@ export class LoginComponent {
   selectedServer: Server = {name: 'Cloud XXL', code: 'CX'};
 
   constructor(private loginService: LoginService, private fb: FormBuilder,private appComponent:AppComponent) {
+    this.appComponent.logout();
   }
 
   login() {
