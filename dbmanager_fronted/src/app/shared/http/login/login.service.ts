@@ -11,7 +11,7 @@ export class LoginService {
   }
 
   login(login: Login): boolean {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/dashboard']);
     return true;
   }
 }

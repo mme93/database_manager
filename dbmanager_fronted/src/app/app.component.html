@@ -1,4 +1,4 @@
-<p-menubar [model]="items" *ngIf="isLogin">
+<p-menubar [model]="items" *ngIf="!isMenubarDisabled">
   <ng-template pTemplate="end">
     <input type="text" pInputText placeholder="Search" >
     <button type="button" pButton label="Logout" icon="pi pi-power-off" style="margin-left:.25em" (click)="logout()"></button>

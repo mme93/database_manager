@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {MenuItem} from "primeng/api";
 import {MenubarService} from "./shared/ui/menubar/menubar.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -10,17 +11,23 @@ import {MenubarService} from "./shared/ui/menubar/menubar.service";
 export class AppComponent {
   title = 'dbmanager_fronted';
   items: MenuItem[] = [];
-  isLogin = true;
+  isMenubarDisabled=false;
 
-  constructor(private menubarService:MenubarService) {
+  constructor(private menubarService:MenubarService,private router:Router) {
   }
 
   ngOnInit() {
+    this.loadItems();
+  }
+
+  loadItems(){
     this.items = this.menubarService.getMenubarItems("Cloud XXL");
+    this.isMenubarDisabled = false;
   }
 
   logout() {
-    this.isLogin = false;
+    this.isMenubarDisabled = true;
     this.items=[];
+    this.router.navigate(['/login']);
   }
 }

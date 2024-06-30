@@ -1,6 +1,32 @@
-import { CanActivateFn } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+  UrlTree
+} from '@angular/router';
+import {Injectable} from "@angular/core";
+import {Observable, Subject} from "rxjs";
+import {LoginService} from "../http/login/login.service";
 
-export const authGuard: CanActivateFn = (route, state) => {
-  console.log("Guard activate")
-  return true;
-};
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+
+  private isTokenExpiredSubject: Subject<boolean> = new Subject<boolean>();
+  public isTokenExpired$: Observable<boolean> = this.isTokenExpiredSubject.asObservable();
+
+
+  constructor(private loginService: LoginService, private router: Router) {
+  }
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
+    return true;
+  }
+
+}

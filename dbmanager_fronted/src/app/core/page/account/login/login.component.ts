@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {LoginService} from "../../../../shared/http/login/login.service";
 import {Server} from "../../../../shared/model/LoginInformation";
+import {AppComponent} from "../../../../app.component";
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,8 @@ import {Server} from "../../../../shared/model/LoginInformation";
 export class LoginComponent {
   isLogin = false;
   loginForm = this.fb.group({
-    userName: ["", Validators.compose([Validators.required, Validators.minLength(2)])],
-    passWord: ['', Validators.required],
+    userName: ["mamei", Validators.compose([Validators.required, Validators.minLength(2)])],
+    passWord: ['tes123', Validators.required],
   })
   username = '';
   password = '';
@@ -23,15 +24,17 @@ export class LoginComponent {
 
   selectedServer: Server = {name: 'Cloud XXL', code: 'CX'};
 
-  constructor(private loginService: LoginService, private fb: FormBuilder) {
+  constructor(private loginService: LoginService, private fb: FormBuilder,private appComponent:AppComponent) {
   }
 
   login() {
     this.isLogin = true;
+    this.appComponent.loadItems();
     this.loginService.login({
       username: this.username,
       password: this.password,
       servername: this.selectedServer.name,
     })
+
   }
 }
