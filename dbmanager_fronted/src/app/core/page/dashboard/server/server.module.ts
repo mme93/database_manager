@@ -1,6 +1,5 @@
 import {NgModule} from "@angular/core";
 import {ServerRoutingModule} from "./server-routing.module";
-import {ServerComponent} from "./server.component";
 import { ServerInfoComponent } from './server-info/server-info.component';
 
 @NgModule({
@@ -8,7 +7,7 @@ import { ServerInfoComponent } from './server-info/server-info.component';
     ServerRoutingModule,
   ],
   exports: [],
-  declarations: [ServerComponent, ServerInfoComponent]
+  declarations: [ServerInfoComponent]
 })
 export class ServerModule {
 }
