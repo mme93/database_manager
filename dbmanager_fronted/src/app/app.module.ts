@@ -13,11 +13,13 @@ import {SplitButtonModule} from "primeng/splitbutton";
 import {InputTextModule} from "primeng/inputtext";
 import { SelectButtonModule} from "primeng/selectbutton";
 import {MenubarModule} from "primeng/menubar";
+import { SqlComponent } from './core/page/sql/sql.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SqlComponent
   ],
     imports: [
         BrowserAnimationsModule,

@@ -17,7 +17,13 @@ export class MenubarService {
         items: [
           {
             label: 'Tree-Overview',
-            icon: 'pi pi-fw pi-code'
+            icon: 'pi pi-fw pi-code',
+            routerLink:'/dashboard/server/overview'
+          },
+          {
+            label: 'Information',
+            icon: 'pi pi-fw pi-info-circle',
+            routerLink:'/dashboard/server/info'
           },
           {
             separator: true
