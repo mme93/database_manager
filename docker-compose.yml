@@ -6,7 +6,7 @@ services:
       context: databasemanager
       dockerfile: Dockerfile
     ports:
-      - "9001:8998"
+      - "10001:8998"
 
   dbmanager_fronted:
     build:
