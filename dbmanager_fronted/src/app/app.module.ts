@@ -18,8 +18,7 @@ import {MenubarModule} from "primeng/menubar";
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    DashboardComponent
+    LoginComponent
   ],
     imports: [
         BrowserAnimationsModule,
