@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from "./core/page/account/login/login.component";
 import {AuthGuard} from "./shared/service/guard/auth.guard";
 
-
 const routes: Routes = [
   {
     path: 'dashboard',
