@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Login} from "../../model/LoginInformation";
+import {Login} from "../../../model/LoginInformation";
 import {Router} from "@angular/router";
 
 @Injectable({

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {MenuItem} from "primeng/api";
-import {MenubarService} from "./shared/ui/menubar/menubar.service";
+import {MenubarService} from "./shared/service/ui/menubar/menubar.service";
 import {Router} from "@angular/router";
 
 @Component({

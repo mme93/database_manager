@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {LoginService} from "../../../../shared/http/login/login.service";
+import {LoginService} from "../../../../shared/service/http/login/login.service";
 import {Server} from "../../../../shared/model/LoginInformation";
 import {AppComponent} from "../../../../app.component";
 
