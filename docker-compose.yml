@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  databasemanager:
+    build:
+      context: databasemanager
+      dockerfile: Dockerfile
+    ports:
+      - "9001:8998"
+
+  dbmanager_fronted:
+    build:
+      context: dbmanager_fronted
+      dockerfile: Dockerfile
+    ports:
+      - "81:4200"
