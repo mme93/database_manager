@@ -12,6 +12,10 @@ export class MenubarService {
   getMenubarItems(currentServerName: string):MenuItem[] {
     return [
       {
+        label: 'Database Manager',
+        routerLink:'/'
+      },
+      {
         label: 'Server',
         icon: 'pi pi-fw pi-server',
         items: [
