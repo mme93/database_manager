@@ -4,6 +4,7 @@ import de.mameie.databasemanager.sql.server.connection.DBServerConnectionFactory
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
+import de.mameie.databasemanager.util.check.CheckServerName;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +33,7 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
      */
     public DatabaseSqlExecutor(String serverName) {
         super(serverName);
+        CheckServerName.exist(serverName);
         this.serverName = serverName;
     }
 
