@@ -26,6 +26,7 @@ export class AppComponent {
   }
 
   logout() {
+    localStorage.removeItem('server')
     this.isMenubarDisabled = true;
     this.items=[];
     this.router.navigate(['/login']);

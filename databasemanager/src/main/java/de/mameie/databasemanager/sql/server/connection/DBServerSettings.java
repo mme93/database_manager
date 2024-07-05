@@ -6,7 +6,7 @@ import static java.util.Arrays.asList;
 
 public class DBServerSettings {
 
-    public static String CLOUD_SERVER = "CLOUD_SERVER";
-    public static String CLOUD_XXL = "CLOUD_XXL";
+    public static String CLOUD_SERVER = "CLOUD-SERVER";
+    public static String CLOUD_XXL = "CLOUD-XXL";
     public static List<String>SERVER_NAMES=asList(CLOUD_SERVER,CLOUD_XXL);
 }

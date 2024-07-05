@@ -10,6 +10,8 @@ import {SplitterModule} from "primeng/splitter";
 import {TreeModule} from "primeng/tree";
 import {DividerModule} from "primeng/divider";
 import {ButtonModule} from "primeng/button";
+import { ShowTableComponent } from './table/show-table/show-table.component';
+import { CreateTableComponent } from './table/create-table/create-table.component';
 
 @NgModule({
   imports: [
@@ -22,7 +24,7 @@ import {ButtonModule} from "primeng/button";
     ButtonModule
   ],
   exports: [],
-  declarations: [DashboardComponent, ServerOverviewComponent, DatabaseComponent, TableComponent]
+  declarations: [DashboardComponent, ServerOverviewComponent, DatabaseComponent, TableComponent, ShowTableComponent, CreateTableComponent]
 })
 export class DashboardModule {
 }

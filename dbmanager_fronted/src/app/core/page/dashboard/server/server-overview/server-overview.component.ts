@@ -14,7 +14,7 @@ export class ServerOverviewComponent implements OnInit {
   isTable = false;
   isSelected = false;
   tableName = '';
-  serverName = 'Cloud XXL'
+  serverName = localStorage.getItem('server');
   disabledTreeSelect = false;
   databaseTreeNodes: TreeNode[] = [];
   selectedDatabaseTreeNode: TreeNode = {label: '', children: []};
@@ -24,7 +24,7 @@ export class ServerOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.serverService
-      .getServerOverviewByName('CLOUD_XXL')
+      .getServerOverviewByName(localStorage.getItem('server'))
       .subscribe(result => this.databaseTreeNodes = this.nodeConverterService.convertAllToTreeNodes(result));
   }
 

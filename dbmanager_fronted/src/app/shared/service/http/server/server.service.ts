@@ -11,7 +11,7 @@ export class ServerService {
 
   constructor(private http: HttpClient) { }
 
-  getServerOverviewByName(serverName:string):Observable<DatabaseOverview[]>{
+  getServerOverviewByName(serverName: string | null):Observable<DatabaseOverview[]>{
     const url=environment.uri+'server/'+serverName+'/overview';
     const httpOptions = {
       headers: new HttpHeaders({

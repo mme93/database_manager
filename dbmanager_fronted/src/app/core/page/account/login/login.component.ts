@@ -18,11 +18,11 @@ export class LoginComponent {
   username = '';
   password = '';
   servers: Server[] = [
-    {name: 'Cloud XXL', code: 'CX'},
-    {name: 'Cloud Server', code: 'CS'}
+    {name: 'Cloud XXL', code: 'CLOUD-XXL'},
+    {name: 'Cloud Server', code: 'CLOUD-SERVER'}
   ];
 
-  selectedServer: Server = {name: 'Cloud XXL', code: 'CX'};
+  selectedServer: Server = {name: 'Cloud XXL', code: 'CLOUD-XXL'};
 
   constructor(private loginService: LoginService, private fb: FormBuilder,private appComponent:AppComponent) {
     this.appComponent.logout();
@@ -30,6 +30,7 @@ export class LoginComponent {
 
   login() {
     this.isLogin = true;
+    localStorage.setItem('server',this.selectedServer.code);
     this.appComponent.loadItems();
     this.loginService.login({
       username: this.username,
