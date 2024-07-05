@@ -36,7 +36,7 @@ public class DBServerConnectionFactory {
         }
         instance = opt.get();
 
-        if (instance.getConnection().isClosed()) {
+        if (instance.getConnection().isClosed() || !instance.getConnection().isValid(2)) {
             System.out.println("Connection found, but was closed, create new connection.");
             instances.remove(instance);
             return createNewDatabaseConnectionSingleton(serverName);
@@ -72,8 +72,9 @@ public class DBServerConnectionFactory {
         }
         throw new RuntimeException(String.format("Can`t find server name: %s.", serverName));
     }
+
     public void closeConnection() throws SQLException {
-        if(!this.con.isClosed()){
+        if (!this.con.isClosed()) {
             this.con.close();
         }
     }

@@ -18,7 +18,8 @@ public class SqlDatabaseService {
         return executor.createDatabase(databaseName);
     }
 
-    public List<String> getDatabaseNames(String serverName) {
+    public List<String>
+    getDatabaseNames(String serverName) {
         DatabaseSqlExecutor executor = new DatabaseSqlExecutor(serverName);
         return  executor.show();
     }

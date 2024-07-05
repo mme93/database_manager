@@ -44,7 +44,7 @@ public class DBConnectionFactory {
         }
         instance = opt.get();
 
-        if (instance.getConnection().isClosed()) {
+        if (instance.getConnection().isClosed()|| !instance.getConnection().isValid(2)) {
             System.out.println("Connection found, but was closed, create new connection.");
             instances.remove(instance);
             return createNewDatabaseConnectionSingleton(serverName, databaseName);
