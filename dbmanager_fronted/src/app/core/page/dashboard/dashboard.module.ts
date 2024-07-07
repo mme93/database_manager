@@ -12,6 +12,7 @@ import {DividerModule} from "primeng/divider";
 import {ButtonModule} from "primeng/button";
 import { ShowTableComponent } from './table/show-table/show-table.component';
 import { CreateTableComponent } from './table/create-table/create-table.component';
+import {InputTextModule} from "primeng/inputtext";
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { CreateTableComponent } from './table/create-table/create-table.componen
     SplitterModule,
     TreeModule,
     DividerModule,
-    ButtonModule
+    ButtonModule,
+    InputTextModule
   ],
   exports: [],
   declarations: [DashboardComponent, ServerOverviewComponent, DatabaseComponent, TableComponent, ShowTableComponent, CreateTableComponent]
