@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrl: './database.component.scss'
 })
 export class DatabaseComponent {
-
 }

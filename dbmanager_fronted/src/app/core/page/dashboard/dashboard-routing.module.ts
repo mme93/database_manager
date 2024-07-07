@@ -18,6 +18,11 @@ const routes: Routes = [
     loadChildren: () => import('./server/server.module').then(m => m.ServerModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'database',
+    loadChildren: () => import('./database/database.module').then(m => m.DatabaseModule),
+    canActivate: [AuthGuard]
+  }
 ]
 
 @NgModule({
