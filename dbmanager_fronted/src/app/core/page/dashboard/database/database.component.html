@@ -17,7 +17,7 @@
     <p-table [value]="filteredDatabaseNames" styleClass="p-datatable-sm" [tableStyle]="{'min-width': '50rem'}">
       <ng-template pTemplate="header">
         <tr>
-          <th style="width: 50%">Nr.</th>
+          <th style="width: 30%">Nr.</th>
           <th>Name</th>
           <th></th>
         </tr>
@@ -25,10 +25,10 @@
       <ng-template pTemplate="body" let-databaseName>
         <tr>
           <td>{{databaseName.nr}}</td>
-          <td style="font-size: larger;width: 100%">{{databaseName.name}}</td>
+          <td style="font-size: larger;">{{databaseName.name}}</td>
           <td style="text-align: right;">
-            <p-splitButton label="Open" icon="pi pi-plus" (onClick)="open('info')"
-                           [model]="items" styleClass="mr-2"></p-splitButton>
+            <p-button label="Open" icon="pi pi-folder-open"></p-button>
+            <p-button label="Delete" icon="pi pi-trash"></p-button>
           </td>
         </tr>
       </ng-template>
