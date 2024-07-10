@@ -1,9 +1,8 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component,  OnInit} from '@angular/core';
 import {DatabaseService} from "../../../../shared/service/http/database/database.service";
 import {DatabaseNameTable} from "../../../../shared/model/server/database/Database";
 import {MenuItem} from "primeng/api";
 import {PaginatorState} from "primeng/paginator";
-
 
 
 @Component({
@@ -15,19 +14,15 @@ export class DatabaseComponent implements OnInit {
   databaseNameExist = false;
   filteredDatabaseNames: DatabaseNameTable[] = [];
   databaseNames: DatabaseNameTable[] = [];
-  items: MenuItem[]= [
-    {label: 'Update', icon: 'pi pi-refresh', command: () => {
-        this.update();
-      }},
-    {label: 'Delete', icon: 'pi pi-times', command: () => {
+  items: MenuItem[] = [
+    {
+      label: 'Delete', icon: 'pi pi-times', command: () => {
         this.delete();
-      }},
-    {label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io'},
-    {separator:true},
-    {label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup']}
+      }
+    }
   ];
-  page: number  = 0;
-  rows: number  = 5;
+  page: number = 0;
+  rows: number = 5;
 
   constructor(private databaseService: DatabaseService) {
   }
@@ -46,10 +41,6 @@ export class DatabaseComponent implements OnInit {
       }
       this.updatePage();
     })
-
-  }
-
-  private update() {
 
   }
 
