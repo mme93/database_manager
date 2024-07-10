@@ -3,6 +3,7 @@ import {DatabaseService} from "../../../../shared/service/http/database/database
 import {DatabaseNameTable} from "../../../../shared/model/server/database/Database";
 import {MenuItem} from "primeng/api";
 import {PaginatorState} from "primeng/paginator";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -24,7 +25,7 @@ export class DatabaseComponent implements OnInit {
   page: number = 0;
   rows: number = 5;
 
-  constructor(private databaseService: DatabaseService) {
+  constructor(private databaseService: DatabaseService,private router:Router) {
   }
 
   ngOnInit(): void {
@@ -48,8 +49,9 @@ export class DatabaseComponent implements OnInit {
 
   }
 
-  open(info: string) {
-
+  open(databaseName: string) {
+    localStorage.setItem('database-settings-name',databaseName);
+    this.router.navigate(['/dashboard/database/settings'])
   }
 
 

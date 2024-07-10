@@ -1,6 +1,7 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {DatabaseRoutingModule} from "./database-routing.module";
+import { DatabaseSettingsComponent } from './database-settings/database-settings.component';
 
 @NgModule({
   imports: [
@@ -8,7 +9,9 @@ import {DatabaseRoutingModule} from "./database-routing.module";
     CommonModule
   ],
   exports: [],
-  declarations: []
+  declarations: [
+    DatabaseSettingsComponent
+  ]
 })
 export class DatabaseModule {
 }

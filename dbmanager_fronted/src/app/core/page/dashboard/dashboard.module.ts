@@ -15,10 +15,7 @@ import { CreateTableComponent } from './table/create-table/create-table.componen
 import {InputTextModule} from "primeng/inputtext";
 import {TableModule} from "primeng/table";
 import {SplitButtonModule} from "primeng/splitbutton";
-import {MultiSelectModule} from "primeng/multiselect";
-import {CalendarModule} from "primeng/calendar";
 import {DropdownModule} from "primeng/dropdown";
-import {ProgressBarModule} from "primeng/progressbar";
 import {PaginatorModule} from "primeng/paginator";
 
 @NgModule({
