@@ -13,6 +13,13 @@ import {ButtonModule} from "primeng/button";
 import { ShowTableComponent } from './table/show-table/show-table.component';
 import { CreateTableComponent } from './table/create-table/create-table.component';
 import {InputTextModule} from "primeng/inputtext";
+import {TableModule} from "primeng/table";
+import {SplitButtonModule} from "primeng/splitbutton";
+import {MultiSelectModule} from "primeng/multiselect";
+import {CalendarModule} from "primeng/calendar";
+import {DropdownModule} from "primeng/dropdown";
+import {ProgressBarModule} from "primeng/progressbar";
+import {PaginatorModule} from "primeng/paginator";
 
 @NgModule({
   imports: [
@@ -23,7 +30,12 @@ import {InputTextModule} from "primeng/inputtext";
     TreeModule,
     DividerModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    DividerModule,
+    TableModule,
+    SplitButtonModule,
+    DropdownModule,
+    PaginatorModule
   ],
   exports: [],
   declarations: [DashboardComponent, ServerOverviewComponent, DatabaseComponent, TableComponent, ShowTableComponent, CreateTableComponent]

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/database/{serverName}")
 public class SqlDatabaseController {
@@ -39,7 +41,7 @@ public class SqlDatabaseController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity getDatabaseNames(@PathVariable String serverName) {
+    public ResponseEntity<List<String>> getDatabaseNames(@PathVariable String serverName) {
         CheckParam.isNotNull(serverName, "serverName");
         return new ResponseEntity(sqlDatabaseService.getDatabaseNames(serverName), HttpStatus.OK);
     }
