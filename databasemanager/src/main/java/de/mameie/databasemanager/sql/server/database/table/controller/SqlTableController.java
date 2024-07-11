@@ -26,10 +26,10 @@ public class SqlTableController {
     }
 
     @GetMapping("/name/all")
-    public ResponseEntity<List<String>> getAllTableNames(@PathVariable String serverName, @PathVariable String database, @RequestBody SqlLoginDatabase sqlLoginDatabase) throws SQLException {
+    public ResponseEntity<List<String>> getAllTableNames(@PathVariable String serverName, @PathVariable String database) throws SQLException {
         CheckParam.isNotNull(serverName, "serverName");
         CheckParam.isNotNull(database, "database");
-        List<String> tableNames = sqlTableService.getAllTableNames(sqlLoginDatabase);
+        List<String> tableNames = sqlTableService.getAllTableNames(new SqlLoginDatabase(serverName, database));
         if (tableNames.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
