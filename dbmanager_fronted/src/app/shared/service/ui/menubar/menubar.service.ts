@@ -33,6 +33,13 @@ export class MenubarService {
             separator: true
           },
           {
+            label: 'System Users',
+            icon: 'pi pi-fw pi-user',
+          },
+          {
+            separator: true
+          },
+          {
             label: 'Switch server',
             icon: 'pi pi-fw pi-chevron-circle-right',
             items: [
