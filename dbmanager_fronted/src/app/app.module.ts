@@ -15,12 +15,14 @@ import {SelectButtonModule} from "primeng/selectbutton";
 import {MenubarModule} from "primeng/menubar";
 import {SqlComponent} from './core/page/sql/sql.component';
 import {HttpClientModule} from "@angular/common/http";
+import { SystemUserComponent } from './core/page/system-user/system-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SqlComponent
+    SqlComponent,
+    SystemUserComponent
   ],
   imports: [
     BrowserAnimationsModule,
