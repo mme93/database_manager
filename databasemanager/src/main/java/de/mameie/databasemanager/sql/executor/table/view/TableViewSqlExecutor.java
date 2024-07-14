@@ -1,7 +1,7 @@
 package de.mameie.databasemanager.sql.executor.table.view;
 
 import de.mameie.databasemanager.sql.executor.table.TableSqlExecutor;
-import de.mameie.databasemanager.sql.query.database.table.clause.select.SqlSelectTable;
+import de.mameie.databasemanager.sql.query.clause.select.SqlSelect;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableCell;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableRow;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableView;
@@ -62,7 +62,7 @@ public class TableViewSqlExecutor extends TableSqlExecutor {
      */
     private List<DatabaseTableRow> getRow(List<TableMetadata> headers) {
         List<DatabaseTableRow> databaseTableRows = new ArrayList<>();
-        ResultSet resultSet = this.executeQuery(SqlSelectTable.builder().select(SqlSelectTable.WILDCARD).from(tableName));
+        ResultSet resultSet = this.executeQuery(SqlSelect.builder().select(SqlSelect.WILDCARD).from(tableName));
         try {
             int index = 1;
             while (resultSet.next()) {

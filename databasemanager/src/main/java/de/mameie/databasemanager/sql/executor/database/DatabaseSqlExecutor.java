@@ -3,7 +3,7 @@ package de.mameie.databasemanager.sql.executor.database;
 import de.mameie.databasemanager.sql.server.connection.DBServerConnectionFactory;
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
-import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
+import de.mameie.databasemanager.sql.query.SqlDatabaseClause;
 import de.mameie.databasemanager.util.check.CheckServerName;
 import lombok.Getter;
 import lombok.Setter;

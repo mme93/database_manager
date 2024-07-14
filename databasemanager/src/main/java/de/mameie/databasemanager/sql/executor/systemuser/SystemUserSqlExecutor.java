@@ -1,14 +1,25 @@
 package de.mameie.databasemanager.sql.executor.systemuser;
 
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
-import de.mameie.databasemanager.sql.executor.model.SystemUser;
-import de.mameie.databasemanager.sql.executor.table.view.TableViewSqlExecutor;
+import de.mameie.databasemanager.sql.query.ISqlQuery;
+import de.mameie.databasemanager.sql.query.alias.SqlParamWithAlias;
+import de.mameie.databasemanager.sql.query.clause.select.SqlSelect;
+import de.mameie.databasemanager.sql.query.clause.show.SqlShow;
+import de.mameie.databasemanager.sql.query.grant.SqlGrantTable;
+import de.mameie.databasemanager.sql.server.systemuser.model.SystemUser;
 import de.mameie.databasemanager.util.check.CheckParam;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SystemUserSqlExecutor extends AbstractSqlExecutor {
+
+    public SystemUserSqlExecutor(String serverName) {
+        super(serverName);
+        CheckParam.isNotNull(serverName,"serverName");
+    }
 
     public SystemUserSqlExecutor(String serverName, String databaseName) {
         super(serverName, databaseName);
@@ -16,10 +27,30 @@ public class SystemUserSqlExecutor extends AbstractSqlExecutor {
         CheckParam.isNotNull(databaseName,"databaseName");
     }
 
-    public List<SystemUser> getAllSystemUser(){
+    public List<SystemUser> getAllSystemUser() throws SQLException {
         List<SystemUser>systemUsers= new ArrayList<>();
-
+        if(hasStatus(SERVER)){
+            SqlParamWithAlias user= new SqlParamWithAlias("User","USER");
+            SqlParamWithAlias host= new SqlParamWithAlias("Host","HOST");
+            ResultSet resultSet = executeQuery(SqlSelect.builder().selectWithAlias(user, host).from("mysql.user").build());
+            while(resultSet.next()){
+                String userName=resultSet.getString(user.getAlias());
+                String hostName=resultSet.getString(host.getAlias());
+                String grant=getGrantFromUser(userName);
+                systemUsers.add(new SystemUser(userName,hostName,grant));
+            }
+        }
         return systemUsers;
+    }
+
+    public String getGrantFromUser(String user) throws SQLException {
+        ISqlQuery grantQuery = SqlGrantTable.builder().withUser(user).build();
+        ResultSet resultSet = executeQuery(grantQuery);
+        String grant = null;
+        while(resultSet.next()){
+            grant=resultSet.getString(1);
+        }
+        return grant;
     }
 
     public List<SystemUser> getAllGrantedSystemUserFromDatabase(){
@@ -54,43 +85,4 @@ public class SystemUserSqlExecutor extends AbstractSqlExecutor {
         return true;
     }
 
-    public static SystemUserSqlExecutorBuilder builder() {
-        return new SystemUserSqlExecutorBuilder();
-    }
-
-    public static class SystemUserSqlExecutorBuilder{
-        private String serverName;
-        private String databaseName;
-
-        /**
-         * Sets the server name for the builder.
-         *
-         * @param serverName the name of the server
-         * @return the builder instance
-         */
-        public SystemUserSqlExecutorBuilder withServerName(String serverName) {
-            this.serverName = serverName;
-            return this;
-        }
-
-        /**
-         * Sets the database name for the builder.
-         *
-         * @param databaseName the name of the database
-         * @return the builder instance
-         */
-        public SystemUserSqlExecutorBuilder withDatabaseName(String databaseName) {
-            this.databaseName = databaseName;
-            return this;
-        }
-
-        /**
-         * Builds and returns a {@code TableViewSqlExecutor} instance.
-         *
-         * @return a new {@code TableViewSqlExecutor} instance
-         */
-        public SystemUserSqlExecutor build() {
-            return new SystemUserSqlExecutor(serverName, databaseName);
-        }
-    }
 }

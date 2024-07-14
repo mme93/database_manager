@@ -28,13 +28,13 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
 
     private String STATUS;
 
-    private final String SERVER = "SERVER";
+    public final String SERVER = "SERVER";
 
-    private final String TEST = "TEST";
+    public final String TEST = "TEST";
 
-    private final String TABLE = "TABLE";
+    public final String TABLE = "TABLE";
 
-    private final String DATABASE = "DATABASE";
+    public final String DATABASE = "DATABASE";
 
     /**
      * Constructor for initializing the executor with the server name.
@@ -300,7 +300,6 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
         return con;
     }
 
-
     /**
      * Change the current status (need for test with H2-DB).
      *
@@ -310,4 +309,14 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
         this.STATUS = STATUS;
     }
 
+
+    /**
+     *  Check the current status.
+     *
+     * @param STATUS comparison STATUS.
+     * @return true if STATUS match the current STATUS.
+     */
+    public boolean hasStatus(String STATUS){
+        return this.STATUS == STATUS;
+    }
 }

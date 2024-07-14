@@ -1,11 +1,11 @@
 package de.mameie.databasemanager.sql.executor.table;
 
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
-import de.mameie.databasemanager.sql.query.database.SqlDatabaseClause;
-import de.mameie.databasemanager.sql.query.database.table.clause.create.SqlCreateTable;
-import de.mameie.databasemanager.sql.query.database.table.clause.describe.SqlDescribeTable;
-import de.mameie.databasemanager.sql.query.database.table.clause.show.SqlShowTable;
-import de.mameie.databasemanager.sql.query.database.table.field.ISqlFieldDefinition;
+import de.mameie.databasemanager.sql.query.SqlDatabaseClause;
+import de.mameie.databasemanager.sql.query.clause.create.SqlCreate;
+import de.mameie.databasemanager.sql.query.clause.describe.SqlDescribe;
+import de.mameie.databasemanager.sql.query.clause.show.SqlShow;
+import de.mameie.databasemanager.sql.query.field.ISqlFieldDefinition;
 import de.mameie.databasemanager.sql.server.database.table.model.view.TableMetadata;
 
 import java.sql.*;
@@ -122,7 +122,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
     @Override
     public boolean createTable(List<ISqlFieldDefinition> fieldDefinitionList) {
         return super.execute(
-                SqlCreateTable
+                SqlCreate
                         .create()
                         .tableName(tableName)
                         .addColumns(fieldDefinitionList)
@@ -138,7 +138,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
     @Override
     public List<TableMetadata> getMetaData() {
         List<TableMetadata> tableMetadata = new ArrayList<>();
-        ResultSet resultSet = this.executeQuery(SqlDescribeTable.builder().describe(tableName).build());
+        ResultSet resultSet = this.executeQuery(SqlDescribe.builder().describe(tableName).build());
         try {
             while (resultSet.next()) {
                 tableMetadata.add(new TableMetadata(
@@ -164,7 +164,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
     @Override
     public List<String> getTableNames() throws SQLException {
         List<String> tableNames = new ArrayList<>();
-        ResultSet resultSet = super.executeQuery(SqlShowTable.show());
+        ResultSet resultSet = super.executeQuery(SqlShow.showTables());
         while (resultSet.next()) {
             tableNames.add(resultSet.getString(1));
         }

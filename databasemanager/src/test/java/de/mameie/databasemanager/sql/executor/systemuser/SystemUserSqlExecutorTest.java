@@ -19,11 +19,7 @@ public class SystemUserSqlExecutorTest {
 
     @BeforeAll
     static void setUp() throws SQLException {
-        systemUserSqlExecutor = SystemUserSqlExecutor
-                .builder()
-                .withServerName(serverName)
-                .withDatabaseName(databaseName)
-                .build();
+        systemUserSqlExecutor = null;
 
         systemUserSqlExecutor.changeStatus(TEST);
         con = H2ConnectionFactory.getInstance().getConnection();
