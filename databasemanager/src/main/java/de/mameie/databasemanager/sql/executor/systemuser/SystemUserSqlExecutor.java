@@ -36,15 +36,15 @@ public class SystemUserSqlExecutor extends AbstractSqlExecutor {
             while(resultSet.next()){
                 String userName=resultSet.getString(user.getAlias());
                 String hostName=resultSet.getString(host.getAlias());
-                String grant=getGrantFromUser(userName);
+                String grant=getGrantFromUser(userName,hostName);
                 systemUsers.add(new SystemUser(userName,hostName,grant));
             }
         }
         return systemUsers;
     }
 
-    public String getGrantFromUser(String user) throws SQLException {
-        ISqlQuery grantQuery = SqlGrantTable.builder().withUser(user).build();
+    public String getGrantFromUser(String user,String host) throws SQLException {
+        ISqlQuery grantQuery = SqlGrantTable.builder().withUser(user).withHost(host).build();
         ResultSet resultSet = executeQuery(grantQuery);
         String grant = null;
         while(resultSet.next()){

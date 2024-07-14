@@ -6,12 +6,14 @@ public class SqlGrantTable implements ISqlQuery {
 
     private String user;
 
+    private String host;
+
     private SqlGrantTable() {
     }
 
     @Override
     public String toSql() {
-        return String.format("SHOW GRANTS FOR '%s'@'%%';", user);
+        return String.format("SHOW GRANTS FOR '%s'@'%s';", user, host);
     }
 
     @Override
@@ -25,6 +27,11 @@ public class SqlGrantTable implements ISqlQuery {
 
     public SqlGrantTable withUser(String user) {
         this.user = user;
+        return this;
+    }
+
+    public SqlGrantTable withHost(String host) {
+        this.host = host;
         return this;
     }
 
