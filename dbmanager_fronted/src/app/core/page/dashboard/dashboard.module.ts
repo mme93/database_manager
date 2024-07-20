@@ -34,7 +34,7 @@ import {PaginatorModule} from "primeng/paginator";
     PaginatorModule
   ],
   exports: [],
-  declarations: [DashboardComponent, ServerOverviewComponent, DatabaseComponent, TableComponent,  CreateTableComponent]
+  declarations: [DashboardComponent, ServerOverviewComponent, DatabaseComponent, TableComponent]
 })
 export class DashboardModule {
 }
