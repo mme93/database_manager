@@ -10,7 +10,6 @@ import {SplitterModule} from "primeng/splitter";
 import {TreeModule} from "primeng/tree";
 import {DividerModule} from "primeng/divider";
 import {ButtonModule} from "primeng/button";
-import { ShowTableComponent } from './table/show-table/show-table.component';
 import { CreateTableComponent } from './table/create-table/create-table.component';
 import {InputTextModule} from "primeng/inputtext";
 import {TableModule} from "primeng/table";
@@ -35,7 +34,7 @@ import {PaginatorModule} from "primeng/paginator";
     PaginatorModule
   ],
   exports: [],
-  declarations: [DashboardComponent, ServerOverviewComponent, DatabaseComponent, TableComponent, ShowTableComponent, CreateTableComponent]
+  declarations: [DashboardComponent, ServerOverviewComponent, DatabaseComponent, TableComponent,  CreateTableComponent]
 })
 export class DashboardModule {
 }

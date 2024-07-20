@@ -24,6 +24,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'table',
+    loadChildren: () => import('./table/table.module').then(m => m.TableModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'database',
     loadChildren: () => import('./database/database.module').then(m => m.DatabaseModule),
     canActivate: [AuthGuard]

@@ -50,7 +50,7 @@ export class DatabaseComponent implements OnInit {
   }
 
   open(databaseName: string) {
-    localStorage.setItem('database-settings-name',databaseName);
+    localStorage.setItem('databaseName',databaseName);
     this.router.navigate(['/dashboard/database/settings'])
   }
 

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TableService} from "../../../../../shared/service/http/table/table.service";
 import {TableNames} from "../../../../../shared/model/server/database/table/Table";
 import {PaginatorState} from "primeng/paginator";
@@ -12,17 +12,18 @@ import {PaginatorState} from "primeng/paginator";
 export class DatabaseSettingsComponent implements OnInit {
   database: string | null = '';
   server: string | null = '';
-  copyTableNames:TableNames[]=[]
-  tableNames:TableNames[]=[]
+  copyTableNames: TableNames[] = []
+  tableNames: TableNames[] = []
   page: number = 0;
   rows: number = 5;
 
-  constructor(private tableService:TableService) {}
+  constructor(private tableService: TableService, private router: Router) {
+  }
 
   ngOnInit(): void {
-    this.database=localStorage.getItem('database-settings-name');
-    this.server=localStorage.getItem('server');
-    this.tableService.getAllTableNames(this.server,this.database).subscribe(result => {
+    this.database = localStorage.getItem('databaseName');
+    this.server = localStorage.getItem('server');
+    this.tableService.getAllTableNames(this.server, this.database).subscribe(result => {
       for (let i = 0; i < result.length; i++) {
         this.tableNames.push({
           nr: i + 1,
@@ -50,7 +51,8 @@ export class DatabaseSettingsComponent implements OnInit {
     console.log(this.page)
   }
 
-  open(name:string) {
-
+  openTable(tableName: string) {
+    localStorage.setItem('openTable', tableName);
+    this.router.navigate(['/dashboard/table/show']);
   }
 }

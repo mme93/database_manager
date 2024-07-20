@@ -16,7 +16,7 @@
     <!--Database-->
     <p-card *ngIf="!isTable && isSelected">
       <ng-template pTemplate="title">
-        <h1>Database {{databaseName}} Overview</h1>
+        <h1>Database <b>{{databaseName}}</b> Overview</h1>
       </ng-template>
 
       <div class="card-content">
@@ -34,7 +34,7 @@
     <!--Table-->
     <p-card *ngIf="isTable && isSelected">
       <ng-template pTemplate="title">
-        <h1>Database {{tableName}} Overview</h1>
+        <h1>Table <b>{{tableName}}</b> Overview</h1>
       </ng-template>
 
       <div class="card-content">
@@ -44,7 +44,7 @@
       </div>
 
       <ng-template pTemplate="footer">
-        <p-button label='Open Table' icon='pi pi-arrow-circle-right'></p-button>
+        <p-button label='Open Table' icon='pi pi-arrow-circle-right' (click)="openTable(tableName)"></p-button>
         <p-button label='Delete Table' icon='pi pi-trash'></p-button>
         <p-button label='Copy Table' icon='pi pi-copy'></p-button>
       </ng-template>

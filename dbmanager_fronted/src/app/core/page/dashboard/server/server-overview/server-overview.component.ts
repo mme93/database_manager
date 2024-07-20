@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ServerService} from "../../../../../shared/service/http/server/server.service";
 import {TreeNode} from "primeng/api";
 import {NodeConverterService} from "../../../../../shared/service/util/node-converter.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-server-overview',
@@ -19,7 +20,8 @@ export class ServerOverviewComponent implements OnInit {
   databaseTreeNodes: TreeNode[] = [];
   selectedDatabaseTreeNode: TreeNode = {label: '', children: []};
 
-  constructor(private serverService: ServerService, private nodeConverterService: NodeConverterService) {
+  constructor(private serverService: ServerService, private nodeConverterService: NodeConverterService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -43,5 +45,10 @@ export class ServerOverviewComponent implements OnInit {
 
   nodeUnselect(event: any) {
     console.log(event.node.label)
+  }
+
+  openTable(tableName: string) {
+    localStorage.setItem('openTable', tableName);
+    this.router.navigate(['/dashboard/table/show']);
   }
 }
