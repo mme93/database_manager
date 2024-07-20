@@ -35,6 +35,7 @@ export class MenubarService {
           {
             label: 'System Users',
             icon: 'pi pi-fw pi-user',
+            routerLink: ['/system/user', 'test']
           },
           {
             separator: true

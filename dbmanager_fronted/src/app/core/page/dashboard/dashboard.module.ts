@@ -10,7 +10,6 @@ import {SplitterModule} from "primeng/splitter";
 import {TreeModule} from "primeng/tree";
 import {DividerModule} from "primeng/divider";
 import {ButtonModule} from "primeng/button";
-import { CreateTableComponent } from './table/create-table/create-table.component';
 import {InputTextModule} from "primeng/inputtext";
 import {TableModule} from "primeng/table";
 import {SplitButtonModule} from "primeng/splitbutton";
