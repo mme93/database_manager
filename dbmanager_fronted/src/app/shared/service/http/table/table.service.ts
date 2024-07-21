@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../../../enviroments/environment";
+import {DatabaseTableView} from "../../../model/table/TableView";
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,6 @@ export class TableService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.get<string[]>(url, httpOptions);
+    return this.http.get<DatabaseTableView>(url, httpOptions);
   }
 }

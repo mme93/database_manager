@@ -1,1 +1,20 @@
-<p>show-table works!</p>
+<article>
+  <p-card>
+    <ng-template pTemplate="title">
+      <h1>Table <b>{{ tableName }}</b> from Database <b>{{ databaseName }}</b></h1>
+    </ng-template>
+
+    <p-table [value]="databaseTableView.databaseTableRows || []" styleClass="p-datatable-sm" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of databaseTableView.metaData">{{ col.field }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-row>
+        <tr *ngFor="let row of databaseTableView.databaseTableRows">
+          <td *ngFor="let cell of row.databaseTableCells">{{ cell.value }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</article>
