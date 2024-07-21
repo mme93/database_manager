@@ -11,10 +11,12 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-row>
-        <tr *ngFor="let row of databaseTableView.databaseTableRows">
+        <tr>
           <td *ngFor="let cell of row.databaseTableCells">{{ cell.value }}</td>
         </tr>
       </ng-template>
     </p-table>
+    <p-paginator [rows]="rows" [rowsPerPageOptions]="[2,5, 10, 20, 30]" (onPageChange)="change($event)"
+                 [totalRecords]="databaseTableView?.rowSize"></p-paginator>
   </p-card>
 </article>
