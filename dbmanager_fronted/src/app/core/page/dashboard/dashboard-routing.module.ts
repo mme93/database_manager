@@ -2,7 +2,6 @@ import {RouterModule, Routes} from "@angular/router";
 import {DashboardComponent} from "./dashboard.component";
 import {NgModule} from "@angular/core";
 import {AuthGuard} from "../../../shared/service/guard/auth.guard";
-import {DatabaseSettingsComponent} from "./database/database-settings/database-settings.component";
 
 const routes: Routes = [
   {
@@ -13,10 +12,6 @@ const routes: Routes = [
   {
     path: 'overview',
     component: DashboardComponent
-  },
-  {
-    path: 'database/settings',
-    component: DatabaseSettingsComponent
   },
   {
     path: 'server',

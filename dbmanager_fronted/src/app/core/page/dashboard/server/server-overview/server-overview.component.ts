@@ -47,8 +47,7 @@ export class ServerOverviewComponent implements OnInit {
     console.log(event.node.label)
   }
 
-  openTable(tableName: string) {
-    localStorage.setItem('openTable', tableName);
-    this.router.navigate(['/dashboard/table/show']);
+  openTable(databaseName:string,tableName: string) {
+    this.router.navigate(['/dashboard/table/show',tableName,databaseName]);
   }
 }

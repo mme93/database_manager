@@ -17,12 +17,15 @@ export class DatabaseSettingsComponent implements OnInit {
   page: number = 0;
   rows: number = 5;
 
-  constructor(private tableService: TableService, private router: Router) {
+  constructor(private tableService: TableService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.database = localStorage.getItem('databaseName');
-    this.server = localStorage.getItem('server');
+    this.route.params.subscribe(params => {
+      this.database = params['databaseName'];
+      this.server = localStorage.getItem('server');
+    });
+
     this.tableService.getAllTableNames(this.server, this.database).subscribe(result => {
       for (let i = 0; i < result.length; i++) {
         this.tableNames.push({
@@ -48,11 +51,9 @@ export class DatabaseSettingsComponent implements OnInit {
     const start = this.page! * this.rows!;
     const end = start + this.rows!;
     this.tableNames = this.copyTableNames.slice(start, end);
-    console.log(this.page)
   }
 
   openTable(tableName: string) {
-    localStorage.setItem('openTable', tableName);
-    this.router.navigate(['/dashboard/table/show']);
+    this.router.navigate(['/dashboard/table/show', tableName, this.database]);
   }
 }

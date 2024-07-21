@@ -9,7 +9,7 @@ const routes: Routes = [
     component: TableComponent
   },
   {
-    path: 'show',
+    path: 'show/:tableName/:databaseName',
     component: ShowTableComponent
   }
 ]
