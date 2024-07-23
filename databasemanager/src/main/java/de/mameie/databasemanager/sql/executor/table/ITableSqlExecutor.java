@@ -1,6 +1,7 @@
 package de.mameie.databasemanager.sql.executor.table;
 
 import de.mameie.databasemanager.sql.query.field.ISqlFieldDefinition;
+import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableRow;
 import de.mameie.databasemanager.sql.server.database.table.model.view.TableMetadata;
 
 import java.sql.SQLException;
@@ -67,4 +68,12 @@ public interface ITableSqlExecutor {
      * @throws SQLException if a database access error occurs.
      */
     List<String> getTableNames() throws SQLException;
+
+    /**
+     * Retrieves rows of the table based on the provided metadata.
+     *
+     * @param headers a list of {@code TableMetadata} objects representing the table's metadata
+     * @return a list of {@code DatabaseTableRow} objects containing the table's data
+     */
+    List<DatabaseTableRow> getRows(List<TableMetadata> headers);
 }

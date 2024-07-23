@@ -55,38 +55,13 @@ public class TableViewSqlExecutor extends TableSqlExecutor {
     }
 
     /**
-     * Retrieves rows of the table based on the provided metadata.
-     *
-     * @param headers a list of {@code TableMetadata} objects representing the table's metadata
-     * @return a list of {@code DatabaseTableRow} objects containing the table's data
-     */
-    private List<DatabaseTableRow> getRow(List<TableMetadata> headers) {
-        List<DatabaseTableRow> databaseTableRows = new ArrayList<>();
-        ResultSet resultSet = this.executeQuery(SqlSelect.builder().select(SqlSelect.WILDCARD).from(tableName));
-        try {
-            int index = 1;
-            while (resultSet.next()) {
-                List<DatabaseTableCell> databaseTableCells = new ArrayList<>();
-                for (TableMetadata header : headers) {
-                    databaseTableCells.add(new DatabaseTableCell(resultSet.getString(header.getField())));
-                }
-                databaseTableRows.add(new DatabaseTableRow(index, databaseTableCells));
-                index++;
-            }
-            return databaseTableRows;
-        } catch (SQLException e) {
-            throw new RuntimeException("Can't read the value.", e);
-        }
-    }
-
-    /**
      * Generates a view of the table including its metadata and data rows.
      *
      * @return a {@code DatabaseTableView} object representing the table view
      */
     public DatabaseTableView generateTableView() {
         List<TableMetadata> metadata = super.getMetaData();
-        List<DatabaseTableRow> rows = getRow(metadata);
+        List<DatabaseTableRow> rows = super.getRows(metadata);
         return DatabaseTableView
                 .builder()
                 .withTableName(tableName)

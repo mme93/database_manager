@@ -65,6 +65,4 @@ public class SqlCreate implements ISqlQuery {
             return sqlCreate;
         }
     }
-
-
 }

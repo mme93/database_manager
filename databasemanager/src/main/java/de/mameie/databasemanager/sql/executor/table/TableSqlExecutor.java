@@ -1,11 +1,15 @@
 package de.mameie.databasemanager.sql.executor.table;
 
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
+import de.mameie.databasemanager.sql.executor.table.exception.TableMetaDataNotFoundException;
 import de.mameie.databasemanager.sql.query.SqlDatabaseClause;
 import de.mameie.databasemanager.sql.query.clause.create.SqlCreate;
 import de.mameie.databasemanager.sql.query.clause.describe.SqlDescribe;
+import de.mameie.databasemanager.sql.query.clause.select.SqlSelect;
 import de.mameie.databasemanager.sql.query.clause.show.SqlShow;
 import de.mameie.databasemanager.sql.query.field.ISqlFieldDefinition;
+import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableCell;
+import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableRow;
 import de.mameie.databasemanager.sql.server.database.table.model.view.TableMetadata;
 
 import java.sql.*;
@@ -151,7 +155,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
             }
             return tableMetadata;
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("Can't read the column information header from table: %s.", tableName), e);
+            throw new TableMetaDataNotFoundException(String.format("Can't read the column information header from table: %s.", tableName), e);
         }
     }
 
@@ -169,5 +173,37 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
             tableNames.add(resultSet.getString(1));
         }
         return tableNames;
+    }
+
+    @Override
+    public List<DatabaseTableRow> getRows(List<TableMetadata> headers) {
+        List<DatabaseTableRow> databaseTableRows = new ArrayList<>();
+        ResultSet resultSet = this.executeQuery(SqlSelect.builder().select(SqlSelect.WILDCARD).from(tableName));
+        try {
+            int index = 1;
+            while (resultSet.next()) {
+                List<DatabaseTableCell> databaseTableCells = new ArrayList<>();
+                for (TableMetadata header : headers) {
+                    databaseTableCells.add(new DatabaseTableCell(resultSet.getString(header.getField())));
+                }
+                databaseTableRows.add(new DatabaseTableRow(index, databaseTableCells));
+                index++;
+            }
+            return databaseTableRows;
+        } catch (SQLException e) {
+            throw new RuntimeException("Can't read the value.", e);
+        }
+    }
+
+    @Override
+    public void setDatabaseName(String databaseName) {
+        this.databaseName = databaseName;
+        super.setDatabaseName(databaseName);
+    }
+
+    @Override
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+        super.setTableName(tableName);
     }
 }

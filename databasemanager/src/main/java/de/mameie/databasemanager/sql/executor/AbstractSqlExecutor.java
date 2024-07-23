@@ -8,6 +8,7 @@ import de.mameie.databasemanager.util.check.CheckParam;
 import de.mameie.databasemanager.util.check.exception.SqlMethodNotImplementedException;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 import de.mameie.databasemanager.sql.server.database.connection.DBConnectionFactory;
+import lombok.Setter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,8 +23,10 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
 
     private String serverName;
 
+    @Setter
     private String databaseName;
 
+    @Setter
     private String tableName;
 
     private String STATUS;
@@ -319,4 +322,6 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
     public boolean hasStatus(String STATUS){
         return this.STATUS == STATUS;
     }
+
+
 }

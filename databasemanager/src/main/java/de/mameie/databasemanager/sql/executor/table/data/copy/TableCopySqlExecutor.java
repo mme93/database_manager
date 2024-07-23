@@ -1,33 +1,56 @@
 package de.mameie.databasemanager.sql.executor.table.data.copy;
 
 import de.mameie.databasemanager.sql.executor.table.TableSqlExecutor;
+import de.mameie.databasemanager.sql.query.ISqlQuery;
+import de.mameie.databasemanager.sql.query.clause.create.copy.SqlCreateCopy;
+import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableRow;
+import de.mameie.databasemanager.sql.server.database.table.model.view.TableMetadata;
+
+import java.util.List;
 
 public class TableCopySqlExecutor extends TableSqlExecutor {
 
-    private String copyTableName;
-    private String destinationDatabaseName;
-    private String destinationServerName;
-
+    private String tableName;
+    private List<TableMetadata> metaDataList;
+    private List<DatabaseTableRow> tableRows;
 
     private TableCopySqlExecutor(String serverName, String databaseName, String tableName) {
         super(serverName, databaseName, tableName);
-        destinationDatabaseName = databaseName;
-        destinationServerName = serverName;
+        this.tableName = tableName;
     }
 
-    public void changeServer(String serverName){
-        destinationServerName = serverName;
+    public void changeDestinationTable(String tableName) {
+        super.setTableName(tableName);
     }
 
-    public void changeDatabase(String databaseName){
-        destinationDatabaseName = databaseName;
+    public void changeDestinationDatabase(String databaseName) {
+        super.setDatabaseName(databaseName);
+    }
+
+    public void copyTable(String copyTableName) {
+        ISqlQuery iSqlQuery = SqlCreateCopy
+                .create()
+                .withCopyTableName(copyTableName)
+                .withExistTableName(tableName)
+                .addAllColumns()
+                .build();
+        super.execute(iSqlQuery);
+    }
+
+    public boolean loadMetaData() {
+        this.metaDataList = super.getMetaData();
+        return true;
+    }
+
+    public void loadTableContent() {
+        this.tableRows = super.getRows(this.metaDataList);
     }
 
     public static TableCopySqlExecutorBuilder builder() {
         return new TableCopySqlExecutorBuilder();
     }
 
-    public static class TableCopySqlExecutorBuilder{
+    public static class TableCopySqlExecutorBuilder {
         private String serverName;
         private String databaseName;
         private String tableName;
