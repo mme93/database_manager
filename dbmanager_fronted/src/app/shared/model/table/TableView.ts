@@ -22,3 +22,8 @@ export interface DatabaseTableRow {
 export interface DatabaseTableCell {
   value?: string;
 }
+
+export interface DatabaseMetaData {
+  name?: string;
+  code?: string;
+}

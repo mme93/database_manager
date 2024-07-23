@@ -6,6 +6,11 @@ import {PaginatorModule} from "primeng/paginator";
 import {TableModule as PrimeTableModule} from "primeng/table";
 import {CardModule} from "primeng/card";
 import {CommonModule} from "@angular/common";
+import {Ripple} from "primeng/ripple";
+import {Button, ButtonDirective} from "primeng/button";
+import {TooltipModule} from "primeng/tooltip";
+import {DialogModule} from "primeng/dialog";
+import {ListboxModule} from "primeng/listbox";
 
 @NgModule({
   imports: [
@@ -13,7 +18,13 @@ import {CommonModule} from "@angular/common";
     PaginatorModule,
     PrimeTableModule,
     CardModule,
-    CommonModule
+    CommonModule,
+    Ripple,
+    ButtonDirective,
+    TooltipModule,
+    DialogModule,
+    Button,
+    ListboxModule
   ],
   exports: [],
   declarations: [ShowTableComponent,CreateTableComponent]

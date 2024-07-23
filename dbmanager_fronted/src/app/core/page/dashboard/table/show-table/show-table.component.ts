@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, WritableSignal} from '@angular/core';
 import {TableService} from "../../../../../shared/service/http/table/table.service";
 import {ActivatedRoute} from "@angular/router";
-import { DatabaseTableView} from "../../../../../shared/model/table/TableView";
+import {DatabaseMetaData, DatabaseTableView} from "../../../../../shared/model/table/TableView";
 
 @Component({
   selector: 'app-show-table',
@@ -9,9 +9,14 @@ import { DatabaseTableView} from "../../../../../shared/model/table/TableView";
   styleUrl: './show-table.component.scss'
 })
 export class ShowTableComponent implements OnInit {
+  isEdit = false;
+  isTableDirty = false;
   databaseTableView: DatabaseTableView = {};
   tableName: string | null = '';
   databaseName: string | null = '';
+  displayDialog: boolean = false;
+  metaList: DatabaseMetaData[] = [];
+  selectedMetaData: DatabaseMetaData = {};
 
   constructor(private tableService: TableService, private route: ActivatedRoute) {
   }
@@ -24,9 +29,12 @@ export class ShowTableComponent implements OnInit {
       if (server) {
         this.tableService.getTableByNameAndDatabase(server, this.databaseName, this.tableName)
           .subscribe(result => {
-            this.databaseTableView = result || { metaData: [], databaseTableRows: [] };
+            result.metaData?.forEach(metaData => {
+              this.metaList.push({name: metaData.field, code: metaData.field});
+            })
+            this.databaseTableView = result || {metaData: [], databaseTableRows: []};
           }, error => {
-            this.databaseTableView = { metaData: [], databaseTableRows: [] };
+            this.databaseTableView = {metaData: [], databaseTableRows: []};
           });
       }
     });

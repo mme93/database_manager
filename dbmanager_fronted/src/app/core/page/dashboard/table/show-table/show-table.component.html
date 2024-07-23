@@ -1,10 +1,49 @@
 <article>
+
+  <p-dialog [(visible)]="displayDialog" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+    Content
+  </p-dialog>
+
+  <p-dialog header="Edit Metadata" [(visible)]="displayDialog" [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}"
+            [draggable]="false" [resizable]="false">
+    <p-listbox [options]="metaList" [(ngModel)]="selectedMetaData" optionLabel="name" [style]="{'width':'15rem'}"></p-listbox>
+    <ng-template pTemplate="footer">
+      <p-button (click)="displayDialog=false" label="No" styleClass="p-button-text"></p-button>
+      <p-button (click)="displayDialog=false" label="Yes" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
+
   <p-card>
     <ng-template pTemplate="title">
       <h1>Table <b>{{ tableName }}</b> from Database <b>{{ databaseName }}</b></h1>
     </ng-template>
 
-    <p-table [value]="databaseTableView.databaseTableRows || []" styleClass="p-datatable-sm" [tableStyle]="{'min-width': '50rem'}">
+    <div *ngIf="!isEdit">
+      <button pTooltip="Edit Table" pButton pRipple type="button" icon="pi pi-wrench" class="p-button-rounded p-button-info"
+              (click)="isEdit= !isEdit"></button>
+      <button pTooltip="Copy Table" pButton pRipple type="button" icon="pi pi-copy"
+              class="p-button-rounded p-button-info"></button>
+      <button pTooltip="Rename Table" pButton pRipple type="button" icon="pi pi-replay"
+              class="p-button-rounded p-button-info"></button>
+    </div>
+
+    <div *ngIf="isEdit">
+      <button pTooltip="Cancel" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-info"
+              (click)="isEdit= !isEdit"></button>
+      <button pTooltip="Save" pButton pRipple type="button" icon="pi pi-save" class="p-button-rounded p-button-info"
+              (click)="isEdit= !isEdit" [disabled]="!isTableDirty"></button>
+      <button pTooltip="Delete Row(s)" pButton pRipple type="button" icon="pi pi-trash"
+              class="p-button-rounded p-button-info"></button>
+      <button pTooltip="Copy Row(s)" pButton pRipple type="button" icon="pi pi-copy"
+              class="p-button-rounded p-button-info"></button>
+      <button pTooltip="Edit Metadata" pButton pRipple type="button" icon="pi pi-file-edit"
+              class="p-button-rounded p-button-info" (click)="displayDialog=true"></button>
+
+    </div>
+
+
+    <p-table [value]="databaseTableView.databaseTableRows || []" styleClass="p-datatable-sm"
+             [tableStyle]="{'min-width': '50rem'}">
       <ng-template pTemplate="header">
         <tr>
           <th *ngFor="let col of databaseTableView.metaData">{{ col.field }}</th>
@@ -16,5 +55,7 @@
         </tr>
       </ng-template>
     </p-table>
+
   </p-card>
+
 </article>
