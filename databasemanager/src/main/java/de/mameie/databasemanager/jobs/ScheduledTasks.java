@@ -63,8 +63,6 @@ public class ScheduledTasks {
             }
         }
 
-        System.err.println("Before clear: " + instances.size());
         instances.clear();
-        System.err.println("All clear: " + instances.size());
     }
 }
