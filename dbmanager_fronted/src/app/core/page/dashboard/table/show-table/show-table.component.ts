@@ -2,6 +2,7 @@ import {Component, OnInit, WritableSignal} from '@angular/core';
 import {TableService} from "../../../../../shared/service/http/table/table.service";
 import {ActivatedRoute} from "@angular/router";
 import {DatabaseMetaData, DatabaseTableView} from "../../../../../shared/model/table/TableView";
+import {TableDialogService} from "../../../../../shared/service/ui/dialog/table/table-dialog.service";
 
 @Component({
   selector: 'app-show-table',
@@ -12,13 +13,13 @@ export class ShowTableComponent implements OnInit {
   isEdit = false;
   isTableDirty = false;
   databaseTableView: DatabaseTableView = {};
-  tableName: string | null = '';
-  databaseName: string | null = '';
+  tableName: string = '';
+  databaseName: string = '';
   displayDialog: boolean = false;
   metaList: DatabaseMetaData[] = [];
   selectedMetaData: DatabaseMetaData = {};
 
-  constructor(private tableService: TableService, private route: ActivatedRoute) {
+  constructor(private tableService: TableService, private route: ActivatedRoute, private tableDialogService: TableDialogService) {
   }
 
   ngOnInit(): void {
@@ -38,5 +39,9 @@ export class ShowTableComponent implements OnInit {
           });
       }
     });
+  }
+
+  openTableMetaDataDialog() {
+    this.tableDialogService.showTableMetaDataDialog(this.tableName, this.metaList);
   }
 }

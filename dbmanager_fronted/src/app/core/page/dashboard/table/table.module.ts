@@ -11,6 +11,7 @@ import {Button, ButtonDirective} from "primeng/button";
 import {TooltipModule} from "primeng/tooltip";
 import {DialogModule} from "primeng/dialog";
 import {ListboxModule} from "primeng/listbox";
+import {DialogService} from "primeng/dynamicdialog";
 
 @NgModule({
   imports: [
@@ -25,6 +26,9 @@ import {ListboxModule} from "primeng/listbox";
     DialogModule,
     Button,
     ListboxModule
+  ],
+  providers:[
+    DialogService
   ],
   exports: [],
   declarations: [ShowTableComponent,CreateTableComponent]

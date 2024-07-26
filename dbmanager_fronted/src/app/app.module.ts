@@ -17,6 +17,9 @@ import {SqlComponent} from './core/page/sql/sql.component';
 import {HttpClientModule} from "@angular/common/http";
 import { SystemUserComponent } from './core/page/system-user/system-user.component';
 import { TableMetadataDialogComponent } from './shared/dialog/table/table-metadata-dialog/table-metadata-dialog.component';
+import {DialogModule} from "primeng/dialog";
+import {ListboxModule} from "primeng/listbox";
+import {DialogService} from "primeng/dynamicdialog";
 
 @NgModule({
   declarations: [
@@ -26,22 +29,24 @@ import { TableMetadataDialogComponent } from './shared/dialog/table/table-metada
     SystemUserComponent,
     TableMetadataDialogComponent
   ],
-  imports: [
-    BrowserAnimationsModule,
-    BrowserModule,
-    CommonModule,
-    AppRoutingModule,
-    ButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CardModule,
-    SplitButtonModule,
-    InputTextModule,
-    SelectButtonModule,
-    MenubarModule,
-    HttpClientModule
-  ],
-  providers: [],
+    imports: [
+        BrowserAnimationsModule,
+        BrowserModule,
+        CommonModule,
+        AppRoutingModule,
+        ButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CardModule,
+        SplitButtonModule,
+        InputTextModule,
+        SelectButtonModule,
+        MenubarModule,
+        HttpClientModule,
+        DialogModule,
+        ListboxModule
+    ],
+  providers: [DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
