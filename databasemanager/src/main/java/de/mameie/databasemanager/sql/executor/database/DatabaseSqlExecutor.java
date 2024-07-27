@@ -43,7 +43,7 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
      * @param databaseName the name of the database to be dropped
      * @return {@code true} if the operation was successful, {@code false} otherwise
      */
-    public boolean drop(String databaseName){
+    public boolean drop(String databaseName)throws SQLException{
         return super.execute(
                 SqlDatabaseClause
                         .drop()
@@ -59,7 +59,7 @@ public class DatabaseSqlExecutor extends AbstractSqlExecutor {
      * @param databaseName the name of the database to be created
      * @return {@code true} if the operation was successful, {@code false} otherwise
      */
-    public boolean createDatabase(String databaseName) {
+    public boolean createDatabase(String databaseName) throws SQLException{
         return super.execute(
                 SqlDatabaseClause
                         .create()

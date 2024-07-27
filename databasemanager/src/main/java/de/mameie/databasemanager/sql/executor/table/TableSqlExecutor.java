@@ -59,7 +59,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
      * @return {@code true} if the table was successfully dropped, {@code false} otherwise.
      */
     @Override
-    public boolean drop() {
+    public boolean drop() throws SQLException{
         return super.execute(
                 SqlDatabaseClause
                         .drop()
@@ -76,7 +76,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
      * @return {@code true} if the table was successfully dropped, {@code false} otherwise.
      */
     @Override
-    public boolean drop(String tableName) {
+    public boolean drop(String tableName) throws SQLException{
         return super.execute(
                 SqlDatabaseClause
                         .drop()
@@ -124,7 +124,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
      * @return {@code true} if the table was successfully created, {@code false} otherwise.
      */
     @Override
-    public boolean createTable(List<ISqlFieldDefinition> fieldDefinitionList) {
+    public boolean createTable(List<ISqlFieldDefinition> fieldDefinitionList)throws SQLException {
         return super.execute(
                 SqlCreate
                         .create()
