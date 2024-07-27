@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
-import {TableMetadata} from "../../../model/table/TableView";
+import {TableMetadata, TableMetadataView} from "../../../model/table/TableView";
 import {PaginatorState} from "primeng/paginator";
 
 @Component({
@@ -10,17 +10,17 @@ import {PaginatorState} from "primeng/paginator";
 })
 export class TableMetadataDialogComponent implements OnInit {
   page: number = 0;
-  rows: number = 5;
-  columnNames: string[] = ['Name', 'Type', 'Is nullable', 'Key', 'Default Value', 'Delete','Edit']
-  metaData: TableMetadata[] = [];
-  filteredMetaData: TableMetadata[] = [];
+  rows: number = 30;
+  isEdit: boolean = false;
+  columnNames: string[] = ['Nr', 'Name', 'Type', 'Is nullable', 'Key', 'Default Value']
+  metaData: TableMetadataView[] = [];
+  filteredMetaData: TableMetadataView[] = [];
 
   constructor(public ref: DynamicDialogRef, private dialogService: DialogService, private config: DynamicDialogConfig) {
   }
 
   ngOnInit(): void {
-    this.metaData = this.config.data.metaData;
-    this.filteredMetaData = this.config.data.metaData;
+    this.mapToTableView(this.config.data.metaData)
     this.updatePage();
   }
 
@@ -34,5 +34,59 @@ export class TableMetadataDialogComponent implements OnInit {
     const start = this.page! * this.rows!;
     const end = start + this.rows!;
     this.filteredMetaData = this.metaData.slice(start, end);
+  }
+
+  addMetaData() {
+    this.filteredMetaData.push({nr: this.metaData.length + 1});
+    this.metaData.push({nr: this.metaData.length + 1});
+  }
+
+  changeColumnNames() {
+    this.isEdit = !this.isEdit;
+    if (this.isEdit) {
+      this.columnNames = ['Nr', 'Select', 'Name', 'Type', 'Is nullable', 'Key', 'Default Value', 'Overwrite Value'];
+    } else {
+      this.columnNames = ['Nr', 'Name', 'Type', 'Is nullable', 'Key', 'Default Value'];
+    }
+  }
+
+  mapToTableView(metaData: TableMetadata[]) {
+    this.metaData = [];
+    this.filteredMetaData = [];
+    for (let i = 0; i < metaData.length; i++) {
+      let tableView = {
+        nr: i + 1,
+        isNew: false,
+        isSelected: false,
+        overWriteValue: '',
+        field: metaData[i].field,
+        type: metaData[i].type,
+        nullable: metaData[i].nullable,
+        key: metaData[i].key,
+        defaultValue: metaData[i].defaultValue
+      };
+      this.metaData.push(tableView)
+    }
+
+  }
+
+  cancel() {
+    this.changeColumnNames();
+    this.mapToTableView(this.config.data.metaData)
+    this.updatePage();
+  }
+
+  deleteRows() {
+    let updatedMetaData: TableMetadataView[] = [];
+    let index = 1;
+    for (let i = 0; i < this.metaData.length; i++) {
+      if (!this.metaData[i].isSelected) {
+        this.metaData[i].nr = index;
+        updatedMetaData.push(this.metaData[i]);
+        index++;
+      }
+    }
+    this.metaData = updatedMetaData;
+    this.updatePage();
   }
 }

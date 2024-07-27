@@ -27,3 +27,15 @@ export interface DatabaseMetaData {
   name?: string;
   code?: string;
 }
+
+export interface TableMetadataView {
+  nr?: number;
+  isNew?: boolean;
+  isSelected?: boolean;
+  overWriteValue?:string;
+  field?: string;
+  type?: string;
+  nullable?: string;
+  key?: string;
+  defaultValue?: string;
+}

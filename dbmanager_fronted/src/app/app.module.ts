@@ -22,6 +22,7 @@ import {ListboxModule} from "primeng/listbox";
 import {DialogService} from "primeng/dynamicdialog";
 import {TableModule} from "primeng/table";
 import {PaginatorModule} from "primeng/paginator";
+import {CheckboxModule} from "primeng/checkbox";
 
 @NgModule({
   declarations: [
@@ -31,25 +32,26 @@ import {PaginatorModule} from "primeng/paginator";
     SystemUserComponent,
     TableMetadataDialogComponent
   ],
-  imports: [
-    BrowserAnimationsModule,
-    BrowserModule,
-    CommonModule,
-    AppRoutingModule,
-    ButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CardModule,
-    SplitButtonModule,
-    InputTextModule,
-    SelectButtonModule,
-    MenubarModule,
-    HttpClientModule,
-    DialogModule,
-    ListboxModule,
-    TableModule,
-    PaginatorModule
-  ],
+    imports: [
+        BrowserAnimationsModule,
+        BrowserModule,
+        CommonModule,
+        AppRoutingModule,
+        ButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CardModule,
+        SplitButtonModule,
+        InputTextModule,
+        SelectButtonModule,
+        MenubarModule,
+        HttpClientModule,
+        DialogModule,
+        ListboxModule,
+        TableModule,
+        PaginatorModule,
+        CheckboxModule
+    ],
   providers: [DialogService],
   bootstrap: [AppComponent]
 })
