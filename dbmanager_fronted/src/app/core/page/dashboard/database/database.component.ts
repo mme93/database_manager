@@ -77,7 +77,7 @@ export class DatabaseComponent implements OnInit {
 
   createDatabase() {
     this.databaseService.createDatabase(this.serverName, this.databaseName).subscribe(
-      () => {
+      next => {
         let searchDatabaseName: DatabaseNameTable[] = [
           {
             nr: 1,
@@ -96,7 +96,13 @@ export class DatabaseComponent implements OnInit {
         this.databaseNames = searchDatabaseName;
         this.databaseName = '';
         this.updatePage();
+      }, error => {
+        console.log(error.error)
+        if (error.error.body && error.error.body.detail) {
+         console.log(error.error.body.detail)
+        }
       }
-    );
+    )
+    ;
   }
 }
