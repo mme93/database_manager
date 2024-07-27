@@ -2,6 +2,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
 import {ShowTableComponent} from "./show-table/show-table.component";
 import {TableComponent} from "./table.component";
+import {CreateTableComponent} from "./create-table/create-table.component";
 
 const routes: Routes = [
   {
@@ -11,6 +12,11 @@ const routes: Routes = [
   {
     path: 'show/:tableName/:databaseName',
     component: ShowTableComponent
+  }
+  ,
+  {
+    path: 'create',
+    component: CreateTableComponent
   }
 ]
 

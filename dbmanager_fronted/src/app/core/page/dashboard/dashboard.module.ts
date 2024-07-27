@@ -16,6 +16,7 @@ import {SplitButtonModule} from "primeng/splitbutton";
 import {DropdownModule} from "primeng/dropdown";
 import {PaginatorModule} from "primeng/paginator";
 import {DialogService} from "primeng/dynamicdialog";
+import {CheckboxModule} from "primeng/checkbox";
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import {DialogService} from "primeng/dynamicdialog";
     TableModule,
     SplitButtonModule,
     DropdownModule,
-    PaginatorModule
+    PaginatorModule,
+    CheckboxModule
   ],
   providers: [
     DialogService

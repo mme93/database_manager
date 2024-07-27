@@ -64,7 +64,8 @@ export class MenubarService {
       },
       {
         label: 'Table',
-        icon: 'pi pi-fw pi-table'
+        icon: 'pi pi-fw pi-table',
+        routerLink: '/dashboard/table'
       },
       {
         label: 'SQL',
