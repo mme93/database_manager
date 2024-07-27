@@ -15,7 +15,7 @@ export class TableDialogService implements OnDestroy {
   constructor(private dialogService: DialogService) {
   }
 
-  showTableMetaDataDialog(tableName: string | null, metaData: DatabaseMetaData[]) {
+  showTableMetaDataDialog(tableName: string | null, metaData: TableMetadata[] | undefined) {
     this.ref = this.dialogService.open(TableMetadataDialogComponent, {
       header: 'Edit ' + tableName + ' Metadata',
       width: '70%',

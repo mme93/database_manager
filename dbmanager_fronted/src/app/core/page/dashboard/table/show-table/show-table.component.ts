@@ -42,6 +42,6 @@ export class ShowTableComponent implements OnInit {
   }
 
   openTableMetaDataDialog() {
-    this.tableDialogService.showTableMetaDataDialog(this.tableName, this.metaList);
+    this.tableDialogService.showTableMetaDataDialog(this.tableName, this.databaseTableView.metaData);
   }
 }

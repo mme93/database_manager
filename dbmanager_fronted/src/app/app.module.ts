@@ -20,6 +20,8 @@ import { TableMetadataDialogComponent } from './shared/dialog/table/table-metada
 import {DialogModule} from "primeng/dialog";
 import {ListboxModule} from "primeng/listbox";
 import {DialogService} from "primeng/dynamicdialog";
+import {TableModule} from "primeng/table";
+import {PaginatorModule} from "primeng/paginator";
 
 @NgModule({
   declarations: [
@@ -29,23 +31,25 @@ import {DialogService} from "primeng/dynamicdialog";
     SystemUserComponent,
     TableMetadataDialogComponent
   ],
-    imports: [
-        BrowserAnimationsModule,
-        BrowserModule,
-        CommonModule,
-        AppRoutingModule,
-        ButtonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CardModule,
-        SplitButtonModule,
-        InputTextModule,
-        SelectButtonModule,
-        MenubarModule,
-        HttpClientModule,
-        DialogModule,
-        ListboxModule
-    ],
+  imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
+    CommonModule,
+    AppRoutingModule,
+    ButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CardModule,
+    SplitButtonModule,
+    InputTextModule,
+    SelectButtonModule,
+    MenubarModule,
+    HttpClientModule,
+    DialogModule,
+    ListboxModule,
+    TableModule,
+    PaginatorModule
+  ],
   providers: [DialogService],
   bootstrap: [AppComponent]
 })
