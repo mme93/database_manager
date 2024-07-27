@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -24,20 +25,24 @@ public class SqlDatabaseController {
     public ResponseEntity deleteDatabase(@PathVariable String databaseName, @PathVariable String serverName) {
         CheckParam.isNotNull(databaseName, "databaseName");
         CheckParam.isNotNull(serverName, "serverName");
-        if (sqlDatabaseService.deleteDatabase(databaseName, serverName)) {
+        try {
+            sqlDatabaseService.deleteDatabase(databaseName, serverName);
             return new ResponseEntity(HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PostMapping("/create/{databaseName}")
     public ResponseEntity createDatabase(@PathVariable String databaseName, @PathVariable String serverName) {
         CheckParam.isNotNull(databaseName, "databaseName");
         CheckParam.isNotNull(serverName, "serverName");
-        if (sqlDatabaseService.createDatabase(databaseName, serverName)) {
+        try {
+            sqlDatabaseService.createDatabase(databaseName, serverName);
             return new ResponseEntity(HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("/all")

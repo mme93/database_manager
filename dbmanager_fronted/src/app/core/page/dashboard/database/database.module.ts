@@ -6,6 +6,7 @@ import {CardModule} from "primeng/card";
 import {ButtonModule} from "primeng/button";
 import {PaginatorModule} from "primeng/paginator";
 import {TableModule} from "primeng/table";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import {TableModule} from "primeng/table";
     CardModule,
     ButtonModule,
     PaginatorModule,
-    TableModule
+    TableModule,
+    FormsModule
   ],
   exports: [],
   declarations: [

@@ -6,5 +6,4 @@ export interface DatabaseOverview{
 export interface DatabaseNameTable{
   nr?:number;
   name?:string;
-
 }

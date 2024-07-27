@@ -30,4 +30,14 @@ export class DatabaseService {
     };
     return this.http.post(url, httpOptions);
   }
+
+  deleteDatabase(serverName: string| null, databaseName: string) {
+    const url = environment.uri + 'database/' + serverName + '/delete/' + databaseName;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.delete(url, httpOptions);
+  }
 }

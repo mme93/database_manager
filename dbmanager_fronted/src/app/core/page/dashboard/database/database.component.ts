@@ -1,7 +1,6 @@
-import {Component,  OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DatabaseService} from "../../../../shared/service/http/database/database.service";
 import {DatabaseNameTable} from "../../../../shared/model/server/database/Database";
-import {MenuItem} from "primeng/api";
 import {PaginatorState} from "primeng/paginator";
 import {Router} from "@angular/router";
 
@@ -15,21 +14,20 @@ export class DatabaseComponent implements OnInit {
   databaseNameExist = false;
   filteredDatabaseNames: DatabaseNameTable[] = [];
   databaseNames: DatabaseNameTable[] = [];
-  items: MenuItem[] = [
-    {
-      label: 'Delete', icon: 'pi pi-times', command: () => {
-        this.delete();
-      }
-    }
-  ];
   page: number = 0;
   rows: number = 5;
+  databaseName = '';
+  serverName = localStorage.getItem('server');
 
-  constructor(private databaseService: DatabaseService,private router:Router) {
+  constructor(private databaseService: DatabaseService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.databaseService.getAllDatabaseNames(localStorage.getItem('server')).subscribe(result => {
+    this.loadTableData();
+  }
+
+  loadTableData() {
+    this.databaseService.getAllDatabaseNames(this.serverName).subscribe(result => {
       for (let i = 0; i < result.length; i++) {
         this.databaseNames.push({
           nr: i + 1,
@@ -42,15 +40,26 @@ export class DatabaseComponent implements OnInit {
       }
       this.updatePage();
     })
-
   }
 
-  private delete() {
-
+  delete(databaseName: string) {
+    this.databaseService.deleteDatabase(this.serverName, databaseName).subscribe(
+      result => {
+        let searchDatabaseName: DatabaseNameTable[] = [];
+        this.databaseNames.forEach(databaseNameList => {
+          if (databaseNameList.name !== databaseName) {
+            searchDatabaseName.push(databaseNameList);
+          }
+        })
+        this.databaseNames = [];
+        this.databaseNames = searchDatabaseName;
+        this.updatePage();
+      }
+    );
   }
 
   open(databaseName: string) {
-    this.router.navigate(['/dashboard/database/settings',databaseName])
+    this.router.navigate(['/dashboard/database/settings', databaseName])
   }
 
 
@@ -64,5 +73,30 @@ export class DatabaseComponent implements OnInit {
     const start = this.page! * this.rows!;
     const end = start + this.rows!;
     this.filteredDatabaseNames = this.databaseNames.slice(start, end);
+  }
+
+  createDatabase() {
+    this.databaseService.createDatabase(this.serverName, this.databaseName).subscribe(
+      () => {
+        let searchDatabaseName: DatabaseNameTable[] = [
+          {
+            nr: 1,
+            name: this.databaseName
+          }
+        ];
+        let index = 2;
+        this.databaseNames.forEach(databaseNameList => {
+          searchDatabaseName.push({
+            nr: index,
+            name: databaseNameList.name
+          })
+          index++;
+        });
+        this.databaseNames = [];
+        this.databaseNames = searchDatabaseName;
+        this.databaseName = '';
+        this.updatePage();
+      }
+    );
   }
 }
