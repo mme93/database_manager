@@ -22,3 +22,9 @@
   gap: 8px;
 }
 
+
+:host ::ng-deep .p-dropdown {
+  width: 14rem;
+  z-index: 1000;
+}
+

@@ -1,7 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {TableMetadataView} from "../../../../../shared/model/table/TableView";
-import {PaginatorState} from "primeng/paginator";
+import {
+  CreateMetaDataTableElement,
+  CreateMetaDataTableElementUi
+} from "../../../../../shared/model/components/table/UiTables";
+import {CreateTableUiService} from "../../../../../shared/service/ui/dashboard/table/create-table-ui.service";
 
 @Component({
   selector: 'app-create-table',
@@ -9,53 +13,60 @@ import {PaginatorState} from "primeng/paginator";
   styleUrl: './create-table.component.scss'
 })
 export class CreateTableComponent implements OnInit {
+  tableMetaUi: CreateMetaDataTableElementUi | undefined;
+  metaData: TableMetadataView[] = [];
   tableName = '';
   databaseName = '';
-  page: number = 0;
-  rows: number = 30;
-  isEdit: boolean = false;
-  columnNames: string[] = ['Nr', 'Selected', 'Name', 'Type', 'Is nullable', 'Key', 'Default Value']
-  metaData: TableMetadataView[] = [];
-  filteredMetaData: TableMetadataView[] = [];
+  searchTable = '';
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private createTableService: CreateTableUiService) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      this.tableMetaUi = this.createTableService.init(params['tableName'], params['databaseName']);
       this.tableName = params['tableName'];
+
       this.databaseName = params['databaseName'];
     });
   }
 
-  change($event: PaginatorState) {
-    this.page = $event.page!;
-    this.rows = $event.rows!;
-    this.updatePage();
-  }
-
-  updatePage(): void {
-    const start = this.page! * this.rows!;
-    const end = start + this.rows!;
-    this.filteredMetaData = this.metaData.slice(start, end);
-  }
-
   addMetaData() {
-    this.filteredMetaData.push({nr: this.metaData.length + 1});
-    this.metaData.push({nr: this.metaData.length + 1});
+    if (this.tableMetaUi) {
+      let size = this.tableMetaUi?.metaDataTableElements.length;
+      this.tableMetaUi?.metaDataTableElements.push({
+        nr: size + 1,
+        isSelected: false,
+        field: '',
+        type: this.tableMetaUi?.typeDropDown[0],
+        typeInfo: '',
+        nullable: this.tableMetaUi?.nullableDropDown[0],
+        key: this.tableMetaUi?.keyDropDown[0],
+        defaultValue: ''
+      });
+    }
   }
 
   deleteRows() {
-    let updatedMetaData: TableMetadataView[] = [];
-    let index = 1;
-    for (let i = 0; i < this.metaData.length; i++) {
-      if (!this.metaData[i].isSelected) {
-        this.metaData[i].nr = index;
-        updatedMetaData.push(this.metaData[i]);
-        index++;
+    if (this.tableMetaUi) {
+      let updatedMetaData: CreateMetaDataTableElement[] = [];
+      let index = 1;
+      for (let i = 0; i < this.tableMetaUi.metaDataTableElements.length; i++) {
+        if (!this.tableMetaUi.metaDataTableElements[i].isSelected) {
+          this.tableMetaUi.metaDataTableElements[i].nr = index;
+          updatedMetaData.push(this.tableMetaUi.metaDataTableElements[i]);
+          index++;
+        }
       }
+      this.tableMetaUi.metaDataTableElements = updatedMetaData;
     }
-    this.metaData = updatedMetaData;
-    this.updatePage();
+  }
+
+  createTable() {
+    console.log(this.tableMetaUi?.metaDataTableElements)
+  }
+
+  loadMetaData(searchTable: string) {
+
   }
 }

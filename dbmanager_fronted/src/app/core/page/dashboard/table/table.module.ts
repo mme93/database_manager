@@ -14,28 +14,32 @@ import {ListboxModule} from "primeng/listbox";
 import {DialogService} from "primeng/dynamicdialog";
 import {CheckboxModule} from "primeng/checkbox";
 import {InputTextModule} from "primeng/inputtext";
+import {FormsModule} from "@angular/forms";
+import {DividerModule} from "primeng/divider";
 
 @NgModule({
-    imports: [
-        TableRoutingModule,
-        PaginatorModule,
-        PrimeTableModule,
-        CardModule,
-        CommonModule,
-        Ripple,
-        ButtonDirective,
-        TooltipModule,
-        DialogModule,
-        Button,
-        ListboxModule,
-        CheckboxModule,
-        InputTextModule
-    ],
-  providers:[
+  imports: [
+    TableRoutingModule,
+    PaginatorModule,
+    PrimeTableModule,
+    CardModule,
+    CommonModule,
+    Ripple,
+    ButtonDirective,
+    TooltipModule,
+    DialogModule,
+    Button,
+    ListboxModule,
+    CheckboxModule,
+    InputTextModule,
+    FormsModule,
+    DividerModule
+  ],
+  providers: [
     DialogService
   ],
   exports: [],
-  declarations: [ShowTableComponent,CreateTableComponent]
+  declarations: [ShowTableComponent, CreateTableComponent]
 })
 export class TableModule {
 }
