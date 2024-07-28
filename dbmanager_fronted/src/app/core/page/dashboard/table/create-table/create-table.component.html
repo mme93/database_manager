@@ -1,3 +1,60 @@
 <article>
+  <p-card>
+
+    <ng-template pTemplate="title">
+      <h1>Table <b>{{ tableName }}</b> in Database <b>{{ databaseName }}</b></h1>
+    </ng-template>
+
+    <p-table [value]="filteredMetaData || []" [scrollable]="true" scrollHeight="400px"
+             [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-sm">
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of columnNames">{{ col }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-metaInfo>
+        <tr>
+          <td>{{ metaInfo.nr }}</td>
+          <td>
+            <p-checkbox value="isSelcted" [(ngModel)]="metaInfo.isSelected"></p-checkbox>
+          </td>
+          <td>
+            <input pInputText [(ngModel)]="metaInfo.field" placeholder="Field"/>
+          </td>
+          <td>
+            <input pInputText [(ngModel)]="metaInfo.type" placeholder="Type"/>
+          </td>
+          <td>
+            <input pInputText [(ngModel)]="metaInfo.nullable" placeholder="Nullable"/>
+          </td>
+          <td>
+            <input pInputText [(ngModel)]="metaInfo.key" placeholder="Key"/>
+          </td>
+          <td>
+            <input pInputText [(ngModel)]="metaInfo.defaultValue" placeholder="Default Value"/>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <p-paginator [rows]="rows" [rowsPerPageOptions]="[5,10, 20, 30]" (onPageChange)="change($event)"
+                 [totalRecords]="metaData.length"></p-paginator>
+
+    <div class="button-container">
+      <div class="right-buttons">
+        <p-button icon="pi pi-plus" label="Add" styleClass="p-button-primary equal-width-button"
+                  (click)="addMetaData()">
+        </p-button>
+        <p-button icon="pi pi-trash" label="Delete Row" styleClass="p-button-primary equal-width-button"
+                  (click)="deleteRows()">
+        </p-button>
+      </div>
+      <div class="spacer"></div>
+      <div class="right-buttons">
+        <p-button icon="pi pi-save" label="Save" styleClass="p-button-primary equal-width-button"></p-button>
+        <p-button label="Close" styleClass="p-button-primary equal-width-button"></p-button>
+      </div>
+    </div>
+  </p-card>
 
 </article>

@@ -12,21 +12,25 @@ import {TooltipModule} from "primeng/tooltip";
 import {DialogModule} from "primeng/dialog";
 import {ListboxModule} from "primeng/listbox";
 import {DialogService} from "primeng/dynamicdialog";
+import {CheckboxModule} from "primeng/checkbox";
+import {InputTextModule} from "primeng/inputtext";
 
 @NgModule({
-  imports: [
-    TableRoutingModule,
-    PaginatorModule,
-    PrimeTableModule,
-    CardModule,
-    CommonModule,
-    Ripple,
-    ButtonDirective,
-    TooltipModule,
-    DialogModule,
-    Button,
-    ListboxModule
-  ],
+    imports: [
+        TableRoutingModule,
+        PaginatorModule,
+        PrimeTableModule,
+        CardModule,
+        CommonModule,
+        Ripple,
+        ButtonDirective,
+        TooltipModule,
+        DialogModule,
+        Button,
+        ListboxModule,
+        CheckboxModule,
+        InputTextModule
+    ],
   providers:[
     DialogService
   ],
