@@ -16,7 +16,8 @@ export class CreateTableUiService {
       keyDropDown: [
         {name: ' - ', code: 'EMPTY'},
         {name: 'PRIMARY KEY', code: 'PRIMARY_KEY'},
-        {name: 'AUTO INCREMENT', code: 'AUTO_INCREMENT'},
+        {name: 'PK AUTO INCREMENT', code: 'AUTO_INCREMENT'},
+        {name: 'FOREIGN KEY', code: 'FOREIGN_KEY'},
         {name: 'UNIQUE', code: 'UNIQUE'},
       ],
       nullableDropDown: [

@@ -17,7 +17,7 @@ public class SqlExceptionHandlerController {
     public ResponseEntity<ErrorResponse> handleException(Exception ex) {
         HttpStatus status = null;
         switch (ex.getClass().getSimpleName()) {
-            case "SQLException":
+            case "SQLException", "IllegalArgumentException":
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
                 break;
             case "NoResourceFoundException":
