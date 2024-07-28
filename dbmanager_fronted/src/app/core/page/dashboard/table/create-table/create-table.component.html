@@ -17,8 +17,8 @@
       <div style="display: flex; flex-direction: column;">
         <p>Table Name of searched Metadata</p>
         <div>
-          <input pInputText [(ngModel)]="searchTable" placeholder="Table Name" disabled="true"/>
-          <p-button label="Load Metadata" (onClick)="loadMetaData(searchTable)"></p-button>
+          <input pInputText [(ngModel)]="searchTable" placeholder="Database.Table"/>
+          <p-button label="Load Metadata" (onClick)="loadMetaDataSchema(searchTable)"></p-button>
         </div>
       </div>
     </div>
@@ -75,18 +75,17 @@
 
     <div class="button-container">
       <div class="right-buttons">
-        <p-button icon="pi pi-plus" label="Add" styleClass="p-button-primary equal-width-button"
-                  (click)="addMetaData()">
-        </p-button>
+        <p-splitButton label="Add" icon="pi pi-plus" (onClick)="addMetaData()" [model]="addItems"></p-splitButton>
         <p-button icon="pi pi-trash" label="Delete Row" styleClass="p-button-primary equal-width-button"
-                  (click)="deleteRows()" [disabled]="tableMetaUi !== undefined && tableMetaUi?.metaDataTableElements?.length === 0">
+                  (click)="deleteRows()"
+                  [disabled]="tableMetaUi !== undefined && tableMetaUi?.metaDataTableElements?.length === 0">
         </p-button>
       </div>
       <div class="spacer"></div>
       <div class="right-buttons">
         <p-button icon="pi pi-save" label="Create" styleClass="p-button-primary equal-width-button"
                   [disabled]="tableMetaUi !== undefined && tableMetaUi?.metaDataTableElements?.length === 0"
-                      (onClick)="createTable()"></p-button>
+                  (onClick)="createTable()"></p-button>
         <p-button label="Cancle" styleClass="p-button-primary equal-width-button"></p-button>
       </div>
     </div>

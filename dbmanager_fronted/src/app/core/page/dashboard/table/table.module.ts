@@ -16,25 +16,27 @@ import {CheckboxModule} from "primeng/checkbox";
 import {InputTextModule} from "primeng/inputtext";
 import {FormsModule} from "@angular/forms";
 import {DividerModule} from "primeng/divider";
+import {SplitButtonModule} from "primeng/splitbutton";
 
 @NgModule({
-  imports: [
-    TableRoutingModule,
-    PaginatorModule,
-    PrimeTableModule,
-    CardModule,
-    CommonModule,
-    Ripple,
-    ButtonDirective,
-    TooltipModule,
-    DialogModule,
-    Button,
-    ListboxModule,
-    CheckboxModule,
-    InputTextModule,
-    FormsModule,
-    DividerModule
-  ],
+    imports: [
+        TableRoutingModule,
+        PaginatorModule,
+        PrimeTableModule,
+        CardModule,
+        CommonModule,
+        Ripple,
+        ButtonDirective,
+        TooltipModule,
+        DialogModule,
+        Button,
+        ListboxModule,
+        CheckboxModule,
+        InputTextModule,
+        FormsModule,
+        DividerModule,
+        SplitButtonModule
+    ],
   providers: [
     DialogService
   ],

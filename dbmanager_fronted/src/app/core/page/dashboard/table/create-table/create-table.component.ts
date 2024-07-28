@@ -6,6 +6,7 @@ import {
   CreateMetaDataTableElementUi
 } from "../../../../../shared/model/components/table/UiTables";
 import {CreateTableUiService} from "../../../../../shared/service/ui/dashboard/table/create-table-ui.service";
+import {MenuItem} from "primeng/api";
 
 @Component({
   selector: 'app-create-table',
@@ -18,6 +19,19 @@ export class CreateTableComponent implements OnInit {
   tableName = '';
   databaseName = '';
   searchTable = '';
+  addItems: MenuItem[] = [
+    {
+      label: 'Row', icon: 'pi pi-arrow-circle-right', command: () => this.addMetaData()
+    }, {
+      label: 'Primary Key', icon: 'pi pi-key', command: () => this.setPrimaryKey()
+    },
+    {
+      label: 'Foreign Key', icon: 'pi pi-key', command: () =>this.setForeignKey()
+    },
+    {
+      label: 'PK Auto Increment', icon: 'pi pi-key', command: () => this.setAutoIncrKey()
+    }
+  ];
 
   constructor(private route: ActivatedRoute, private createTableService: CreateTableUiService) {
   }
@@ -26,7 +40,6 @@ export class CreateTableComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.tableMetaUi = this.createTableService.init(params['tableName'], params['databaseName']);
       this.tableName = params['tableName'];
-
       this.databaseName = params['databaseName'];
     });
   }
@@ -66,7 +79,55 @@ export class CreateTableComponent implements OnInit {
     console.log(this.tableMetaUi?.metaDataTableElements)
   }
 
-  loadMetaData(searchTable: string) {
+  loadMetaDataSchema(searchTable: string) {
 
+  }
+
+  setPrimaryKey() {
+    if (this.tableMetaUi) {
+      let size = this.tableMetaUi?.metaDataTableElements.length;
+      this.tableMetaUi?.metaDataTableElements.push({
+        nr: size + 1,
+        isSelected: false,
+        field: this.tableName+'ID',
+        type: {name: 'INT', code: 'INT'},
+        typeInfo: '20',
+        nullable: this.tableMetaUi?.nullableDropDown[1],
+        key: this.tableMetaUi?.keyDropDown[1],
+        defaultValue: ''
+      });
+    }
+  }
+
+  setForeignKey() {
+    if (this.tableMetaUi) {
+      let size = this.tableMetaUi?.metaDataTableElements.length;
+      this.tableMetaUi?.metaDataTableElements.push({
+        nr: size + 1,
+        isSelected: false,
+        field: this.tableName+'ChildrenID',
+        type: {name: 'INT', code: 'INT'},
+        typeInfo: '20',
+        nullable: this.tableMetaUi?.nullableDropDown[1],
+        key: this.tableMetaUi?.keyDropDown[3],
+        defaultValue: ''
+      });
+    }
+  }
+
+  private setAutoIncrKey() {
+    if (this.tableMetaUi) {
+      let size = this.tableMetaUi?.metaDataTableElements.length;
+      this.tableMetaUi?.metaDataTableElements.push({
+        nr: size + 1,
+        isSelected: false,
+        field: this.tableName+'AutoIncrID',
+        type: {name: 'INT', code: 'INT'},
+        typeInfo: '20',
+        nullable: this.tableMetaUi?.nullableDropDown[1],
+        key: this.tableMetaUi?.keyDropDown[2],
+        defaultValue: ''
+      });
+    }
   }
 }
