@@ -40,12 +40,13 @@ public class DummyTest {
 
         String createPersonsTable = "CREATE TABLE Persons (\n" +
                 "    Personid int NOT NULL AUTO_INCREMENT,\n" +
+                "    PersonAktid int NOT NULL,\n" +
                 "    LastName varchar(255) NOT NULL DEFAULT 'Mustermann',\n" +
                 "    FirstName varchar(255) DEFAULT 'Max',\n" +
                 "    Gender enum('Male','Female','Divers'),\n" +
                 "    Age int,\n" +
                 "    CountryId int,\n" +
-                "    PRIMARY KEY (Personid),\n" +
+                "    PRIMARY KEY (Personid,PersonAktid),\n" +
                 "    FOREIGN KEY (CountryId) REFERENCES Countries(CountryId)\n" +
                 ")";
         con.prepareStatement(createCountriesTable).execute();
@@ -106,8 +107,8 @@ public class DummyTest {
         }
 
         // Tabellen löschen
-        con.prepareStatement("DROP TABLE Persons").execute();
-        con.prepareStatement("DROP TABLE Countries").execute();
+        //con.prepareStatement("DROP TABLE Persons").execute();
+       // con.prepareStatement("DROP TABLE Countries").execute();
         con.close();
     }
 
