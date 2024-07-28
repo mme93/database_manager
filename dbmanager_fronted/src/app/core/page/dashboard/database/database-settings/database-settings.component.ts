@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TableService} from "../../../../../shared/service/http/table/table.service";
 import {TableNames} from "../../../../../shared/model/server/database/table/Table";
 import {PaginatorState} from "primeng/paginator";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-database-settings',
@@ -16,8 +17,11 @@ export class DatabaseSettingsComponent implements OnInit {
   tableNames: TableNames[] = []
   page: number = 0;
   rows: number = 5;
+  tableName = '';
+  tableNameExist = false;
 
-  constructor(private tableService: TableService, private router: Router, private route: ActivatedRoute) {
+  constructor(private tableService: TableService, private router: Router, private route: ActivatedRoute,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -55,5 +59,18 @@ export class DatabaseSettingsComponent implements OnInit {
 
   openTable(tableName: string) {
     this.router.navigate(['/dashboard/table/show', tableName, this.database]);
+  }
+
+  createTable() {
+    if (this.copyTableNames.filter(tableName => tableName.name === this.tableName).length === 1) {
+      this.messageService.add({
+        severity: "error",
+        summary: 'All ready exist.',
+        detail: 'Table with the name ' + this.tableName + ' all ready exist in Database ' + this.database,
+      });
+    } else {
+      this.router.navigate(['/dashboard/table/create', this.tableName, this.database]);
+    }
+
   }
 }

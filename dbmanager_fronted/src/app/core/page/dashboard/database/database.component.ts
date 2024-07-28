@@ -105,6 +105,7 @@ export class DatabaseComponent implements OnInit {
             summary: "HttpStatus: ",
             detail: error.error.body.detail,
           });
+          this.databaseNameExist = true;
         }
       }
     )
