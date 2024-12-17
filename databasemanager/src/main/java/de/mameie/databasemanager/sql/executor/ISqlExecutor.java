@@ -5,15 +5,16 @@ import de.mameie.databasemanager.sql.executor.model.SqlPrepStmtParamName;
 import de.mameie.databasemanager.sql.query.ISqlQuery;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ISqlExecutor {
 
     ResultSet executeQuery(ISqlQuery query);
 
-    boolean execute(ISqlQuery query);
+    boolean execute(ISqlQuery query) throws SQLException;
 
-    boolean hasResult(ISqlQuery query);
+    boolean hasResult(ISqlQuery query) throws SQLException;
 
     int executeUpdate(ISqlQuery query);
 

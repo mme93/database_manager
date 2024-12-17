@@ -22,32 +22,24 @@ public class SqlDatabaseController {
     }
 
     @DeleteMapping("/delete/{databaseName}")
-    public ResponseEntity deleteDatabase(@PathVariable String databaseName, @PathVariable String serverName) {
-        CheckParam.isNotNull(databaseName, "databaseName");
-        CheckParam.isNotNull(serverName, "serverName");
-        try {
-            sqlDatabaseService.deleteDatabase(databaseName, serverName);
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity deleteDatabase(@PathVariable String databaseName, @PathVariable String serverName) throws SQLException {
+        CheckParam.isNotBlank(databaseName, "databaseName");
+        CheckParam.isNotBlank(serverName, "serverName");
+        sqlDatabaseService.deleteDatabase(databaseName, serverName);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/create/{databaseName}")
-    public ResponseEntity createDatabase(@PathVariable String databaseName, @PathVariable String serverName) {
-        CheckParam.isNotNull(databaseName, "databaseName");
-        CheckParam.isNotNull(serverName, "serverName");
-        try {
-            sqlDatabaseService.createDatabase(databaseName, serverName);
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity createDatabase(@PathVariable String databaseName, @PathVariable String serverName) throws SQLException {
+        CheckParam.isNotBlank(databaseName, "databaseName");
+        CheckParam.isNotBlank(serverName, "serverName");
+        sqlDatabaseService.createDatabase(databaseName, serverName);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<String>> getDatabaseNames(@PathVariable String serverName) {
-        CheckParam.isNotNull(serverName, "serverName");
+        CheckParam.isNotBlank(serverName, "serverName");
         return new ResponseEntity(sqlDatabaseService.getDatabaseNames(serverName), HttpStatus.OK);
     }
 }

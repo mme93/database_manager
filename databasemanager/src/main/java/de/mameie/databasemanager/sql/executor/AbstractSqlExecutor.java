@@ -106,14 +106,9 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
      * @return true if the execution was successful, false otherwise
      */
     @Override
-    public final boolean execute(ISqlQuery query) {
-        Boolean result = false;
-        try {
-            PreparedStatement statement = createPreparedStatementFromConnection(query);
-            result = statement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public final boolean execute(ISqlQuery query) throws SQLException {
+        PreparedStatement statement = createPreparedStatementFromConnection(query);
+        Boolean result =statement.execute();
         return result;
     }
 
@@ -124,7 +119,7 @@ public abstract class AbstractSqlExecutor implements ISqlExecutor {
      * @return true if the query has a result, false otherwise
      */
     @Override
-    public boolean hasResult(ISqlQuery query) {
+    public boolean hasResult(ISqlQuery query)throws SQLException {
         return execute(query);
     }
 

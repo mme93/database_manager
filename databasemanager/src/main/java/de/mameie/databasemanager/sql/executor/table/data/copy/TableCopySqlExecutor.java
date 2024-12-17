@@ -6,6 +6,7 @@ import de.mameie.databasemanager.sql.query.clause.create.copy.SqlCreateCopy;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableRow;
 import de.mameie.databasemanager.sql.server.database.table.model.view.TableMetadata;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class TableCopySqlExecutor extends TableSqlExecutor {
@@ -27,7 +28,7 @@ public class TableCopySqlExecutor extends TableSqlExecutor {
         super.setDatabaseName(databaseName);
     }
 
-    public void copyTable(String copyTableName) {
+    public void copyTable(String copyTableName)throws SQLException {
         ISqlQuery iSqlQuery = SqlCreateCopy
                 .create()
                 .withCopyTableName(copyTableName)

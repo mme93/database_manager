@@ -23,6 +23,8 @@ import {DialogService} from "primeng/dynamicdialog";
 import {TableModule} from "primeng/table";
 import {PaginatorModule} from "primeng/paginator";
 import {CheckboxModule} from "primeng/checkbox";
+import {MessagesModule} from "primeng/messages";
+import {MessageService} from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -50,9 +52,10 @@ import {CheckboxModule} from "primeng/checkbox";
         ListboxModule,
         TableModule,
         PaginatorModule,
-        CheckboxModule
+        CheckboxModule,
+        MessagesModule
     ],
-  providers: [DialogService],
+  providers: [DialogService,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

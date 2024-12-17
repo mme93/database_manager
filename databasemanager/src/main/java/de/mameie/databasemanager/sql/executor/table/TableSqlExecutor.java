@@ -2,6 +2,7 @@ package de.mameie.databasemanager.sql.executor.table;
 
 import de.mameie.databasemanager.sql.executor.AbstractSqlExecutor;
 import de.mameie.databasemanager.sql.executor.table.exception.TableMetaDataNotFoundException;
+import de.mameie.databasemanager.sql.executor.table.metadata.TableMetaDataSqlExecutor;
 import de.mameie.databasemanager.sql.query.SqlDatabaseClause;
 import de.mameie.databasemanager.sql.query.clause.create.SqlCreate;
 import de.mameie.databasemanager.sql.query.clause.describe.SqlDescribe;
@@ -11,9 +12,11 @@ import de.mameie.databasemanager.sql.query.field.ISqlFieldDefinition;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableCell;
 import de.mameie.databasemanager.sql.server.database.table.model.view.DatabaseTableRow;
 import de.mameie.databasemanager.sql.server.database.table.model.view.TableMetadata;
+import org.apache.tomcat.util.buf.StringUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -59,7 +62,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
      * @return {@code true} if the table was successfully dropped, {@code false} otherwise.
      */
     @Override
-    public boolean drop() {
+    public boolean drop() throws SQLException {
         return super.execute(
                 SqlDatabaseClause
                         .drop()
@@ -76,7 +79,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
      * @return {@code true} if the table was successfully dropped, {@code false} otherwise.
      */
     @Override
-    public boolean drop(String tableName) {
+    public boolean drop(String tableName) throws SQLException {
         return super.execute(
                 SqlDatabaseClause
                         .drop()
@@ -124,7 +127,7 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
      * @return {@code true} if the table was successfully created, {@code false} otherwise.
      */
     @Override
-    public boolean createTable(List<ISqlFieldDefinition> fieldDefinitionList) {
+    public boolean createTable(List<ISqlFieldDefinition> fieldDefinitionList) throws SQLException {
         return super.execute(
                 SqlCreate
                         .create()
@@ -141,19 +144,8 @@ public class TableSqlExecutor extends AbstractSqlExecutor implements ITableSqlEx
      */
     @Override
     public List<TableMetadata> getMetaData() {
-        List<TableMetadata> tableMetadata = new ArrayList<>();
-        ResultSet resultSet = this.executeQuery(SqlDescribe.builder().describe(tableName).build());
         try {
-            while (resultSet.next()) {
-                tableMetadata.add(new TableMetadata(
-                        resultSet.getString("Field"),
-                        resultSet.getString("Type"),
-                        resultSet.getString("Null"),
-                        resultSet.getString("Key"),
-                        resultSet.getString("Default")
-                ));
-            }
-            return tableMetadata;
+            return new TableMetaDataSqlExecutor(serverName, databaseName, tableName).init().loadMetaData();
         } catch (SQLException e) {
             throw new TableMetaDataNotFoundException(String.format("Can't read the column information header from table: %s.", tableName), e);
         }

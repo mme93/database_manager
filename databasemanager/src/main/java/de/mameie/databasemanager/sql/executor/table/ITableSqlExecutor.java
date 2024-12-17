@@ -19,7 +19,7 @@ public interface ITableSqlExecutor {
      *
      * @return {@code true} if the table was successfully dropped, {@code false} otherwise.
      */
-    boolean drop();
+    boolean drop() throws SQLException;
 
     /**
      * Drops the specified table.
@@ -27,7 +27,7 @@ public interface ITableSqlExecutor {
      * @param tableName the name of the table to drop.
      * @return {@code true} if the table was successfully dropped, {@code false} otherwise.
      */
-    boolean drop(String tableName);
+    boolean drop(String tableName) throws SQLException;
 
     /**
      * Checks if the table associated with this executor exists.
@@ -52,7 +52,7 @@ public interface ITableSqlExecutor {
      * @param fieldDefinitionList a list of field definitions for the table.
      * @return {@code true} if the table was successfully created, {@code false} otherwise.
      */
-    boolean createTable(List<ISqlFieldDefinition> fieldDefinitionList);
+    boolean createTable(List<ISqlFieldDefinition> fieldDefinitionList) throws SQLException;
 
     /**
      * Retrieves metadata for the table associated with this executor.

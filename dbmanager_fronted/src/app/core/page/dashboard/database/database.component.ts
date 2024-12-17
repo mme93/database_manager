@@ -3,6 +3,7 @@ import {DatabaseService} from "../../../../shared/service/http/database/database
 import {DatabaseNameTable} from "../../../../shared/model/server/database/Database";
 import {PaginatorState} from "primeng/paginator";
 import {Router} from "@angular/router";
+import {MessageService} from "primeng/api";
 
 
 @Component({
@@ -19,7 +20,8 @@ export class DatabaseComponent implements OnInit {
   databaseName = '';
   serverName = localStorage.getItem('server');
 
-  constructor(private databaseService: DatabaseService, private router: Router) {
+  constructor(private databaseService: DatabaseService, private router: Router,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -77,7 +79,7 @@ export class DatabaseComponent implements OnInit {
 
   createDatabase() {
     this.databaseService.createDatabase(this.serverName, this.databaseName).subscribe(
-      () => {
+      next => {
         let searchDatabaseName: DatabaseNameTable[] = [
           {
             nr: 1,
@@ -96,7 +98,17 @@ export class DatabaseComponent implements OnInit {
         this.databaseNames = searchDatabaseName;
         this.databaseName = '';
         this.updatePage();
+      }, error => {
+        if (error.error.body && error.error.body.detail) {
+          this.messageService.add({
+            severity: "error",
+            summary: "HttpStatus: ",
+            detail: error.error.body.detail,
+          });
+          this.databaseNameExist = true;
+        }
       }
-    );
+    )
+    ;
   }
 }

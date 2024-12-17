@@ -15,7 +15,7 @@ const routes: Routes = [
   }
   ,
   {
-    path: 'create',
+    path: 'create/:tableName/:databaseName',
     component: CreateTableComponent
   }
 ]

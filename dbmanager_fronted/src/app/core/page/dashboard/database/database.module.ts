@@ -7,6 +7,8 @@ import {ButtonModule} from "primeng/button";
 import {PaginatorModule} from "primeng/paginator";
 import {TableModule} from "primeng/table";
 import {FormsModule} from "@angular/forms";
+import {DividerModule} from "primeng/divider";
+import {InputTextModule} from "primeng/inputtext";
 
 @NgModule({
   imports: [
@@ -16,7 +18,9 @@ import {FormsModule} from "@angular/forms";
     ButtonModule,
     PaginatorModule,
     TableModule,
-    FormsModule
+    FormsModule,
+    DividerModule,
+    InputTextModule
   ],
   exports: [],
   declarations: [
