@@ -76,13 +76,16 @@ export class TableMetadataDialogComponent implements OnInit {
     this.updatePage();
   }
 
+  //TODO: Überarbeiten
   deleteRows() {
+    console.log(this.metaData)
+    console.log(this.filteredMetaData)
     let updatedMetaData: TableMetadataView[] = [];
     let index = 1;
     for (let i = 0; i < this.metaData.length; i++) {
-      if (!this.metaData[i].isSelected) {
+      if (!this.filteredMetaData[i].isSelected) {
         this.metaData[i].nr = index;
-        updatedMetaData.push(this.metaData[i]);
+        updatedMetaData.push(this.filteredMetaData[i]);
         index++;
       }
     }

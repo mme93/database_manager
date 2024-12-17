@@ -19,7 +19,7 @@
       <tr *ngIf="isEdit">
         <td>{{ metaInfo.nr }}</td>
         <td>
-         <p-checkbox value="isSelcted" [(ngModel)]="metaInfo.isSelected"></p-checkbox>
+         <p-checkbox value="isSelcted" (select)="metaInfo.isSelected" [(ngModel)]="metaInfo.isSelected"></p-checkbox>
         </td>
         <td>
           <input pInputText [(ngModel)]="metaInfo.field" placeholder="Field"/>
